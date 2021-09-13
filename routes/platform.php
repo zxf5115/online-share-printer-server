@@ -306,6 +306,45 @@ $api->version('v1', [
         $api->post('delete', 'PrinterController@delete');
       });
 
+      // 耗材路由
+      $api->group(['prefix' => 'material'], function ($api) {
+        // 耗材路由
+        $api->any('list', 'MaterialController@list');
+        $api->get('select', 'MaterialController@select');
+        $api->get('view/{id}', 'MaterialController@view');
+        $api->post('handle', 'MaterialController@handle');
+        $api->post('delete', 'MaterialController@delete');
+
+        // 耗材分类路由
+        $api->group(['namespace' => 'Material', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+      // 报修路由
+      $api->group(['prefix' => 'repair'], function ($api) {
+        // 报修路由
+        $api->any('list', 'RepairController@list');
+        $api->get('select', 'RepairController@select');
+        $api->get('view/{id}', 'RepairController@view');
+        $api->post('handle', 'RepairController@handle');
+        $api->post('delete', 'RepairController@delete');
+
+        // 报修分类路由
+        $api->group(['namespace' => 'Repair', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+
 
       // 订单路由
       $api->group(['prefix' => 'order'], function ($api) {
