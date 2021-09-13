@@ -662,9 +662,15 @@ class Base extends Model
   {
     try
     {
-      $model = static::getRow([$field => $value]);
+      $response = false;
 
-      if(!empty($model->id))
+      $id = $request->id ?? 0;
+
+      $symbol_id = $request->symbol_id;
+
+      $model = static::getRow([$field => $symbol_id]);
+
+      if(!empty($model->id) && $model->id != $id)
       {
         $response = true;
       }

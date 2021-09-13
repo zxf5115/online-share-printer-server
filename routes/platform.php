@@ -251,19 +251,6 @@ $api->version('v1', [
       });
 
 
-      // 项目路由
-      $api->group(['prefix' => 'project'], function ($api) {
-        // 项目分类路由
-        $api->group(['namespace' => 'Project', 'prefix' => 'category'], function ($api) {
-          $api->any('list', 'CategoryController@list');
-          $api->get('select', 'CategoryController@select');
-          $api->get('view/{id}', 'CategoryController@view');
-          $api->post('handle', 'CategoryController@handle');
-          $api->post('delete/{id?}', 'CategoryController@delete');
-        });
-      });
-
-
       // 投诉路由
       $api->group(['prefix' => 'complain'], function ($api) {
         // 投诉路由
@@ -302,106 +289,6 @@ $api->version('v1', [
       });
 
 
-      // 快讯路由
-      $api->group(['prefix' => 'flash'], function ($api) {
-        $api->any('list', 'FlashController@list');
-        $api->get('select', 'FlashController@select');
-        $api->get('view/{id}', 'FlashController@view');
-        $api->post('status', 'FlashController@status');
-        $api->post('handle', 'FlashController@handle');
-        $api->post('delete/{id?}', 'FlashController@delete');
-
-        // 快讯分类路由
-        $api->group(['namespace' => 'Flash', 'prefix' => 'category'], function ($api) {
-          $api->any('list', 'CategoryController@list');
-          $api->get('select', 'CategoryController@select');
-          $api->get('view/{id}', 'CategoryController@view');
-          $api->post('status', 'CategoryController@status');
-          $api->post('handle', 'CategoryController@handle');
-          $api->post('delete/{id?}', 'CategoryController@delete');
-        });
-      });
-
-
-      // 资讯路由
-      $api->group(['prefix' => 'information'], function ($api) {
-        $api->any('list', 'InformationController@list');
-        $api->get('select', 'InformationController@select');
-        $api->get('view/{id}', 'InformationController@view');
-        $api->post('status', 'InformationController@status');
-        $api->post('handle', 'InformationController@handle');
-        $api->post('delete/{id?}', 'InformationController@delete');
-
-        $api->group(['namespace' => 'Information'], function ($api) {
-          // 资讯分类路由
-          $api->group(['prefix' => 'category'], function ($api) {
-            $api->any('list', 'CategoryController@list');
-            $api->get('select', 'CategoryController@select');
-            $api->get('view/{id}', 'CategoryController@view');
-            $api->post('status', 'CategoryController@status');
-            $api->post('handle', 'CategoryController@handle');
-            $api->post('delete/{id?}', 'CategoryController@delete');
-          });
-
-          // 资讯专题路由
-          $api->group(['prefix' => 'subject'], function ($api) {
-            $api->any('list', 'SubjectController@list');
-            $api->get('select', 'SubjectController@select');
-            $api->get('view/{id}', 'SubjectController@view');
-            $api->post('status', 'SubjectController@status');
-            $api->post('handle', 'SubjectController@handle');
-            $api->post('delete/{id?}', 'SubjectController@delete');
-          });
-
-          // 标签路由
-          $api->group(['prefix' => 'label'], function ($api) {
-            $api->any('list', 'LabelController@list');
-            $api->get('select', 'LabelController@select');
-            $api->get('view/{id}', 'LabelController@view');
-            $api->post('handle', 'LabelController@handle');
-            $api->post('delete/{id?}', 'LabelController@delete');
-          });
-
-          // 敏感词路由
-          $api->group(['prefix' => 'sensitive'], function ($api) {
-            $api->any('list', 'SensitiveController@list');
-            $api->get('select', 'SensitiveController@select');
-            $api->get('view/{id}', 'SensitiveController@view');
-            $api->post('handle', 'SensitiveController@handle');
-            $api->post('delete/{id?}', 'SensitiveController@delete');
-          });
-
-          // 评论路由
-          $api->group(['prefix' => 'comment'], function ($api) {
-            $api->any('list', 'CommentController@list');
-            $api->post('delete/{id?}', 'CommentController@delete');
-          });
-        });
-      });
-
-
-      // 社区路由
-      $api->group(['prefix' => 'community'], function ($api) {
-        $api->any('list', 'CommunityController@list');
-        $api->get('select', 'CommunityController@select');
-        $api->get('view/{id}', 'CommunityController@view');
-        $api->post('status', 'CommunityController@status');
-        $api->post('handle', 'CommunityController@handle');
-        $api->post('delete/{id?}', 'CommunityController@delete');
-
-        // 社区分类路由
-        $api->group(['namespace' => 'Community', 'prefix' => 'category'], function ($api) {
-          $api->any('list', 'CategoryController@list');
-          $api->get('select', 'CategoryController@select');
-          $api->get('view/{id}', 'CategoryController@view');
-          $api->post('status', 'CategoryController@status');
-          $api->post('handle', 'CategoryController@handle');
-          $api->post('delete/{id?}', 'CategoryController@delete');
-        });
-      });
-
-
-
       // 联系客服路由
       $api->group(['prefix' => 'contact'], function ($api) {
         $api->any('list', 'ContactController@list');
@@ -409,78 +296,14 @@ $api->version('v1', [
       });
 
 
-      // 教育中心路由
-      $api->group(['namespace' => 'Education', 'prefix' => 'education'], function ($api) {
-
-        // 课件路由
-        $api->group(['prefix' => 'courseware'], function ($api) {
-          $api->any('list', 'CoursewareController@list');
-          $api->get('select', 'CoursewareController@select');
-          $api->get('view/{id}', 'CoursewareController@view');
-          $api->post('handle', 'CoursewareController@handle');
-          $api->post('status', 'CoursewareController@status');
-          $api->post('delete/{id?}', 'CoursewareController@delete');
-
-          $api->group(['namespace' => 'Courseware'], function ($api) {
-            // 课件分类路由
-            $api->group(['prefix'  => 'category'], function ($api) {
-              $api->any('list', 'CategoryController@list');
-              $api->get('select', 'CategoryController@select');
-              $api->get('view/{id}', 'CategoryController@view');
-              $api->post('handle', 'CategoryController@handle');
-              $api->post('status', 'CategoryController@status');
-              $api->post('delete/{id?}', 'CategoryController@delete');
-            });
-
-            // 课件老师路由
-            $api->group(['prefix'  => 'teacher'], function ($api) {
-              $api->any('list', 'TeacherController@list');
-              $api->get('select', 'TeacherController@select');
-              $api->get('view/{id}', 'TeacherController@view');
-              $api->post('handle', 'TeacherController@handle');
-              $api->post('status', 'TeacherController@status');
-              $api->post('delete/{id?}', 'TeacherController@delete');
-            });
-
-            // 课件知识点路由
-            $api->group(['prefix'  => 'point'], function ($api) {
-              $api->any('list', 'PointController@list');
-              $api->get('select', 'PointController@select');
-              $api->get('view/{id}', 'PointController@view');
-              $api->post('handle', 'PointController@handle');
-              $api->post('delete/{id?}', 'PointController@delete');
-            });
-          });
-        });
-      });
-
-
-
-
-
-      // 货币路由
-      $api->group(['prefix' => 'currency'], function ($api) {
-
-        $api->group(['namespace' => 'Currency'], function ($api) {
-          // 货币种类
-          $api->group(['prefix' => 'category'], function ($api) {
-            $api->get('list', 'CategoryController@list');
-            $api->get('select', 'CategoryController@select');
-            $api->get('view/{id}', 'CategoryController@view');
-            $api->post('status', 'CategoryController@status');
-            $api->post('handle', 'CategoryController@handle');
-            $api->post('delete/{id?}', 'CategoryController@delete');
-          });
-
-          // 货币交易
-          $api->group(['prefix' => 'symbol'], function ($api) {
-            $api->get('list', 'SymbolController@list');
-            $api->get('select', 'SymbolController@select');
-            $api->get('view/{id}', 'SymbolController@view');
-            $api->post('handle', 'SymbolController@handle');
-            $api->post('delete/{id?}', 'SymbolController@delete');
-          });
-        });
+      // 打印机路由
+      $api->group(['prefix' => 'printer'], function ($api) {
+        $api->any('list', 'PrinterController@list');
+        $api->get('select', 'PrinterController@select');
+        $api->get('view/{id}', 'PrinterController@view');
+        $api->post('handle', 'PrinterController@handle');
+        $api->post('status', 'PrinterController@status');
+        $api->post('delete', 'PrinterController@delete');
       });
 
 
