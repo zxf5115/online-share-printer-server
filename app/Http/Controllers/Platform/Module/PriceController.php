@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Project;
+namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
 
@@ -8,16 +8,21 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-17
+ * @dateTime 2021-09-17
  *
- * 项目分类控制器类
+ * 价格控制器类
  */
-class CategoryController extends BaseController
+class PriceController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Platform\Module\Project\Category';
+  protected $_model = 'App\Models\Common\Module\Price';
 
-  // 排序条件
+  // 客户端搜索字段
+  protected $_params = [
+    'title',
+  ];
+
+  // 排序方式
   protected $_order = [
     ['key' => 'sort', 'value' => 'desc'],
     ['key' => 'create_time', 'value' => 'desc'],
@@ -26,7 +31,7 @@ class CategoryController extends BaseController
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2021-09-17
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -39,11 +44,13 @@ class CategoryController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'title.required'  => '请您输入项目分类标题',
+      'title.required' => '请您输入费用名称',
+      'price.required' => '请您输入收费价格',
     ];
 
     $rule = [
       'title' => 'required',
+      'price' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -61,7 +68,8 @@ class CategoryController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->title           = $request->title;
-        $model->sort            = $request->sort;
+        $model->price           = $request->price;
+        $model->sort            = $request->sort ?? 0;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
@@ -69,44 +77,10 @@ class CategoryController extends BaseController
       catch(\Exception $e)
       {
         // 记录异常信息
-        self::record($e);
+        record($e);
 
-        return self::error(Code::HANDLE_FAILURE);
+        return self::error(Code::ERROR);
       }
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-05
-   * ------------------------------------------
-   * 启用（停用）课程类型
-   * ------------------------------------------
-   *
-   * 启用（停用）课程类型
-   *
-   * @param Request $request [description]
-   * @return [type]
-   */
-  public function status(Request $request)
-  {
-    try
-    {
-      $model = $this->_model::find($request->id);
-
-      $model->status = $model->status['value'] == 1 ? 2 : 1;
-
-      $model->save();
-
-      return self::success(Code::message(Code::HANDLE_SUCCESS));
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::HANDLE_FAILURE);
     }
   }
 }

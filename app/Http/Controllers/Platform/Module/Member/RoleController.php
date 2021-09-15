@@ -1,39 +1,38 @@
 <?php
 namespace App\Http\Controllers\Platform\Module\Member;
 
-use App\Http\Constant\Code;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+
+use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-12-28
+ * @dateTime 2021-09-16
  *
- * 角色控制器类
+ * 会员身份控制器类
  */
 class RoleController extends BaseController
 {
+  // 模型名称
 	protected $_model = 'App\Models\Platform\Module\Member\Role';
 
-  protected $_where = [];
-
+  // 客户端搜索字段
   protected $_params = [
-    'content'
+    'title'
   ];
 
+  // 排序方式
   protected $_order = [
-    ['key' => 'id', 'value' => 'asc'],
+    ['key' => 'id', 'value' => 'desc'],
   ];
-
-  protected $_relevance = [];
 
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2021-09-16
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -104,7 +103,7 @@ class RoleController extends BaseController
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-03-08
+   * @dateTime 2021-09-16
    * ------------------------------------------
    * 获取当前角色已选择的菜单权限
    * ------------------------------------------

@@ -1,38 +1,19 @@
 <?php
-namespace App\Models\Common\Module\Printer;
+namespace App\Models\Api\Module\Printer;
 
-use App\Models\Base;
+use App\Models\Common\Module\Printer\Log as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-09-15
+ * @dateTime 2021-09-15s
  *
- * 打印机日志模型类
+ * 报修分类模型类
  */
-class Log extends Base
+class Log extends Common
 {
-  // 表名
-  public $table = 'module_printer_log';
-
-  // 隐藏的属性
-  public $hidden = [
-    'organization_id',
-    'status',
-    'update_time'
-  ];
-
-  // 追加到模型数组表单的访问器
-  public $appends = [];
-
-  /**
-   * 可以被批量赋值的属性
-   */
-  public $fillable = ['id'];
-
 
 
   // 关联函数 ------------------------------------------------------
-
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -48,7 +29,7 @@ class Log extends Base
   public function printer()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Printer',
+      'App\Models\Api\Module\Printer',
       'printer_id',
       'id'
     );

@@ -33,7 +33,7 @@ $api->version('v1', [
       });
 
       // 上传路由
-      $api->group(['prefix' => 'file', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
+      $api->group(['prefix' => 'file', 'middleware' => ['auth:api', 'refresh.token.api', 'failure']], function ($api) {
         // 上传文件
         $api->post('file', 'FileController@file');
         // 上传图片
@@ -211,7 +211,7 @@ $api->version('v1', [
 
 
       // 通知路由
-      $api->group(['namespace' => 'Notice', 'prefix' => 'notice', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
+      $api->group(['namespace' => 'Notice', 'prefix' => 'notice', 'middleware' => ['auth:api', 'refresh.token.api', 'failure']], function ($api) {
 
         // 通知分类路由
         $api->group(['prefix'  => 'category'], function ($api) {
@@ -254,7 +254,7 @@ $api->version('v1', [
 
 
       // 会员路由
-      $api->group(['prefix'  => 'member', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
+      $api->group(['prefix'  => 'member', 'middleware' => ['auth:api', 'refresh.token.api', 'failure']], function ($api) {
         $api->get('archive', 'MemberController@archive');
         $api->get('asset', 'MemberController@asset');
         $api->get('status', 'MemberController@status');

@@ -66,8 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'cors' => \Fruitcake\Cors\HandleCors::class,
-        'refresh.token' => \App\Http\Middleware\RefreshToken::class, // token 后台 中间件
-        'refresh.token.user' => \App\Http\Middleware\RefreshTokenUser::class, // token 非后台 中间件
+        'refresh.token.platform' => \App\Http\Middleware\RefreshTokenPlatform::class, // token 后台 中间件
+        'refresh.token.api' => \App\Http\Middleware\RefreshTokenApi::class, // token 非后台 中间件
 
         'log.request' => \App\Http\Middleware\LogAfterRequest::class, // 日志记录 中间件
 

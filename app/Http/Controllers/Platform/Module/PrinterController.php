@@ -10,7 +10,7 @@ use App\Http\Controllers\Platform\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-09-04
  *
- * 常见问题控制器类
+ * 打印机控制器类
  */
 class PrinterController extends BaseController
 {

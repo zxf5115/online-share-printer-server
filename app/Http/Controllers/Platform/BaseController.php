@@ -75,7 +75,7 @@ class BaseController extends Common
     // 不过刷新一次作废
     // 另外关于上面的中间件，官方文档写的是『auth:api』
     // 但是我推荐用 『jwt.auth』，效果是一样的，但是有更加丰富的报错信息返回
-    $this->middleware(['auth:platform', 'refresh.token'], ['except' => ['login', 'kernel', 'check_user_login']]);
+    $this->middleware(['auth:platform', 'refresh.token.platform'], ['except' => ['login', 'kernel', 'check_user_login']]);
 
     $this->user = auth('platform')->user();
   }

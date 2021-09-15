@@ -304,6 +304,13 @@ $api->version('v1', [
         $api->post('handle', 'PrinterController@handle');
         $api->post('status', 'PrinterController@status');
         $api->post('delete', 'PrinterController@delete');
+
+        // 打印机日志路由
+        $api->group(['namespace' => 'Printer', 'prefix' => 'log'], function ($api) {
+          $api->any('list', 'LogController@list');
+          $api->get('view/{id}', 'LogController@view');
+          $api->post('delete/{id?}', 'LogController@delete');
+        });
       });
 
       // 耗材路由
@@ -355,6 +362,22 @@ $api->version('v1', [
         $api->post('handle', 'OrderController@handle');
         $api->post('delete', 'OrderController@delete');
         $api->post('export', 'OrderController@export');
+      });
+
+
+      // 提现路由
+      $api->group(['prefix' => 'withdrawal'], function ($api) {
+        $api->any('list', 'WithdrawalController@list');
+        $api->post('handle', 'WithdrawalController@handle');
+      });
+
+      // 价格路由
+      $api->group(['prefix' => 'price'], function ($api) {
+        $api->any('list', 'PriceController@list');
+        $api->get('select', 'PriceController@select');
+        $api->get('view/{id}', 'PriceController@view');
+        $api->post('handle', 'PriceController@handle');
+        $api->post('delete', 'PriceController@delete');
       });
     });
   });

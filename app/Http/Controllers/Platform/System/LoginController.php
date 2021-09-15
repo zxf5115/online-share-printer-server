@@ -87,8 +87,10 @@ class LoginController extends BaseController
             'password' => $password,
           ];
 
+          $timestamp = \Carbon\Carbon::now()->addHours(2)->timestamp;
+
           // 认证用户密码是否可以登录
-          if (! $token = auth('platform')->attempt($credentials))
+          if (! $token = auth('platform')->claims(['exp' => $timestamp])->attempt($credentials))
           {
             return self::error(Code::USER_EXIST);
           }
@@ -103,7 +105,7 @@ class LoginController extends BaseController
             'code' => 200,
             'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('platform')->factory()->getTTL() * 60,
+            'expires_in' => $timestamp,
             'user_info' => auth('platform')->user()
           ]);
         }
