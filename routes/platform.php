@@ -201,6 +201,26 @@ $api->version('v1', [
         });
       });
 
+      // 店长路由
+      $api->group(['prefix'  => 'manager'], function ($api) {
+        $api->any('list', 'ManagerController@list');
+        $api->get('select', 'ManagerController@select');
+        $api->get('view/{id}', 'ManagerController@view');
+        $api->post('handle', 'ManagerController@handle');
+        $api->post('status', 'ManagerController@status');
+        $api->post('delete', 'ManagerController@delete');
+      });
+
+      // 代理人路由
+      $api->group(['prefix'  => 'agent'], function ($api) {
+        $api->any('list', 'AgentController@list');
+        $api->get('select', 'AgentController@select');
+        $api->get('view/{id}', 'AgentController@view');
+        $api->post('handle', 'AgentController@handle');
+        $api->post('status', 'AgentController@status');
+        $api->post('delete', 'AgentController@delete');
+      });
+
       // 贵宾路由
       $api->group(['prefix'  =>  'vip'], function ($api) {
         $api->any('list', 'VipController@list');

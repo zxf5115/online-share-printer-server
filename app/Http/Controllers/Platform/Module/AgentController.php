@@ -9,18 +9,21 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-04-16
+ * @dateTime 2021-09-17
  *
- * 用户控制器类
+ * 代理人控制器类
  */
-class MemberController extends BaseController
+class AgentController extends BaseController
 {
   // 模型名称
   protected $_model = 'App\Models\Platform\Module\Member';
 
   // 默认查询条件
   protected $_where = [
-    'role_id' => 1
+    [
+      'role_id',
+      [3, 4, 5]
+    ]
   ];
 
   // 客户端搜索字段
