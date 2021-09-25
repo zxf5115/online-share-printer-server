@@ -87,6 +87,8 @@ class Base extends Model
 
   protected static $_with = false;
 
+  protected static $_orwhere = false;
+
 
 
   /**
@@ -502,6 +504,13 @@ class Base extends Model
       unset($condition['with']);
     }
 
+    if(!empty($condition['orwhere']))
+    {
+      self::$_orwhere = $condition['orwhere'];
+
+      unset($condition['orwhere']);
+    }
+
     foreach($condition as $key => $item)
     {
       if(is_string($key) && is_array($relevance) && in_array($key, $relevance))
@@ -543,6 +552,11 @@ class Base extends Model
       {
         $model = $model->whereIn($item[0], $item[1]);
       }
+    }
+
+    if(!empty(self::$_orwhere))
+    {
+      $model = $model->orWhere(self::$_orwhere);
     }
 
     return $model;

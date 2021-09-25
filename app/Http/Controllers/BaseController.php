@@ -64,6 +64,11 @@ class BaseController extends Controller
    */
   protected $_with = [];
 
+  /**
+   * 或者查询条件
+   */
+  protected $_orwhere = [];
+
 
   /**
    * 可查询字段与查理类型
@@ -147,6 +152,11 @@ class BaseController extends Controller
     $params = [];
     $relevance_params = [];
     $with_params = [];
+
+    if(!empty($_orwhere))
+    {
+      $condition['orwhere'] = $__orwhere;
+    }
 
     foreach($request as $key => $value)
     {

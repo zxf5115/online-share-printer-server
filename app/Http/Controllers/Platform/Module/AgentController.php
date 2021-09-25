@@ -2,9 +2,11 @@
 namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;
+use App\Models\Platform\Module\Printer;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -16,7 +18,7 @@ use App\Http\Controllers\Platform\BaseController;
 class AgentController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Platform\Module\Member';
+  protected $_model = 'App\Models\Platform\Module\Agent';
 
   // 默认查询条件
   protected $_where = [
@@ -36,24 +38,16 @@ class AgentController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'vip',
-      'vipRelevance',
+      'parent',
       'asset',
       'archive',
-      'certification'
     ],
     'view' => [
-      'archive',
-      'vip',
-      'vipRelevance',
       'asset',
       'archive',
-      'certification',
+      'memberPrinter.printer',
     ],
     'select' => false,
-    'certification' => [
-      'certification'
-    ]
   ];
 
 
@@ -118,6 +112,78 @@ class AgentController extends BaseController
       }
     }
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 操作信息
+   * ------------------------------------------
+   *
+   * 操作信息
+   *
+   * @param Request $request [请求参数]
+   * @return [type]
+   */
+  public function facility(Request $request)
+  {
+    $messages = [
+      'id.required'  => '请您输入会员编号',
+      'printer_id.required' => '请您输入打印机编号',
+    ];
+
+    $rule = [
+      'id'  => 'required',
+      'printer_id' => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      DB::beginTransaction();
+
+      try
+      {
+        $model = $this->_model::firstOrNew(['id' => $request->id]);
+
+        $printer = self::packRelevanceData($request, 'printer_id');
+
+        if(!empty($printer))
+        {
+          $model->printer()->update(['allot_status' => 2]);
+          $model->memberPrinter()->delete();
+          $model->memberPrinter()->createMany($printer);
+        }
+
+        // 将库存设备标记为已分配
+        foreach($printer as $item)
+        {
+          Printer::where(['id' => $item['printer_id']])->update(['allot_status' => 1]);
+        }
+
+        DB::commit();
+
+        return self::success(Code::message(Code::HANDLE_SUCCESS));
+      }
+      catch(\Exception $e)
+      {
+        DB::rollback();
+
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
+    }
+  }
+
 
 
   /**

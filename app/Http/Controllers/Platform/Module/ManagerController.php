@@ -16,7 +16,7 @@ use App\Http\Controllers\Platform\BaseController;
 class ManagerController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Platform\Module\Member';
+  protected $_model = 'App\Models\Platform\Module\Manager';
 
   // 默认查询条件
   protected $_where = [
@@ -30,27 +30,21 @@ class ManagerController extends BaseController
     'nickname'
   ];
 
+  // 附加关联查询条件
+  protected $_addition = [
+    'archive' => [
+      'province_id'
+    ]
+  ];
+
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'vip',
-      'vipRelevance',
-      'asset',
+      'parent',
       'archive',
-      'certification'
+      'asset'
     ],
-    'view' => [
-      'archive',
-      'vip',
-      'vipRelevance',
-      'asset',
-      'archive',
-      'certification',
-    ],
-    'select' => false,
-    'certification' => [
-      'certification'
-    ]
+    'select' => false
   ];
 
 

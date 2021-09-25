@@ -73,24 +73,6 @@ class Member extends Base
   }
 
 
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-20
-   * ------------------------------------------
-   * 学员冻结状态封装
-   * ------------------------------------------
-   *
-   * 学员冻结状态封装
-   *
-   * @param [type] $value [description]
-   * @return [type]
-   */
-  public function getIsFreezeAttribute($value)
-  {
-    return MemberEnum::getFreezeStatus($value);
-  }
-
-
   // 关联函数 ------------------------------------------------------
 
 
@@ -114,6 +96,46 @@ class Member extends Base
     );
   }
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-17
+   * ------------------------------------------
+   * 会员与上级会员关联函数
+   * ------------------------------------------
+   *
+   * 会员与上级会员关联函数
+   *
+   * @return [关联对象]
+   */
+  public function parent()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Member',
+      'parent_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 会员与下级会员关联函数
+   * ------------------------------------------
+   *
+   * 会员与下级会员关联函数
+   *
+   * @return [关联对象]
+   */
+  public function children()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Member',
+      'id',
+      'parent_id'
+    );
+  }
 
 
   /**

@@ -82,6 +82,23 @@ class Printer extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 使用状态封装
+   * ------------------------------------------
+   *
+   * 使用状态封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getAllotStatusAttribute($value)
+  {
+    return PrinterEnum::getAllotStatus($value);
+  }
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-09-04
    * ------------------------------------------
    * 打印机状态封装

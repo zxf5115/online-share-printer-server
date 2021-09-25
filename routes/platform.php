@@ -217,6 +217,7 @@ $api->version('v1', [
         $api->get('select', 'AgentController@select');
         $api->get('view/{id}', 'AgentController@view');
         $api->post('handle', 'AgentController@handle');
+        $api->any('facility', 'AgentController@facility');
         $api->post('status', 'AgentController@status');
         $api->post('delete', 'AgentController@delete');
       });
@@ -320,6 +321,7 @@ $api->version('v1', [
       $api->group(['prefix' => 'printer'], function ($api) {
         $api->any('list', 'PrinterController@list');
         $api->get('select', 'PrinterController@select');
+        $api->get('data', 'PrinterController@data');
         $api->get('view/{id}', 'PrinterController@view');
         $api->post('handle', 'PrinterController@handle');
         $api->post('status', 'PrinterController@status');

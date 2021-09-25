@@ -2,23 +2,24 @@
 namespace App\Models\Common\Module\Member;
 
 use App\Models\Base;
+use App\Enum\Module\Member\PrinterEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-26
+ * @dateTime 2021-09-25
  *
- * 会员设置模型类
+ * 会员打印机模型类
  */
-class Cart extends Base
+class Printer extends Base
 {
   // 表名
-  public $table = "module_member_cart";
+  public $table = "module_member_printer";
 
   // 可以批量修改的字段
   public $fillable = [
     'id',
     'member_id',
-    'courseware_id',
+    'printer_id'
   ];
 
   // 隐藏的属性
@@ -31,17 +32,34 @@ class Cart extends Base
   protected $appends = [];
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 使用状态封装
+   * ------------------------------------------
+   *
+   * 使用状态封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getUseStatusAttribute($value)
+  {
+    return PrinterEnum::getUseStatus($value);
+  }
+
 
   // 关联函数 ------------------------------------------------------
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-26
+   * @dateTime 2021-09-25
    * ------------------------------------------
-   * 会员档案与会员关联表
+   * 会员打印机与会员关联表
    * ------------------------------------------
    *
-   * 会员档案与会员关联表
+   * 会员打印机与会员关联表
    *
    * @return [关联对象]
    */
@@ -54,23 +72,22 @@ class Cart extends Base
     );
   }
 
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-26
+   * @dateTime 2021-09-25
    * ------------------------------------------
-   * 会员购物车与课程关联表
+   * 会员打印机与打印机关联表
    * ------------------------------------------
    *
-   * 会员购物车与课程关联表
+   * 会员打印机与打印机关联表
    *
    * @return [关联对象]
    */
-  public function courseware()
+  public function printer()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Education\Courseware',
-      'courseware_id',
+      'App\Models\Common\Module\Printer',
+      'printer_id',
       'id'
     );
   }

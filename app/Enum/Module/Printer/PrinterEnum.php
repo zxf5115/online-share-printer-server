@@ -28,6 +28,18 @@ class PrinterEnum extends BaseEnum
     ]
   ];
 
+  // 打印机类型封装
+  public static $switch = [
+    self::ONLINE => [
+      'value' => self::ONLINE,
+      'text' => '已分配'
+    ],
+
+    self::OFFLINE => [
+      'value' => self::OFFLINE,
+      'text' => '未分配'
+    ]
+  ];
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -44,5 +56,23 @@ class PrinterEnum extends BaseEnum
   public static function getStatus($code)
   {
     return self::$status[$code] ?: self::$status[self::ONLINE];
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 使用状态封装
+   * ------------------------------------------
+   *
+   * 使用状态封装
+   *
+   * @param int $code 状态代码
+   * @return 状态信息
+   */
+  public static function getAllotStatus($code)
+  {
+    return self::$switch[$code] ?: self::$switch[self::OPEN];
   }
 }
