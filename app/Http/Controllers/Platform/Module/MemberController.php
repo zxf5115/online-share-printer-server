@@ -33,24 +33,15 @@ class MemberController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'vip',
-      'vipRelevance',
       'asset',
       'archive',
-      'certification'
     ],
     'view' => [
       'archive',
-      'vip',
-      'vipRelevance',
       'asset',
       'archive',
-      'certification',
     ],
-    'select' => false,
-    'certification' => [
-      'certification'
-    ]
+    'select' => false
   ];
 
 

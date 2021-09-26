@@ -25,6 +25,7 @@ class OrderController extends BaseController
 
   // 查询条件
   protected $_params = [
+    'title',
     'order_no',
     'pay_status',
     'order_status',
@@ -44,11 +45,9 @@ class OrderController extends BaseController
   // 关联信息
   protected $_relevance = [
     'list' => [
-      'courseware',
       'member',
     ],
     'view' => [
-      'courseware',
       'member',
       'log',
     ]

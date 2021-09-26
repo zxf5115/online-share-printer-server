@@ -21,7 +21,9 @@ class Order extends Base
   ];
 
   // 追加到模型数组表单的访问器
-  protected $appends = [];
+  protected $appends = [
+    'total'
+  ];
 
   // 批量添加
   protected $fillable = ['id'];
@@ -41,6 +43,42 @@ class Order extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-29
    * ------------------------------------------
+   * 总页数封装
+   * ------------------------------------------
+   *
+   * 总页数封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getTotalAttribute($value)
+  {
+    return bcmul($this->page_total, $this->print_total);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 打印类型封装
+   * ------------------------------------------
+   *
+   * 打印类型封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getTypeAttribute($value)
+  {
+    return OrderEnum::getTypeStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
    * 支付类型封装
    * ------------------------------------------
    *
@@ -51,7 +89,7 @@ class Order extends Base
    */
   public function getPayTypeAttribute($value)
   {
-    return OrderEnum::getTypeStatus($value);
+    return OrderEnum::getPayTypeStatus($value);
   }
 
 
@@ -59,10 +97,10 @@ class Order extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-29
    * ------------------------------------------
-   * 订单状态封装
+   * 支付状态封装
    * ------------------------------------------
    *
-   * 订单状态封装
+   * 支付状态封装
    *
    * @param [type] $value [description]
    * @return [type]
@@ -77,10 +115,10 @@ class Order extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-29
    * ------------------------------------------
-   * 支付状态封装
+   * 订单状态封装
    * ------------------------------------------
    *
-   * 支付状态封装
+   * 订单状态封装
    *
    * @param [type] $value [description]
    * @return [type]
@@ -93,67 +131,6 @@ class Order extends Base
 
   // 关联函数 ------------------------------------------------------
 
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-07-07
-   * ------------------------------------------
-   * 课程订单与课件关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与课件关联函数
-   *
-   * @return [关联对象]
-   */
-  public function courseware()
-  {
-    return $this->belongsToMany(
-      'App\Models\Common\Module\Education\Courseware',
-      'module_order_courseware',
-      'order_id',
-      'courseware_id',
-    );
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-07-07
-   * ------------------------------------------
-   * 课程订单与课件关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与课件关联函数
-   *
-   * @return [关联对象]
-   */
-  public function coursewareRelevance()
-  {
-    return $this->hasMany(
-      'App\Models\Common\Module\Order\Courseware',
-      'order_id',
-      'id',
-    );
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-07-08
-   * ------------------------------------------
-   * 课程订单与课程订单日志关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与课程订单日志关联函数
-   *
-   * @return [关联对象]
-   */
-  public function log()
-  {
-    return $this->hasMany(
-      'App\Models\Common\Module\Order\Log',
-      'order_id',
-      'id',
-    );
-  }
 
 
   /**
@@ -173,6 +150,27 @@ class Order extends Base
       'App\Models\Common\Module\Member',
       'member_id',
       'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-08
+   * ------------------------------------------
+   * 课程订单与课程订单日志关联函数
+   * ------------------------------------------
+   *
+   * 课程订单与课程订单日志关联函数
+   *
+   * @return [关联对象]
+   */
+  public function log()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Order\Log',
+      'order_id',
+      'id',
     );
   }
 }

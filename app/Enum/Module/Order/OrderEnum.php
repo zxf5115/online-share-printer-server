@@ -17,17 +17,11 @@ class OrderEnum
 
   const WAIT    = 0; // 待支付
   const FINISH  = 1; // 已支付
-
-
-  // 订单类型
-  const WAIT_SEND   = 0; // 待学习
-  const WAIT_SIGN   = 1; // 学习中
-  const FINISH_SIGN = 2; // 已完成
-  const CANCEL      = 3; // 已关闭
+  const CANCEL  = 4; // 已退款
 
 
   // 支付类型
-  public static $type = [
+  public static $pay_type = [
     self::ALI       => [
       'value' => self::ALI,
       'text' => '支付宝'
@@ -65,26 +59,52 @@ class OrderEnum
 
   // 支付类型
   public static $order = [
-    self::WAIT_SEND       => [
-      'value' => self::WAIT_SEND,
+    self::WAIT       => [
+      'value' => self::WAIT,
       'text' => '待学习'
     ],
 
-    self::WAIT_SIGN => [
-      'value' => self::WAIT_SIGN,
-      'text' => '学习中'
-    ],
-
-    self::FINISH_SIGN => [
-      'value' => self::FINISH_SIGN,
+    self::FINISH => [
+      'value' => self::FINISH,
       'text' => '已完成'
     ],
 
     self::CANCEL => [
       'value' => self::CANCEL,
-      'text' => '已关闭'
+      'text' => '已退款'
     ],
   ];
+
+  // 打印类型
+  public static $type = [
+    self::ALI       => [
+      'value' => self::ALI,
+      'text' => '黑白'
+    ],
+
+    self::WECHAT => [
+      'value' => self::WECHAT,
+      'text' => '彩色'
+    ],
+  ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-01-16
+   * ------------------------------------------
+   * 打印类型封装
+   * ------------------------------------------
+   *
+   * 打印类型封装
+   *
+   * @param int $code 信息代码
+   * @return 信息内容
+   */
+  public static function getTypeStatus($code)
+  {
+    return self::$type[$code] ?: self::$type[self::ALI];
+  }
 
 
   /**
@@ -99,9 +119,9 @@ class OrderEnum
    * @param int $code 信息代码
    * @return 信息内容
    */
-  public static function getTypeStatus($code)
+  public static function getPayTypeStatus($code)
   {
-    return self::$type[$code] ?: self::$type[self::ALI];
+    return self::$pay_type[$code] ?: self::$pay_type[self::ALI];
   }
 
   /**

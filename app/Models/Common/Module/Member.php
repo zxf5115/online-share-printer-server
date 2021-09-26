@@ -36,6 +36,17 @@ class Member extends Base
   ];
 
 
+  /**
+   * 转换属性类型
+   */
+  protected $casts = [
+    'status' => 'array',
+    'last_login_time' => 'datetime:Y-m-d H:i:s',
+    'create_time' => 'datetime:Y-m-d H:i:s',
+    'update_time' => 'datetime:Y-m-d H:i:s',
+  ];
+
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -259,27 +270,6 @@ class Member extends Base
   {
     return $this->hasOne(
       'App\Models\Common\Module\Member\Vip',
-      'member_id',
-      'id'
-    );
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-18
-   * ------------------------------------------
-   * 会员与会员认证关联函数
-   * ------------------------------------------
-   *
-   * 会员与会员认证关联函数
-   *
-   * @return [关联对象]
-   */
-  public function certification()
-  {
-    return $this->hasOne(
-      'App\Models\Common\Module\Member\Certification',
       'member_id',
       'id'
     );
