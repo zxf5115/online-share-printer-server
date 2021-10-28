@@ -44,7 +44,12 @@ class ManagerController extends BaseController
       'archive',
       'asset'
     ],
-    'select' => false
+    'select' => false,
+    'view' => [
+      'parent',
+      'archive',
+      'asset'
+    ]
   ];
 
 
@@ -95,7 +100,6 @@ class ManagerController extends BaseController
         $model->username     = $request->username;
         $model->nickname     = $request->nickname;
         $model->avatar       = $request->avatar ?: '';
-        $model->audit_status = $request->audit_status ?? 1;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

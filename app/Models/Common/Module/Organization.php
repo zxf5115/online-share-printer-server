@@ -2,7 +2,6 @@
 namespace App\Models\Common\Module;
 
 use App\Models\Base;
-use App\TraitClass\UserTrait;
 use App\Enum\Module\Member\MemberEnum;
 
 
@@ -10,14 +9,12 @@ use App\Enum\Module\Member\MemberEnum;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2020-08-01
  *
- * 会员模型类
+ * 机构模型类
  */
-class Member extends Base
+class Organization extends Base
 {
-  use UserTrait;
-
   // 表名
-  public $table = "module_member";
+  public $table = "module_organization";
 
   // 可以批量修改的字段
   public $fillable = [
@@ -48,12 +45,30 @@ class Member extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-20
+   * @dateTime 2021-09-24
    * ------------------------------------------
-   * 会员状态封装
+   * 会员级别封装
    * ------------------------------------------
    *
-   * 会员状态封装
+   * 会员级别封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getLevelAttribute($value)
+  {
+    return MemberEnum::getLevelStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-12-20
+   * ------------------------------------------
+   * 机构状态封装
+   * ------------------------------------------
+   *
+   * 机构状态封装
    *
    * @param [type] $value [description]
    * @return [type]
@@ -71,10 +86,10 @@ class Member extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-08
    * ------------------------------------------
-   * 会员与机构关联表
+   * 机构与机构关联表
    * ------------------------------------------
    *
-   * 会员与机构关联表
+   * 机构与机构关联表
    *
    * @return [关联对象]
    */
@@ -101,7 +116,7 @@ class Member extends Base
   public function parent()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Member',
+      'App\Models\Common\Module\Organization',
       'parent_id',
       'id'
     );
@@ -122,7 +137,7 @@ class Member extends Base
   public function children()
   {
     return $this->hasMany(
-      'App\Models\Common\Module\Member',
+      'App\Models\Common\Module\Organization',
       'id',
       'parent_id'
     );

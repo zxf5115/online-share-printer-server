@@ -108,7 +108,7 @@ class WithdrawalController extends BaseController
         DB::rollback();
 
         // 记录异常信息
-        // self::record($e);
+        record($e);
 
         return self::message('提现失败');
       }

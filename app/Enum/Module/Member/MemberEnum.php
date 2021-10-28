@@ -20,6 +20,11 @@ class MemberEnum
   const THAW = 2;  // 解冻
 
 
+  const FIRST  = 1; // 一级代理
+  const SECOND = 2; // 二级代理
+  const THIRD  = 3; // 三级代理
+
+
   // 状态封装
   public static $status = [
     self::ENABLE => [
@@ -69,6 +74,49 @@ class MemberEnum
       'text' => '解冻'
     ]
   ];
+
+
+  // 技能水平状态封装
+  public static $level = [
+    self::WAIT => [
+      'value' => self::WAIT,
+      'text' => '暂无'
+    ],
+
+    self::FIRST => [
+      'value' => self::FIRST,
+      'text' => '一级代理'
+    ],
+
+    self::SECOND => [
+      'value' => self::SECOND,
+      'text' => '二级代理'
+    ],
+
+    self::THIRD => [
+      'value' => self::THIRD,
+      'text' => '三级代理'
+    ]
+  ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-10-20
+   * ------------------------------------------
+   * 技能水平状态类型封装
+   * ------------------------------------------
+   *
+   * 技能水平状态类型封装
+   *
+   * @param int $code 状态代码
+   * @return 状态信息
+   */
+  public static function getLevelStatus($code)
+  {
+    return self::$level[$code] ?: self::$level[self::FIRST];
+  }
+
 
 
   /**

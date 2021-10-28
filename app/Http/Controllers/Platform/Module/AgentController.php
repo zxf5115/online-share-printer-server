@@ -22,14 +22,12 @@ class AgentController extends BaseController
 
   // 默认查询条件
   protected $_where = [
-    [
-      'role_id',
-      [3, 4, 5]
-    ]
+    'role_id' => 3
   ];
 
   // 客户端搜索字段
   protected $_params = [
+    'level',
     'role_id',
     'username',
     'nickname'
@@ -86,6 +84,8 @@ class AgentController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
@@ -95,16 +95,34 @@ class AgentController extends BaseController
           $model->password = $this->_model::generate(Parameter::PASSWORD);
         }
 
-        $model->username     = $request->username;
-        $model->nickname     = $request->nickname;
-        $model->avatar       = $request->avatar ?: '';
-        $model->audit_status = $request->audit_status ?? 1;
+        $model->level     = $request->level ?? 0;
+        $model->role_id   = 3;
+        $model->parent_id = $request->parent_id ?? 0;
+        $model->username  = $request->username;
+        $model->nickname  = $request->nickname;
         $model->save();
+
+        $archive = $model->archive()->firstOrNew(['member_id' => $model->id]);
+
+        $archive->province_id = $request->province_id ?? 0;
+        $archive->city_id     = $request->city_id ?? 0;
+        $archive->region_id   = $request->region_id ?? 0;
+        $archive->address     = $request->address ?? '';
+        $archive->save();
+
+        $asset = $model->asset()->firstOrNew(['member_id' => $model->id]);
+
+        $asset->proportion = $request->proportion ?? 0.00;
+        $asset->save();
+
+        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         record($e);
 

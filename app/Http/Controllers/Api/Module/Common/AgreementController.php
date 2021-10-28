@@ -198,51 +198,7 @@ class AgreementController extends BaseController
 
 
   /**
-   * @api {get} /api/common/agreement/specification 07. 账户使用规范
-   * @apiDescription 获取账户使用规范
-   * @apiGroup 02. 公共模块
-   *
-   * @apiSuccess (basic params) {String} content 协议内容
-   *
-   * @apiSampleRequest /api/common/agreement/specification
-   * @apiVersion 1.0.0
-   */
-  public function specification(Request $request)
-  {
-    try
-    {
-      // 平台核心数据Reids Key
-      $key = RedisKey::AGREEMENT;
-
-      if(Redis::hexists($key, 'specification'))
-      {
-        $data = Redis::hget($key, 'specification');
-
-        $response = unserialize($data);
-      }
-      else
-      {
-        $response = $this->_model::getRow(['title' => 'specification']);
-
-        $data = serialize($response);
-
-        Redis::hset($key, 'specification', $data);
-      }
-
-      return self::success($response);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-  /**
-   * @api {get} /api/common/agreement/liability 08. 免责声明
+   * @api {get} /api/common/agreement/liability 07. 免责声明
    * @apiDescription 获取免责声明
    * @apiGroup 02. 公共模块
    *

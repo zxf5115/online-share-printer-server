@@ -1,7 +1,7 @@
 <?php
 namespace App\Models\Platform\Module;
 
-use App\Models\Platform\Module\Member as Common;
+use App\Models\Common\Module\Organization as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]

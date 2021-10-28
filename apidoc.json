@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "接口文档",
-  "title": "币码翁平台接口文档",
-  "description": "为币码翁App提供接口",
-  "url": "http://api.bitcodeman.com"
+  "title": "共享打印机平台接口文档",
+  "description": "为币共享打印机提供接口",
+  "url": "http://api.print.com"
 }
