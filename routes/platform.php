@@ -30,8 +30,8 @@ $api->version('v1', [
       $api->group(['prefix' => 'index'], function ($api) {
         $api->get('printer', 'IndexController@printer');
         $api->get('agent', 'IndexController@agent');
-        $api->get('course', 'IndexController@course');
         $api->get('member', 'IndexController@member');
+        $api->get('equipment', 'IndexController@equipment');
         $api->get('data', 'IndexController@data');
       });
 

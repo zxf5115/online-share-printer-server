@@ -9,6 +9,7 @@ use App\Models\Platform\Module\Agent;
 use App\Models\Platform\Module\Member;
 use App\Models\Platform\Module\Manager;
 use App\Models\Platform\Module\Printer;
+use App\Models\Common\Module\Common\Area;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Platform\Module\Education\Courseware;
 
@@ -105,44 +106,6 @@ class IndexController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-30
    * ------------------------------------------
-   * 课程统计数据
-   * ------------------------------------------
-   *
-   * 课程统计数据
-   *
-   * @return [type]
-   */
-  public function course()
-  {
-    try
-    {
-      $response = [];
-
-      $online_course_total  = Courseware::getCoursewareData(1);
-      $offline_course_total = Courseware::getCoursewareData(2);
-      $course_total         = Courseware::getCoursewareData();
-
-      $response = [
-        'online_course_total'  => $online_course_total,
-        'offline_course_total' => $offline_course_total,
-        'course_total'         => $course_total,
-      ];
-
-      return self::success($response);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-30
-   * ------------------------------------------
    * 会员统计数据
    * ------------------------------------------
    *
@@ -165,6 +128,35 @@ class IndexController extends BaseController
         'manger_total' => $manger_total,
         'member_total' => $member_total,
       ];
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-30
+   * ------------------------------------------
+   * 设备状态统计数据
+   * ------------------------------------------
+   *
+   * 设备状态统计数据
+   *
+   * @return [type]
+   */
+  public function equipment(Request $request)
+  {
+    try
+    {
+      $response = Printer::getEquipmentData();
 
       return self::success($response);
     }

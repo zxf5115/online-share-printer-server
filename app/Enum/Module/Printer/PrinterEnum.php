@@ -14,6 +14,7 @@ class PrinterEnum extends BaseEnum
   // 机器状态
   const ONLINE  = 1;
   const OFFLINE = 2;
+  const FAULT   = 3;
 
   // 阅读状态
   public static $status = [
@@ -25,6 +26,11 @@ class PrinterEnum extends BaseEnum
     self::OFFLINE => [
       'value' => self::OFFLINE,
       'text' => '离线'
+    ],
+
+    self::FAULT => [
+      'value' => self::FAULT,
+      'text' => '故障'
     ]
   ];
 
