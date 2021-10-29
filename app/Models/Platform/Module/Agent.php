@@ -128,7 +128,8 @@ class Agent extends Common
   public static function getCountData($level = 0)
   {
     $where = [
-      'status' => 1
+      'status'  => 1,
+      'role_id' => 3
     ];
 
     if($level)

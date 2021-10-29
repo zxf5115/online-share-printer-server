@@ -7,6 +7,7 @@ use App\TraitClass\StatisticalTrait;
 use App\Models\Platform\Module\Order;
 use App\Models\Platform\Module\Agent;
 use App\Models\Platform\Module\Member;
+use App\Models\Platform\Module\Manager;
 use App\Models\Platform\Module\Printer;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Platform\Module\Education\Courseware;
@@ -78,9 +79,9 @@ class IndexController extends BaseController
     {
       $response = [];
 
-      $total             = Agent::getCountData();
-      $first_total       = Agent::getCountData(1);
-      $wait_return_total = Agent::getCountData(2);
+      $total        = Agent::getCountData();
+      $first_total  = Agent::getCountData(1);
+      $second_total = Agent::getCountData(2);
 
       $response = [
         'total'        => $total,
