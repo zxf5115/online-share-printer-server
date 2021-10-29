@@ -172,6 +172,71 @@ class IndexController extends BaseController
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-10-29
+   * ------------------------------------------
+   * 获取各代理商市场销售额
+   * ------------------------------------------
+   *
+   * 获取各代理商市场销售额
+   *
+   * @param Request $request [description]
+   * @return [type]
+   */
+  public function agentsales(Request $request)
+  {
+    try
+    {
+      $line = [];
+      $order_total = 0;
+
+      // 统计时间区间
+      $condition = self::getWhereCondition($request->type);
+
+      // 订单总数
+      $order_total = Order::getCount($condition);
+
+      $order = Order::getList($condition);
+
+      $orderDate = [];
+
+      foreach($order as $item)
+      {
+        $orderDate[] = date('Y-m-d', strtotime($item->create_time));
+      }
+
+      $orderDate = array_count_values($orderDate);
+
+      foreach($orderDate as $key => $item)
+      {
+        $orderData[] = [
+          'title' => $key,
+          '销售额' => $item,
+        ];
+      }
+
+      $sort = array_column($orderData, 'title');
+
+      array_multisort($orderData, SORT_ASC, $sort);
+
+      $response['order_total'] = $order_total;
+      $response['line'] = $orderData;
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-30
    * ------------------------------------------
    * 订单统计数据

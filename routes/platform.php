@@ -32,6 +32,7 @@ $api->version('v1', [
         $api->get('agent', 'IndexController@agent');
         $api->get('member', 'IndexController@member');
         $api->get('equipment', 'IndexController@equipment');
+        $api->get('agentsales', 'IndexController@agentsales');
         $api->get('data', 'IndexController@data');
       });
 
