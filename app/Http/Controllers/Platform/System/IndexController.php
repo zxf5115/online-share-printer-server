@@ -5,7 +5,9 @@ use Illuminate\Http\Request;
 
 use App\TraitClass\StatisticalTrait;
 use App\Models\Platform\Module\Order;
+use App\Models\Platform\Module\Agent;
 use App\Models\Platform\Module\Member;
+use App\Models\Platform\Module\Printer;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Platform\Module\Education\Courseware;
 
@@ -23,29 +25,29 @@ class IndexController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-30
    * ------------------------------------------
-   * 订单统计数据
+   * 打印机统计数据
    * ------------------------------------------
    *
-   * 订单统计数据
+   * 打印机统计数据
    *
    * @return [type]
    */
-  public function order()
+  public function printer()
   {
     try
     {
       $response = [];
 
-      $today_order_total     = Order::getPayMoneyData(self::getWhereCondition(1));
-      $yesterday_order_total = Order::getPayMoneyData(self::getWhereCondition(2));
-      $week_order_total      = Order::getPayMoneyData(self::getWhereCondition(3));
-      $month_order_total     = Order::getPayMoneyData(self::getWhereCondition(4));
+      $total         = Printer::getCountData();
+      $online_total  = Printer::getCountData(1);
+      $offline_total = Printer::getCountData(2);
+      $fault_total   = Printer::getCountData(3);
 
       $response = [
-        'today_order_total' => $today_order_total,
-        'yesterday_order_total' => $yesterday_order_total,
-        'week_order_total' => $week_order_total,
-        'month_order_total' => $month_order_total,
+        'total'         => $total,
+        'online_total'  => $online_total,
+        'offline_total' => $offline_total,
+        'fault_total'   => $fault_total,
       ];
 
       return self::success($response);
@@ -63,27 +65,27 @@ class IndexController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-30
    * ------------------------------------------
-   * 待处理订单数据
+   * 代理商数据
    * ------------------------------------------
    *
-   * 待处理订单数据
+   * 代理商数据
    *
    * @return [type]
    */
-  public function todo()
+  public function agent()
   {
     try
     {
       $response = [];
 
-      $wait_pay_total     = Order::getWaitPayData();
-      $wait_confirm_total = Order::getConfirmPayData();
-      $wait_return_total  = Order::getRefundPayData();
+      $total             = Agent::getCountData();
+      $first_total       = Agent::getCountData(1);
+      $wait_return_total = Agent::getCountData(2);
 
       $response = [
-        'wait_pay_total'     => $wait_pay_total,
-        'wait_confirm_total' => $wait_confirm_total,
-        'wait_return_total'  => $wait_return_total,
+        'total'        => $total,
+        'first_total'  => $first_total,
+        'second_total' => $second_total,
       ];
 
       return self::success($response);
@@ -153,16 +155,14 @@ class IndexController extends BaseController
     {
       $response = [];
 
-      $today_member_total     = Member::getMemberData(self::getWhereCondition(1));
-      $yesterday_member_total = Member::getMemberData(self::getWhereCondition(2));
-      $month_order_total      = Member::getMemberData(self::getWhereCondition(4));
-      $member_total           = Member::getMemberData(self::getWhereCondition(8));
+      $total        = Member::getMemberData();
+      $manger_total = Manager::getCountData();
+      $member_total = Member::getCountData();
 
       $response = [
-        'today_member_total'     => $today_member_total,
-        'yesterday_member_total' => $yesterday_member_total,
-        'month_order_total'      => $month_order_total,
-        'member_total'           => $member_total,
+        'total'        => $total,
+        'manger_total' => $manger_total,
+        'member_total' => $member_total,
       ];
 
       return self::success($response);

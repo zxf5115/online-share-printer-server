@@ -95,11 +95,12 @@ class AgentController extends BaseController
           $model->password = $this->_model::generate(Parameter::PASSWORD);
         }
 
-        $model->level     = $request->level ?? 0;
-        $model->role_id   = 3;
-        $model->parent_id = $request->parent_id ?? 0;
-        $model->username  = $request->username;
-        $model->nickname  = $request->nickname;
+        $model->level        = $request->level ?? 0;
+        $model->another_name = $request->another_name ?: $this->_model::getLevelName($request->level);
+        $model->role_id      = 3;
+        $model->parent_id    = $request->parent_id ?? 0;
+        $model->username     = $request->username;
+        $model->nickname     = $request->nickname;
         $model->save();
 
         $archive = $model->archive()->firstOrNew(['member_id' => $model->id]);

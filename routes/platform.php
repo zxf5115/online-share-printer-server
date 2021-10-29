@@ -28,8 +28,8 @@ $api->version('v1', [
 
       // 首页路由
       $api->group(['prefix' => 'index'], function ($api) {
-        $api->get('order', 'IndexController@order');
-        $api->get('todo', 'IndexController@todo');
+        $api->get('printer', 'IndexController@printer');
+        $api->get('agent', 'IndexController@agent');
         $api->get('course', 'IndexController@course');
         $api->get('member', 'IndexController@member');
         $api->get('data', 'IndexController@data');

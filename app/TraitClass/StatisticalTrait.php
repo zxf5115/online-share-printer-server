@@ -25,16 +25,6 @@ trait StatisticalTrait
   {
     $response = [];
 
-
-
-
-
-
-
-
-
-
-
     // 今天0点
     if(1 == $type)
     {

@@ -86,6 +86,60 @@ class Agent extends Common
   }
 
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-10-29
+   * ------------------------------------------
+   * 获得代理商级别名称
+   * ------------------------------------------
+   *
+   * 获得代理商级别名称
+   *
+   * @param [type] $value 代理商级别
+   * @return [type]
+   */
+  public static function getLevelName($value = 1)
+  {
+    $name = [
+      1 => '一级代理',
+      2 => '二级代理',
+      3 => '三级代理',
+    ];
+
+    return $name[$value];
+  }
+
+
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-10-29
+   * ------------------------------------------
+   * 获取打印机数量
+   * ------------------------------------------
+   *
+   * 获取打印机数量
+   *
+   * @param [type] $status 状态
+   * @return [type]
+   */
+  public static function getCountData($level = 0)
+  {
+    $where = [
+      'status' => 1
+    ];
+
+    if($level)
+    {
+      $where['level'] = $level;
+    }
+
+    return self::getCount($where);
+  }
+
+
   // 关联函数 ------------------------------------------------------
 
 
