@@ -39,9 +39,6 @@ class RouteServiceProvider extends ServiceProvider
         // 平台路由
         $this->mapPlatformRoutes();
 
-        // API路由
-        $this->mapApiRoutes();
-
 
         $this->mapWebRoutes();
 
@@ -74,21 +71,6 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($api) {
             require base_path('routes/platform.php');
-        });
-    }
-
-
-    /**
-     * API端路由
-     */
-    protected function mapApiRoutes()
-    {
-        app('Dingo\Api\Routing\Router')->group([
-            'version' => getenv('API_VERSION'),
-            'prefix' => 'api',
-            'namespace' => $this->namespace,
-        ], function ($api) {
-            require base_path('routes/api.php');
         });
     }
 }

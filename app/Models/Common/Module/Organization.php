@@ -182,7 +182,7 @@ class Organization extends Base
   public function archive()
   {
     return $this->hasOne(
-      'App\Models\Common\Module\Member\Archive',
+      'App\Models\Common\Module\Organization\Archive',
       'member_id',
       'id'
     );
@@ -203,7 +203,7 @@ class Organization extends Base
   public function asset()
   {
     return $this->hasOne(
-      'App\Models\Common\Module\Member\Asset',
+      'App\Models\Common\Module\Organization\Asset',
       'member_id',
       'id'
     );

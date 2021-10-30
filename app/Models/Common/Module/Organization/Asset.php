@@ -1,25 +1,27 @@
 <?php
-namespace App\Models\Common\Module\Member;
+namespace App\Models\Common\Module\Organization;
 
 use App\Models\Base;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2020-12-19
  *
- * 会员贵宾模型类
+ * 学员资产模型类
  */
-class Vip extends Base
+class Asset extends Base
 {
   // 表名
-  public $table = "module_member_vip";
+  public $table = "module_organization_asset";
 
   // 可以批量修改的字段
   public $fillable = [
     'id',
     'organization_id',
     'member_id',
-    'vip_id'
+    'red_envelope',
+    'lollipop',
+    'production',
   ];
 
   // 隐藏的属性
@@ -32,36 +34,24 @@ class Vip extends Base
   protected $appends = [];
 
 
-  /**
-   * 转换属性类型
-   */
-  protected $casts = [
-    'status'      => 'array',
-    'end_time'    => 'datetime:Y-m-d H:i:s',
-    'create_time' => 'datetime:Y-m-d H:i:s',
-    'update_time' => 'datetime:Y-m-d H:i:s',
-  ];
-
-
   // 关联函数 ------------------------------------------------------
-
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-08
+   * @dateTime 2020-10-20
    * ------------------------------------------
-   * 会员贵宾与贵宾关联函数
+   * 学员资产与学员关联表
    * ------------------------------------------
    *
-   * 会员贵宾与贵宾关联函数
+   * 学员资产与学员关联表
    *
    * @return [关联对象]
    */
-  public function gvip()
+  public function member()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Vip',
-      'vip_id',
+      'App\Models\Common\Module\Member',
+      'member_id',
       'id'
     );
   }
