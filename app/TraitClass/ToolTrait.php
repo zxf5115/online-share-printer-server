@@ -12,45 +12,6 @@ trait ToolTrait
   protected static $complete_name = [];
 
 
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-26
-   * ------------------------------------------
-   * 生成唯一编号信息
-   * ------------------------------------------
-   *
-   * 生成唯一编号信息
-   *
-   * @param integer $type 1 机构 2 班级 3 会员
-   * @return [type]
-   */
-  public static function generateOnlyNumber($type = 1)
-  {
-    $params = [
-      1 => '107',
-      2 => '210',
-      3 => '824',
-    ];
-
-    $number = $params[$type];
-
-    $number .= date('ymd');
-
-    $rand = mt_rand(1, 999);
-
-    // 如果随机数长度不够3位，自动补0
-    if(strlen($rand) < 3)
-    {
-      $rand = str_pad($rand, 3, 0, STR_PAD_LEFT);
-    }
-
-    $number .= $rand;
-
-    return $number;
-  }
-
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-10-22

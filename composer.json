@@ -22,7 +22,6 @@
         "iidestiny/laravel-filesystem-oss": "^2.1",
         "intervention/image": "^2.5",
         "jenssegers/agent": "^2.6",
-        "jpush/jpush": "^3.6",
         "laravel/framework": "^6.0",
         "laravel/socialite": "^5.1",
         "laravel/tinker": "^1.0",
