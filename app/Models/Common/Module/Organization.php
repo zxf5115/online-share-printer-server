@@ -2,6 +2,7 @@
 namespace App\Models\Common\Module;
 
 use App\Models\Base;
+use App\TraitClass\UserTrait;
 use App\Enum\Module\Member\MemberEnum;
 
 
@@ -13,6 +14,8 @@ use App\Enum\Module\Member\MemberEnum;
  */
 class Organization extends Base
 {
+  use UserTrait;
+
   // 表名
   public $table = "module_organization";
 

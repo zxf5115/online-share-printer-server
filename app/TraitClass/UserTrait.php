@@ -62,7 +62,7 @@ trait UserTrait
     try
     {
       // 如果用户上次登录时间和当前时间相差小于一个小时并且登录次数小于五次，返回可以访问，否则禁止访问
-      if(time() - $request->last_login_time < 3600 && $request->try_number > 5)
+      if(bcsub(time(), strtotime($request->last_login_time)) < 3600 && $request->try_number > 5)
       {
         return true;
       }
