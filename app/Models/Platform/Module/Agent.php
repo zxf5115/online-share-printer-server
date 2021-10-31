@@ -13,7 +13,7 @@ class Agent extends Common
 {
   // 追加到模型数组表单的访问器
   protected $appends = [
-    'printer_total',
+    'printer',
     'below_agent_total',
     'below_manager_total',
   ];
@@ -23,19 +23,27 @@ class Agent extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-09-24
    * ------------------------------------------
-   * 打印机数量封装
+   * 所属打印机封装
    * ------------------------------------------
    *
-   * 打印机数量封装
+   * 所属打印机封装
    *
    * @param [type] $value [description]
    * @return [type]
    */
-  public function getPrinterTotalAttribute($value)
+  public function getPrinterAttribute($value)
   {
-    return $this->memberPrinter()->count();
-  }
+    if(1 == $this->level['value'])
+    {
+      $response = $this->first()->get();
+    }
+    else
+    {
+      $response = $this->second()->get();
+    }
 
+    return $response;
+  }
 
 
   /**
@@ -142,27 +150,6 @@ class Agent extends Common
 
 
   // 关联函数 ------------------------------------------------------
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-24
-   * ------------------------------------------
-   * 代理商与打印机关联函数
-   * ------------------------------------------
-   *
-   * 代理商与打印机关联函数
-   *
-   * @return [关联对象]
-   */
-  public function memberPrinter()
-  {
-    return $this->hasMany(
-      'App\Models\Common\Module\Member\Printer',
-      'member_id',
-      'id',
-    );
-  }
 
 
   /**

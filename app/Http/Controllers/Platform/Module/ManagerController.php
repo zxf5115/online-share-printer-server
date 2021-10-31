@@ -25,16 +25,9 @@ class ManagerController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
-    'role_id',
+    'parent_id',
     'username',
     'nickname'
-  ];
-
-  // 附加关联查询条件
-  protected $_addition = [
-    'archive' => [
-      'province_id'
-    ]
   ];
 
   // 关联对象
@@ -48,7 +41,8 @@ class ManagerController extends BaseController
     'view' => [
       'parent',
       'archive',
-      'asset'
+      'asset',
+      'manager'
     ]
   ];
 

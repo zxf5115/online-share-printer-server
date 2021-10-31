@@ -28,7 +28,7 @@ class AgentController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'level',
-    'role_id',
+    'parent_id',
     'username',
     'nickname'
   ];
@@ -43,7 +43,6 @@ class AgentController extends BaseController
     'view' => [
       'asset',
       'archive',
-      'memberPrinter.printer',
     ],
     'select' => false,
   ];

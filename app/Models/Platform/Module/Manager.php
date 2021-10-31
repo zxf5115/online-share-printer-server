@@ -31,7 +31,7 @@ class Manager extends Common
    */
   public function getPrinterTotalAttribute($value)
   {
-    return $this->memberPrinter()->count();
+    return $this->manager()->count();
   }
 
 
@@ -54,51 +54,5 @@ class Manager extends Common
     ];
 
     return self::getCount($where);
-  }
-
-
-  // 关联函数 ------------------------------------------------------
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-24
-   * ------------------------------------------
-   * 店长与打印机关联函数
-   * ------------------------------------------
-   *
-   * 店长与打印机关联函数
-   *
-   * @return [关联对象]
-   */
-  public function memberPrinter()
-  {
-    return $this->hasMany(
-      'App\Models\Common\Module\Member\Printer',
-      'member_id',
-      'id',
-    );
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-24
-   * ------------------------------------------
-   * 代理商与打印机关联函数
-   * ------------------------------------------
-   *
-   * 代理商与打印机关联函数
-   *
-   * @return [关联对象]
-   */
-  public function printer()
-  {
-    return $this->belongsToMany(
-      'App\Models\Common\Module\Printer',
-      'module_member_printer',
-      'member_id',
-      'printer_id',
-    );
   }
 }

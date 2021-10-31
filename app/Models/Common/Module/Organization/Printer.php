@@ -18,7 +18,9 @@ class Printer extends Base
   // 可以批量修改的字段
   public $fillable = [
     'id',
-    'member_id',
+    'first_level_agent_id',
+    'second_level_agent_id',
+    'manager_id',
     'printer_id'
   ];
 
@@ -56,21 +58,64 @@ class Printer extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-09-25
    * ------------------------------------------
-   * 会员打印机与会员关联表
+   * 一级代理商与会员打印机关联表
    * ------------------------------------------
    *
-   * 会员打印机与会员关联表
+   * 一级代理商与会员打印机关联表
    *
    * @return [关联对象]
    */
-  public function member()
+  public function first()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Member',
-      'member_id',
+      'App\Models\Common\Module\Organization',
+      'first_level_agent_id',
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 二级代理商与会员打印机关联表
+   * ------------------------------------------
+   *
+   * 二级代理商与会员打印机关联表
+   *
+   * @return [关联对象]
+   */
+  public function second()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Organization',
+      'second_level_agent_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 店长与会员打印机关联表
+   * ------------------------------------------
+   *
+   * 店长与会员打印机关联表
+   *
+   * @return [关联对象]
+   */
+  public function manager()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Organization',
+      'manager_id',
+      'id'
+    );
+  }
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]

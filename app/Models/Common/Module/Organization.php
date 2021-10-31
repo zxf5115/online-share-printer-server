@@ -208,4 +208,67 @@ class Organization extends Base
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 一级代理商与会员打印机关联表
+   * ------------------------------------------
+   *
+   * 一级代理商与会员打印机关联表
+   *
+   * @return [关联对象]
+   */
+  public function first()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Printer',
+      'first_level_agent_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 二级代理商与会员打印机关联表
+   * ------------------------------------------
+   *
+   * 二级代理商与会员打印机关联表
+   *
+   * @return [关联对象]
+   */
+  public function second()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Printer',
+      'second_level_agent_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 店长与会员打印机关联表
+   * ------------------------------------------
+   *
+   * 店长与会员打印机关联表
+   *
+   * @return [关联对象]
+   */
+  public function manager()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Printer',
+      'manager_id',
+      'id'
+    );
+  }
 }

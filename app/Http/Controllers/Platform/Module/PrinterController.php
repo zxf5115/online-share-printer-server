@@ -21,7 +21,7 @@ class PrinterController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'title',
-    'allot_status',
+    'bind_status',
     'status',
   ];
 
@@ -33,7 +33,7 @@ class PrinterController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'member'
+      'manager'
     ],
     'select' => false,
     'view' => false,

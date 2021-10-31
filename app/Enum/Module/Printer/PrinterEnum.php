@@ -38,12 +38,12 @@ class PrinterEnum extends BaseEnum
   public static $switch = [
     self::ONLINE => [
       'value' => self::ONLINE,
-      'text' => '已分配'
+      'text' => '已绑定'
     ],
 
     self::OFFLINE => [
       'value' => self::OFFLINE,
-      'text' => '未分配'
+      'text' => '未绑定'
     ]
   ];
 
@@ -77,8 +77,8 @@ class PrinterEnum extends BaseEnum
    * @param int $code 状态代码
    * @return 状态信息
    */
-  public static function getAllotStatus($code)
+  public static function getBindStatus($code)
   {
-    return self::$switch[$code] ?: self::$switch[self::OPEN];
+    return self::$switch[$code] ?: self::$switch[self::OFFLINE];
   }
 }

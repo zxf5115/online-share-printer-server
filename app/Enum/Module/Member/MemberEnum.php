@@ -22,7 +22,6 @@ class MemberEnum
 
   const FIRST  = 1; // 一级代理
   const SECOND = 2; // 二级代理
-  const THIRD  = 3; // 三级代理
 
 
   // 状态封装
@@ -91,11 +90,6 @@ class MemberEnum
     self::SECOND => [
       'value' => self::SECOND,
       'text' => '二级代理'
-    ],
-
-    self::THIRD => [
-      'value' => self::THIRD,
-      'text' => '三级代理'
     ]
   ];
 
