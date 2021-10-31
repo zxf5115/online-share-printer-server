@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Platform\Module;
 
+use App\Http\Constant\Code;
 use App\Models\Common\Module\Organization as Common;
 
 /**
@@ -147,6 +148,66 @@ class Agent extends Common
 
     return self::getCount($where);
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-10-31
+   * ------------------------------------------
+   * 获取一级分销商编号
+   * ------------------------------------------
+   *
+   * 具体描述一些细节
+   *
+   * @param [type] $level [description]
+   * @param [type] $mobile [description]
+   * @return [type]
+   */
+  public static function getParentAgentId($level, $mobile)
+  {
+    if(1 == $level)
+    {
+      $response = [
+        'status' => true,
+        'code'   => 0
+      ];
+    }
+    else if(2 == $level)
+    {
+      if(empty($mobile))
+      {
+        $response = [
+          'status' => false,
+          'code'   => Code::PARENT_AGENT_USERNAME_NO_EMPTY
+        ];
+      }
+      else
+      {
+        $result = self::getRow(['username' => $mobile, 'level' => 1, 'status' => 1]);
+
+        if(empty($result->id))
+        {
+          $response = [
+            'status' => false,
+            'code'   => Code::PARENT_AGENT_NO_EXITS
+          ];
+        }
+        else
+        {
+          $response = [
+            'status' => true,
+            'code'   => $result->id
+          ];
+        }
+      }
+    }
+
+    return $response;
+  }
+
+
+
+
 
 
   // 关联函数 ------------------------------------------------------

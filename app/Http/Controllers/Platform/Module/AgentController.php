@@ -33,6 +33,15 @@ class AgentController extends BaseController
     'nickname'
   ];
 
+
+  // 附加关联查询条件
+  protected $_addition = [
+    'archive' => [
+      'province_id'
+    ]
+  ];
+
+
   // 关联对象
   protected $_relevance = [
     'list' => [
@@ -63,8 +72,8 @@ class AgentController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'username.required' => '请您输入登录账户',
-      'username.regex'    => '登录账户格式错误',
+      'username.required' => '请您输入代理商电话',
+      'username.regex'    => '代理商电话格式错误',
       'nickname.required' => '请您输入用户昵称',
     ];
 
@@ -87,6 +96,22 @@ class AgentController extends BaseController
 
       try
       {
+        $result = $this->_model::getParentAgentId($request->level, $request->parent_username);
+
+        if(empty($result['status']))
+        {
+          return self::error($result['code']);
+        }
+
+        $parent_id = $result['code'];
+
+        $status = $this->_model::isExistField($request->username, $request->id);
+
+        if($status)
+        {
+          return self::error(Code::AGENT_EXITS);
+        }
+
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         if(empty($request->id))
@@ -97,22 +122,24 @@ class AgentController extends BaseController
         $model->level        = $request->level ?? 0;
         $model->another_name = $request->another_name ?: $this->_model::getLevelName($request->level);
         $model->role_id      = 3;
-        $model->parent_id    = $request->parent_id ?? 0;
+        $model->parent_id    = $parent_id ?? 0;
         $model->username     = $request->username;
         $model->nickname     = $request->nickname;
         $model->save();
 
         $archive = $model->archive()->firstOrNew(['member_id' => $model->id]);
 
-        $archive->province_id = $request->province_id ?? 0;
-        $archive->city_id     = $request->city_id ?? 0;
-        $archive->region_id   = $request->region_id ?? 0;
-        $archive->address     = $request->address ?? '';
+        $archive->province_id      = $request->province_id ?? 0;
+        $archive->city_id          = $request->city_id ?? 0;
+        $archive->region_id        = $request->region_id ?? 0;
+        $archive->address          = $request->address ?? '';
+        $archive->business_license = $request->business_license ?? '';
         $archive->save();
 
         $asset = $model->asset()->firstOrNew(['member_id' => $model->id]);
 
-        $asset->proportion = $request->proportion ?? 0.00;
+        $asset->should_printer_total = $request->should_printer_total ?? 0;
+        $asset->proportion           = $request->proportion ?? 0.00;
         $asset->save();
 
         DB::commit();

@@ -734,6 +734,38 @@ class Base extends Model
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-10-31
+   * ------------------------------------------
+   * 验证是否存在
+   * ------------------------------------------
+   *
+   * 验证是否存在
+   *
+   * @param [type] $username [description]
+   * @return boolean
+   */
+  public static function isExistField($value, $status, $field = 'username')
+  {
+    if(!empty($status))
+    {
+      return false;
+    }
+
+    $result = static::getRow([$field => $value, 'status' => 1]);
+
+    if(!empty($result->id))
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-28
    *
    * 本地环境下进行日志输出
