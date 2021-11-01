@@ -16,38 +16,24 @@ use App\Http\Controllers\Platform\BaseController;
  */
 class WithdrawalController extends BaseController
 {
-  /**
-   * 模型
-   */
-  protected $_model = 'App\Models\Platform\Module\Member\Money';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\Module\Organization\Withdrawal';
 
-  protected $_where = [
-    'type' => 2
+  // 客户端搜索字段
+  protected $_params = [
+    'member_id'
   ];
 
-  protected $_params = [];
-
+  // 附加关联查询条件
   protected $_addition = [
-    'member' => [
+    'organization' => [
       'username'
-    ],
-    'account' => [
-      'payment_account'
     ]
   ];
 
-  /**
-   * 排序条件
-   */
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
-  ];
-
+  // 关联对象
   protected $_relevance = [
-    'list' => [
-      'member',
-      // 'account'
-    ]
+    'organization',
   ];
 
 

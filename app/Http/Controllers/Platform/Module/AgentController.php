@@ -129,11 +129,10 @@ class AgentController extends BaseController
 
         $archive = $model->archive()->firstOrNew(['member_id' => $model->id]);
 
-        $archive->province_id      = $request->province_id ?? 0;
-        $archive->city_id          = $request->city_id ?? 0;
-        $archive->region_id        = $request->region_id ?? 0;
-        $archive->address          = $request->address ?? '';
-        $archive->business_license = $request->business_license ?? '';
+        $archive->province_id = $request->province_id ?? 0;
+        $archive->city_id     = $request->city_id ?? 0;
+        $archive->region_id   = $request->region_id ?? 0;
+        $archive->address     = $request->address ?? '';
         $archive->save();
 
         $asset = $model->asset()->firstOrNew(['member_id' => $model->id]);
@@ -141,6 +140,12 @@ class AgentController extends BaseController
         $asset->should_printer_total = $request->should_printer_total ?? 0;
         $asset->proportion           = $request->proportion ?? 0.00;
         $asset->save();
+
+        $resource = $model->resource()->firstOrNew(['member_id' => $model->id]);
+
+        $resource->business_license = $request->business_license ?? '';
+        $resource->contract         = $request->contract ?? '';
+        $resource->save();
 
         DB::commit();
 

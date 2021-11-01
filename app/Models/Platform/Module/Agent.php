@@ -2,6 +2,7 @@
 namespace App\Models\Platform\Module;
 
 use App\Http\Constant\Code;
+use App\Models\Common\Module\Printer;
 use App\Models\Common\Module\Organization as Common;
 
 /**
@@ -17,6 +18,10 @@ class Agent extends Common
     'printer',
     'below_agent_total',
     'below_manager_total',
+    'online_total',
+    'offline_total',
+    'unbind_total',
+    'fault_total',
   ];
 
 
@@ -94,6 +99,119 @@ class Agent extends Common
     return self::where($where)->count();
   }
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 在线设备数量封装
+   * ------------------------------------------
+   *
+   * 在线设备数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getOnlineTotalAttribute($value)
+  {
+    $where = [
+      'status' => 1,
+      'first_level_agent_id' => $this->id
+    ];
+
+    $orWhere = [
+      'status' => 1,
+      'second_level_agent_id' => $this->id
+    ];
+
+    return Printer::where($where)->orWhere($orWhere)->count();
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 离线设备数量封装
+   * ------------------------------------------
+   *
+   * 离线设备数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getOfflineTotalAttribute($value)
+  {
+    $where = [
+      'status' => 2,
+      'first_level_agent_id' => $this->id
+    ];
+
+    $orWhere = [
+      'status' => 2,
+      'second_level_agent_id' => $this->id
+    ];
+
+    return Printer::where($where)->orWhere($orWhere)->count();
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 故障设备数量封装
+   * ------------------------------------------
+   *
+   * 故障设备数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getFaultTotalAttribute($value)
+  {
+    $where = [
+      'status' => 3,
+      'first_level_agent_id' => $this->id
+    ];
+
+    $orWhere = [
+      'status' => 3,
+      'second_level_agent_id' => $this->id
+    ];
+
+    return Printer::where($where)->orWhere($orWhere)->count();
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-24
+   * ------------------------------------------
+   * 未绑定设备数量封装
+   * ------------------------------------------
+   *
+   * 未绑定设备数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getUnbindTotalAttribute($value)
+  {
+    $where = [
+      ['status', '>', '-1'],
+      'bind_status'    => 2,
+      'first_level_agent_id' => $this->id
+    ];
+
+    $orWhere = [
+      ['status', '>', '-1'],
+      'bind_status'    => 2,
+      'second_level_agent_id' => $this->id
+    ];
+
+    return Printer::where($where)->orWhere($orWhere)->count();
+  }
 
 
   /**
