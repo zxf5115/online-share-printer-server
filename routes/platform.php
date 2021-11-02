@@ -322,7 +322,6 @@ $api->version('v1', [
       $api->group(['prefix' => 'printer'], function ($api) {
         $api->any('list', 'PrinterController@list');
         $api->get('select', 'PrinterController@select');
-        $api->get('data', 'PrinterController@data');
         $api->get('view/{id}', 'PrinterController@view');
         $api->post('handle', 'PrinterController@handle');
         $api->post('status', 'PrinterController@status');
@@ -332,6 +331,7 @@ $api->version('v1', [
         $api->group(['namespace' => 'Printer', 'prefix' => 'log'], function ($api) {
           $api->any('list', 'LogController@list');
           $api->get('view/{id}', 'LogController@view');
+          $api->post('handle', 'LogController@handle');
           $api->post('delete/{id?}', 'LogController@delete');
         });
       });

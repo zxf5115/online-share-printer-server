@@ -20,11 +20,24 @@ class RepairController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'category_id',
+    'printer_id',
+  ];
+
+
+  // 附加关联查询条件
+  protected $_addition = [
+    'printer' => [
+      'code'
+    ],
+    'member' => [
+      'username'
+    ],
   ];
 
   // 关联对象
   protected $_relevance = [
     'category',
+    'printer',
     'member',
   ];
 }

@@ -36,64 +36,10 @@ class PrinterController extends BaseController
       'manager'
     ],
     'select' => false,
-    'view' => false,
+    'view' => [
+      'manager'
+    ],
   ];
-
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
-   * ------------------------------------------
-   * 获取列表信息
-   * ------------------------------------------
-   *
-   * 获取列表信息
-   *
-   * @param Request $request [请求参数]
-   * @return [type]
-   */
-  public function data(Request $request)
-  {
-    try
-    {
-      $condition = self::getBaseWhereData();
-
-      $where = [
-        'member_id' => $request->member_id
-      ];
-
-      $printer_id = MemberPrinter::getPluck('printer_id', $where, false, false, true);
-
-      $where = [
-        ['id', $printer_id]
-      ];
-
-      // 对用户请求进行过滤
-      $filter = $this->filter($request->all());
-
-      $orwhere = [
-        'orwhere' => [
-          'allot_status' => 2
-        ]
-      ];
-
-      $condition = array_merge($condition, $this->_where, $filter, $where, $orwhere);
-
-      $relevance = self::getRelevanceData($this->_relevance, 'select');
-
-      $response = $this->_model::getList($condition, $relevance, $this->_order);
-
-      return self::success($response);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
 
 
   /**
