@@ -33,9 +33,6 @@ class OrderController extends BaseController
 
   // 附加关联查询条件
   protected $_addition = [
-    'courseware' => [
-      'title',
-    ],
     'member' => [
       'username',
     ],
@@ -48,7 +45,9 @@ class OrderController extends BaseController
       'member',
     ],
     'view' => [
+      'manager',
       'member',
+      'printer',
       'log',
     ]
   ];

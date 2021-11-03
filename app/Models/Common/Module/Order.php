@@ -131,6 +131,25 @@ class Order extends Base
 
   // 关联函数 ------------------------------------------------------
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 课程订单与店长关联函数
+   * ------------------------------------------
+   *
+   * 课程订单与店长关联函数
+   *
+   * @return [关联对象]
+   */
+  public function manager()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Organization',
+      'manager_id',
+      'id'
+    );
+  }
 
 
   /**
@@ -149,6 +168,27 @@ class Order extends Base
     return $this->belongsTo(
       'App\Models\Common\Module\Member',
       'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 课程订单与学员关联函数
+   * ------------------------------------------
+   *
+   * 课程订单与学员关联函数
+   *
+   * @return [关联对象]
+   */
+  public function printer()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Printer',
+      'printer_id',
       'id'
     );
   }

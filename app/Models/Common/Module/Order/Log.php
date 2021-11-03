@@ -2,6 +2,7 @@
 namespace App\Models\Common\Module\Order;
 
 use App\Models\Base;
+use App\Enum\Module\Order\LogEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -29,6 +30,23 @@ class Log extends Base
   // 追加到模型数组表单的访问器
   public $appends = [];
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 打印类型封装
+   * ------------------------------------------
+   *
+   * 打印类型封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getTypeAttribute($value)
+  {
+    return LogEnum::getTypeStatus($value);
+  }
 
 
   // 关联函数 ------------------------------------------------------

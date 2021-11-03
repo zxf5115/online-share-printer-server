@@ -61,7 +61,7 @@ class OrderEnum
   public static $order = [
     self::WAIT       => [
       'value' => self::WAIT,
-      'text' => '待学习'
+      'text' => '待开始'
     ],
 
     self::FINISH => [
