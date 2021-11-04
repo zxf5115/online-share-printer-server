@@ -323,6 +323,7 @@ $api->version('v1', [
         $api->any('list', 'PrinterController@list');
         $api->get('select', 'PrinterController@select');
         $api->get('view/{id}', 'PrinterController@view');
+        $api->get('data/{id}', 'PrinterController@data');
         $api->post('handle', 'PrinterController@handle');
         $api->post('status', 'PrinterController@status');
         $api->post('delete', 'PrinterController@delete');
@@ -401,6 +402,30 @@ $api->version('v1', [
         $api->get('view/{id}', 'PriceController@view');
         $api->post('handle', 'PriceController@handle');
         $api->post('delete', 'PriceController@delete');
+      });
+
+
+      // 收益路由
+      $api->group(['prefix' => 'statistical'], function ($api) {
+
+        // 代理商路由
+        $api->group(['namespace' => 'Statistical', 'prefix' => 'agent'], function ($api) {
+          $api->any('list', 'AgentController@list');
+          $api->get('total', 'AgentController@total');
+          $api->get('view/{id}', 'AgentController@view');
+        });
+
+        // 店长路由
+        $api->group(['namespace' => 'Statistical', 'prefix' => 'manager'], function ($api) {
+          $api->any('list', 'ManagerController@list');
+          $api->get('total', 'ManagerController@total');
+          $api->get('view/{id}', 'ManagerController@view');
+
+          // 订单路由
+          $api->group(['namespace' => 'Manager', 'prefix' => 'order'], function ($api) {
+            $api->any('list', 'OrderController@list');
+          });
+        });
       });
     });
   });

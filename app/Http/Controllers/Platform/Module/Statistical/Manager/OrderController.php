@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Platform\Module;
+namespace App\Http\Controllers\Platform\Module\Statistical\Manager;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,11 +25,12 @@ class OrderController extends BaseController
 
   // 查询条件
   protected $_params = [
+    'printer_id',
     'title',
     'order_no',
     'pay_status',
     'order_status',
-    'create_time',
+    'create_time'
   ];
 
   // 附加关联查询条件

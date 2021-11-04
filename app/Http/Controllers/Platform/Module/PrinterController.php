@@ -39,7 +39,50 @@ class PrinterController extends BaseController
     'view' => [
       'manager'
     ],
+    'data' => [
+      'first',
+      'manager.asset'
+    ]
   ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-07-19
+   * ------------------------------------------
+   * 获取数据详情
+   * ------------------------------------------
+   *
+   * 获取数据详情
+   *
+   * @param Request $request 请求参数
+   * @param [type] $id 数据编号
+   * @return [type]
+   */
+  public function data(Request $request, $id)
+  {
+    try
+    {
+      $condition = self::getBaseWhereData();
+
+      $where = ['id' => $id];
+
+      $condition = array_merge($condition, $where);
+
+      $relevance = self::getRelevanceData($this->_relevance, 'data');
+
+      $response = $this->_model::getRow($condition, $relevance);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
 
 
   /**
