@@ -427,6 +427,29 @@ $api->version('v1', [
           });
         });
       });
+
+
+      // 库存路由
+      $api->group(['prefix' => 'inventory'], function ($api) {
+        $api->any('list', 'InventoryController@list');
+        $api->get('select', 'InventoryController@select');
+        $api->get('brief', 'InventoryController@brief');
+        $api->get('view/{id}', 'InventoryController@view');
+        $api->post('handle', 'InventoryController@handle');
+        $api->post('delete', 'InventoryController@delete');
+
+        // 店长路由
+        $api->group(['namespace' => 'Statistical', 'prefix' => 'manager'], function ($api) {
+          $api->any('list', 'ManagerController@list');
+          $api->get('total', 'ManagerController@total');
+          $api->get('view/{id}', 'ManagerController@view');
+
+          // 订单路由
+          $api->group(['namespace' => 'Manager', 'prefix' => 'order'], function ($api) {
+            $api->any('list', 'OrderController@list');
+          });
+        });
+      });
     });
   });
 });
