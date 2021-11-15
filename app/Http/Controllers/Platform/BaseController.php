@@ -44,13 +44,8 @@ class BaseController extends Common
       'username',
       'realname',
       'order_no',
-      'weixin',
-      'symbol',
-      'base_currency',
-      'quote_currency',
-      'slug',
-      'symbol',
       'fullname',
+      'operator',
     ],
     // 时间查询
     'time' => [

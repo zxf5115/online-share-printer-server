@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;
 use App\Models\Platform\Module\Printer;
+use App\Events\Platform\Inventory\AutoEvent;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -146,6 +147,9 @@ class AgentController extends BaseController
         $resource->business_license = $request->business_license ?? '';
         $resource->contract         = $request->contract ?? '';
         $resource->save();
+
+        // 自动生成出库单
+        event(new AutoEvent($model->id, $request->should_printer_total));
 
         DB::commit();
 

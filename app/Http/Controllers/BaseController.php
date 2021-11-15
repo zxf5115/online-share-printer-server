@@ -86,6 +86,7 @@ class BaseController extends Controller
       'realname',
       'order_no',
       'weixin',
+      'operator',
     ],
     // 时间查询
     'time' => [

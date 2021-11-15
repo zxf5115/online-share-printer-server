@@ -2,18 +2,19 @@
 namespace App\Models\Common\Module;
 
 use App\Models\Base;
+use App\Enum\Module\Inventory\InboundEnum;
 use App\Enum\Module\Inventory\InventoryEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-09-13
+ * @dateTime 2021-11-17
  *
- * 库存模型类
+ * 入库单模型类
  */
-class Inventory extends Base
+class Inbound extends Base
 {
   // 表名
-  protected $table = "module_inventory";
+  protected $table = "module_inbound";
 
   // 隐藏的属性
   protected $hidden = [
@@ -44,41 +45,43 @@ class Inventory extends Base
     return InventoryEnum::getTypeStatus($value);
   }
 
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-29
    * ------------------------------------------
-   * 设备状态封装
+   * 入库类型封装
    * ------------------------------------------
    *
-   * 设备状态封装
+   * 入库类型封装
    *
    * @param [type] $value [description]
    * @return [type]
    */
-  public function getEquipmentStatusAttribute($value)
+  public function getCategoryAttribute($value)
   {
-    return InventoryEnum::getEquipmentStatus($value);
+    return InboundEnum::getTypeStatus($value);
   }
+
 
   // 关联函数 ------------------------------------------------------
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-13
+   * @dateTime 2021-11-17
    * ------------------------------------------
-   * 库存与库存分类关联函数
+   * 入库与入库详情关联函数
    * ------------------------------------------
    *
-   * 库存与库存分类关联函数
+   * 入库与入库详情关联函数
    *
    * @return [关联对象]
    */
-  public function category()
+  public function detail()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Repair\Category',
-      'category_id',
+      'App\Models\Common\Module\Inbound\Detail',
+      'inbound_id',
       'id'
     );
   }
@@ -86,12 +89,54 @@ class Inventory extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-13
+   * @dateTime 2021-11-17
    * ------------------------------------------
-   * 库存与会员关联表
+   * 入库与入库资源关联函数
    * ------------------------------------------
    *
-   * 库存与会员关联表
+   * 入库与入库资源关联函数
+   *
+   * @return [关联对象]
+   */
+  public function resource()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Inbound\Resource',
+      'inbound_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-17
+   * ------------------------------------------
+   * 入库与入库物流关联函数
+   * ------------------------------------------
+   *
+   * 入库与入库物流关联函数
+   *
+   * @return [关联对象]
+   */
+  public function logistics()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Inbound\Logistics',
+      'inbound_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-17
+   * ------------------------------------------
+   * 入库与代理商关联表
+   * ------------------------------------------
+   *
+   * 入库与代理商关联表
    *
    * @return [关联对象]
    */
@@ -101,48 +146,6 @@ class Inventory extends Base
       'App\Models\Common\Module\Organization',
       'member_id',
       'id'
-    );
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-13
-   * ------------------------------------------
-   * 库存与打印机关联表
-   * ------------------------------------------
-   *
-   * 库存与打印机关联表
-   *
-   * @return [关联对象]
-   */
-  public function printer()
-  {
-    return $this->belongsTo(
-      'App\Models\Common\Module\Printer',
-      'printer_id',
-      'id'
-    );
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-09-13
-   * ------------------------------------------
-   * 库存与打印机关联表
-   * ------------------------------------------
-   *
-   * 库存与打印机关联表
-   *
-   * @return [关联对象]
-   */
-  public function log()
-  {
-    return $this->hasMany(
-      'App\Models\Common\Module\Inventory\Log',
-      'inventory_id',
-      'id',
     );
   }
 }

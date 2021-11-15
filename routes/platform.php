@@ -438,15 +438,80 @@ $api->version('v1', [
         $api->post('handle', 'InventoryController@handle');
         $api->post('delete', 'InventoryController@delete');
 
-        // 店长路由
-        $api->group(['namespace' => 'Statistical', 'prefix' => 'manager'], function ($api) {
-          $api->any('list', 'ManagerController@list');
-          $api->get('total', 'ManagerController@total');
-          $api->get('view/{id}', 'ManagerController@view');
+        $api->group(['namespace' => 'Inventory'], function ($api) {
+          // 日志路由
+          $api->group(['prefix' => 'log'], function ($api) {
+            $api->any('list', 'LogController@list');
+          });
+        });
+      });
 
-          // 订单路由
-          $api->group(['namespace' => 'Manager', 'prefix' => 'order'], function ($api) {
-            $api->any('list', 'OrderController@list');
+
+      // 入库路由
+      $api->group(['prefix' => 'inbound'], function ($api) {
+        $api->any('list', 'InboundController@list');
+        $api->get('select', 'InboundController@select');
+        $api->get('view/{id}', 'InboundController@view');
+        $api->post('first_step', 'InboundController@first_step');
+        $api->post('second_step', 'InboundController@second_step');
+        $api->post('third_step', 'InboundController@third_step');
+        $api->post('delete', 'InboundController@delete');
+
+        $api->group(['namespace' => 'Inbound'], function ($api) {
+          // 入库明细路由
+          $api->group(['prefix' => 'detail'], function ($api) {
+            $api->any('list', 'DetailController@list');
+          });
+
+          // 入库物流路由
+          $api->group(['prefix' => 'logistics'], function ($api) {
+            $api->any('view/{id}', 'LogisticsController@view');
+          });
+
+          // 入库资源路由
+          $api->group(['prefix' => 'resource'], function ($api) {
+            $api->any('view/{id}', 'ResourceController@view');
+          });
+        });
+      });
+
+
+      // 出库路由
+      $api->group(['prefix' => 'outbound'], function ($api) {
+        $api->any('list', 'OutboundController@list');
+        $api->get('select', 'OutboundController@select');
+        $api->get('view/{id}', 'OutboundController@view');
+        $api->post('first_step', 'OutboundController@first_step');
+        $api->post('second_step', 'OutboundController@second_step');
+        $api->post('third_step', 'OutboundController@third_step');
+        $api->post('delete', 'OutboundController@delete');
+
+        $api->group(['namespace' => 'Outbound'], function ($api) {
+          // 出库明细路由
+          $api->group(['prefix' => 'detail'], function ($api) {
+            $api->any('list', 'DetailController@list');
+          });
+
+          // 出库物流路由
+          $api->group(['prefix' => 'logistics'], function ($api) {
+            $api->any('view/{id}', 'LogisticsController@view');
+          });
+
+          // 出库资源路由
+          $api->group(['prefix' => 'resource'], function ($api) {
+            $api->any('view/{id}', 'ResourceController@view');
+          });
+        });
+      });
+
+
+      // 物流路由
+      $api->group(['prefix' => 'logistics'], function ($api) {
+
+        $api->group(['namespace' => 'Logistics'], function ($api) {
+          // 物流公司路由
+          $api->group(['prefix' => 'company'], function ($api) {
+            $api->any('select', 'CompanyController@select');
           });
         });
       });
