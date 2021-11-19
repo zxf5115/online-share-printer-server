@@ -6,9 +6,13 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;
+use App\Models\Platform\Module\Agent;
 use App\Models\Platform\Module\Printer;
 use App\Events\Platform\Inventory\AutoEvent;
 use App\Http\Controllers\Platform\BaseController;
+use App\Models\Common\Module\Organization\Asset;
+use App\Models\Common\Module\Organization\Archive;
+use App\Models\Common\Module\Organization\Resource;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -121,14 +125,14 @@ class AgentController extends BaseController
         }
 
         $model->level        = $request->level ?? 0;
-        $model->another_name = $request->another_name ?: $this->_model::getLevelName($request->level);
+        $model->another_name = $request->another_name ?: Agent::getLevelName($request->level);
         $model->role_id      = 3;
         $model->parent_id    = $parent_id ?? 0;
         $model->username     = $request->username;
         $model->nickname     = $request->nickname;
         $model->save();
 
-        $archive = $model->archive()->firstOrNew(['member_id' => $model->id]);
+        $archive = Archive::firstOrNew(['member_id' => $model->id]);
 
         $archive->province_id = $request->province_id ?? 0;
         $archive->city_id     = $request->city_id ?? 0;
@@ -136,13 +140,13 @@ class AgentController extends BaseController
         $archive->address     = $request->address ?? '';
         $archive->save();
 
-        $asset = $model->asset()->firstOrNew(['member_id' => $model->id]);
+        $asset = Asset::firstOrNew(['member_id' => $model->id]);
 
         $asset->should_printer_total = $request->should_printer_total ?? 0;
         $asset->proportion           = $request->proportion ?? 0.00;
         $asset->save();
 
-        $resource = $model->resource()->firstOrNew(['member_id' => $model->id]);
+        $resource = Resource::firstOrNew(['member_id' => $model->id]);
 
         $resource->business_license = $request->business_license ?? '';
         $resource->contract         = $request->contract ?? '';

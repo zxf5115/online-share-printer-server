@@ -10,6 +10,8 @@ use App\Imports\EquipmentImport;
 use App\Models\Common\System\File;
 use App\Events\Platform\Printer\BindEvent;
 use App\Http\Controllers\Platform\BaseController;
+use App\Models\Platform\Module\Outbound\Resource;
+use App\Models\Platform\Module\Outbound\Logistics;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -99,7 +101,7 @@ class OutboundController extends BaseController
         $model->active          = 1;
         $model->save();
 
-        $resource = $model->resource()->firstOrNew(['outbound_id' => $model->id]);
+        $resource = Resource::firstOrNew(['outbound_id' => $model->id]);
 
         $resource->device_code = $request->device_code ?? '';
         $resource->picture     = $request->picture ?? '';
@@ -175,7 +177,7 @@ class OutboundController extends BaseController
         $model->active = 2;
         $model->save();
 
-        $logistics = $model->logistics()->firstOrNew(['outbound_id' => $request->id]);
+        $logistics = Logistics::firstOrNew(['outbound_id' => $request->id]);
 
         $logistics->company_id   = $request->company_id ?? '';
         $logistics->logistics_no = $request->logistics_no ?? '';
@@ -238,7 +240,7 @@ class OutboundController extends BaseController
         $model->active = 3;
         $model->save();
 
-        $resource = $model->resource()->firstOrNew(['outbound_id' => $model->id]);
+        $resource = Resource::firstOrNew(['outbound_id' => $model->id]);
 
         $resource->receipt_form = $request->receipt_form ?? '';
         $resource->save();

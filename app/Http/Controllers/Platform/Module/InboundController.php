@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Http\Constant\Code;
-use App\Imports\EquipmentImport;
 use App\Models\Common\System\File;
+use App\Imports\EquipmentComparisonImport;
+use App\Models\Platform\Module\Inbound\Resource;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -86,7 +87,7 @@ class InboundController extends BaseController
         $model->active          = 1;
         $model->save();
 
-        $resource = $model->resource()->firstOrNew(['inbound_id' => $model->id]);
+        $resource = Resource::firstOrNew(['inbound_id' => $model->id]);
 
         $resource->device_code = $request->device_code ?? '';
         $resource->picture     = $request->picture ?? '';
@@ -99,7 +100,7 @@ class InboundController extends BaseController
         // $url = base_path(trim($url, '/'));
 
         // // 导入设备数据
-        // Excel::import(new EquipmentImport($model->id, $request->member_id), $url);
+        // Excel::import(new EquipmentComparisonImport($model->id, $request->member_id), $url);
 
         DB::commit();
 
@@ -133,15 +134,13 @@ class InboundController extends BaseController
   public function second_step(Request $request)
   {
     $messages = [
-      'id.required'           => '请您输入出库单编号',
-      'company_id.required'   => '请您选择物流公司',
-      'logistics_no.required' => '请您输入物流编号',
+      'id.required'                    => '请您输入出库单编号',
+      'device_code_warehouse.required' => '请您上传盘点设备码',
     ];
 
     $rule = [
-      'id'           => 'required',
-      'company_id'   => 'required',
-      'logistics_no' => 'required',
+      'id'                    => 'required',
+      'device_code_warehouse' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -157,16 +156,24 @@ class InboundController extends BaseController
 
       try
       {
-        $model = $this->_model::getRow(['id' => $request->id]);
+        $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->active = 2;
         $model->save();
 
-        $logistics = $model->logistics()->firstOrNew(['outbound_id' => $request->id]);
+        $resource = Resource::firstOrNew(['inbound_id' => $request->id]);
 
-        $logistics->company_id   = $request->company_id ?? '';
-        $logistics->logistics_no = $request->logistics_no ?? '';
-        $logistics->save();
+        $resource->device_code_warehouse = $request->device_code_warehouse ?? '';
+        $resource->save();
+
+        // $data = file_get_contents($request->device_code);
+
+        // $url = File::file_base64($data, 'equipment');
+        // $url = str_replace('storage', '/storage/app/public', $url);
+        // $url = base_path(trim($url, '/'));
+
+        // // 导入设备数据
+        // Excel::import(new EquipmentImport($model->id, $request->member_id), $url);
 
         DB::commit();
 
@@ -225,7 +232,7 @@ class InboundController extends BaseController
         $model->active = 3;
         $model->save();
 
-        $resource = $model->resource()->firstOrNew(['outbound_id' => $model->id]);
+        $resource = Resource::firstOrNew(['inbound_id' => $model->id]);
 
         $resource->receipt_form = $request->receipt_form ?? '';
         $resource->save();
