@@ -93,14 +93,13 @@ class InboundController extends BaseController
         $resource->picture     = $request->picture ?? '';
         $resource->save();
 
-        // $data = file_get_contents($request->device_code);
+        // $url = File::download('http://hnbimawen.oss-cn-beijing.aliyuncs.com/fce94a96b4ed7e3754b28206a271598b.xlsx');
+        $url = File::download($request->device_code);
 
-        // $url = File::file_base64($data, 'equipment');
-        // $url = str_replace('storage', '/storage/app/public', $url);
-        // $url = base_path(trim($url, '/'));
+        // 导入设备数据
+        Excel::import(new EquipmentComparisonImport($model->id, $request->member_id), $url);
 
-        // // 导入设备数据
-        // Excel::import(new EquipmentComparisonImport($model->id, $request->member_id), $url);
+        File::destroy($url);
 
         DB::commit();
 
