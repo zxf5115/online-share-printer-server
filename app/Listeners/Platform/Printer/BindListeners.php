@@ -46,17 +46,17 @@ class BindListeners
 
         $level = $member->level;
 
-        if(1 == $level)
+        if(empty($level['value']))
+        {
+          continue;
+        }
+        else if(1 == $level['value'])
         {
           $model->first_level_agent_id = $item->member_id;
         }
-        else if(2 == $level)
+        else if(2 == $level['value'])
         {
           $model->second_level_agent_id = $item->member_id;
-        }
-        else
-        {
-          continue;
         }
 
         $model->bind_status = 1;
