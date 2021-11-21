@@ -1,5 +1,5 @@
 <?php
-namespace App\Imports;
+namespace App\Imports\Inbound;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;

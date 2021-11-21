@@ -7,7 +7,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use App\Http\Constant\Code;
 use App\Models\Common\System\File;
-use App\Imports\EquipmentComparisonImport;
+use App\Imports\Inbound\EquipmentImport;
+use App\Imports\Inbound\EquipmentComparisonImport;
 use App\Models\Platform\Module\Inbound\Resource;
 use App\Http\Controllers\Platform\BaseController;
 
@@ -99,7 +100,7 @@ class InboundController extends BaseController
         $url = File::getPhysicalUrl($url);
 
         // 导入设备数据
-        Excel::import(new EquipmentComparisonImport($model->id, $request->member_id), $url);
+        Excel::import(new EquipmentImport($model->id, $request->member_id), $url);
 
         File::destroy($url);
 

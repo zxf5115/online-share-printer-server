@@ -25,7 +25,9 @@ class Detail extends Base
   // 批量添加
   protected $fillable = [
     'id',
-    'inbound_id'
+    'inbound_id',
+    'member_id',
+    'printer_id'
   ];
 
 

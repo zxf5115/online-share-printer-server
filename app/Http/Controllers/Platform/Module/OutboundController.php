@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Http\Constant\Code;
-use App\Imports\EquipmentImport;
+use App\Imports\Outbound\EquipmentImport;
 use App\Models\Common\System\File;
 use App\Events\Platform\Printer\BindEvent;
 use App\Http\Controllers\Platform\BaseController;
