@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Http\Constant\Code;
-use App\Imports\Outbound\EquipmentImport;
 use App\Models\Common\System\File;
+use App\Imports\Outbound\EquipmentImport;
 use App\Events\Platform\Printer\BindEvent;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Platform\Module\Outbound\Resource;
@@ -51,10 +51,10 @@ class OutboundController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-12
    * ------------------------------------------
-   * 操作信息
+   * 出库操作第一步
    * ------------------------------------------
    *
-   * 操作信息
+   * 出库操作第一步
    *
    * @param Request $request [请求参数]
    * @return [type]
@@ -107,14 +107,14 @@ class OutboundController extends BaseController
         $resource->picture     = $request->picture ?? '';
         $resource->save();
 
-        $data = file_get_contents($request->device_code);
+        $url = File::download($request->device_code);
 
-        $url = File::file_base64($data, 'equipment');
-        $url = str_replace('storage', '/storage/app/public', $url);
-        $url = base_path(trim($url, '/'));
+        $url = File::getPhysicalUrl($url);
 
         // 导入设备数据
         Excel::import(new EquipmentImport($model->id, $request->member_id), $url);
+
+        File::destroy($url);
 
         DB::commit();
 
@@ -137,10 +137,10 @@ class OutboundController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-12
    * ------------------------------------------
-   * 操作信息
+   * 出库操作第二步
    * ------------------------------------------
    *
-   * 操作信息
+   * 出库操作第二步
    *
    * @param Request $request [请求参数]
    * @return [type]
@@ -204,10 +204,10 @@ class OutboundController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-12
    * ------------------------------------------
-   * 操作信息
+   * 出库操作第三步
    * ------------------------------------------
    *
-   * 操作信息
+   * 出库操作第三步
    *
    * @param Request $request [请求参数]
    * @return [type]

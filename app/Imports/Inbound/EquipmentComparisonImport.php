@@ -20,14 +20,13 @@ use App\Models\Platform\Module\Outbound\Detail;
  */
 class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithChunkReading
 {
-  protected $outbound_id = null;
-  protected $member_id   = null;
+  protected $inbound_id = null;
+  protected $member_id  = null;
 
 
-  public function __construct($outbound_id, $member_id)
+  public function __construct($inbound_id, $member_id)
   {
-    $this->outbound_id = $outbound_id;
-
+    $this->inbound_id = $inbound_id;
     $this->member_id   = $member_id;
   }
 
@@ -84,9 +83,9 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
 
         $detail = new Detail();
 
-        $detail->outbound_id = $outbound_id;
-        $detail->member_id   = $member_id;
-        $detail->printer_id  = $printer_id;
+        $detail->inbound_id = $this->inbound_id;
+        $detail->member_id  = $this->member_id;
+        $detail->printer_id = $printer_id;
         $detail->save();
       }
 

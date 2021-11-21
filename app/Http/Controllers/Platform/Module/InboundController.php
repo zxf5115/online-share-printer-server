@@ -40,10 +40,10 @@ class InboundController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-12
    * ------------------------------------------
-   * 操作信息
+   * 入库操作第一步
    * ------------------------------------------
    *
-   * 操作信息
+   * 入库操作第一步
    *
    * @param Request $request [请求参数]
    * @return [type]
@@ -52,8 +52,8 @@ class InboundController extends BaseController
   {
     $messages = [
       'type.required'      => '请您选择类型',
-      'category.required'  => '请您选择出库类型',
-      'total.required'     => '请您输入出库数量',
+      'category.required'  => '请您选择入库类型',
+      'total.required'     => '请您输入入库数量',
       'operator.required'  => '请您输入操作人',
     ];
 
@@ -94,7 +94,6 @@ class InboundController extends BaseController
         $resource->picture     = $request->picture ?? '';
         $resource->save();
 
-        // $url = File::download('http://hnbimawen.oss-cn-beijing.aliyuncs.com/fce94a96b4ed7e3754b28206a271598b.xlsx');
         $url = File::download($request->device_code);
 
         $url = File::getPhysicalUrl($url);
@@ -125,10 +124,10 @@ class InboundController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-12
    * ------------------------------------------
-   * 操作信息
+   * 入库操作第二步
    * ------------------------------------------
    *
-   * 操作信息
+   * 入库操作第二步
    *
    * @param Request $request [请求参数]
    * @return [type]
@@ -136,7 +135,7 @@ class InboundController extends BaseController
   public function second_step(Request $request)
   {
     $messages = [
-      'id.required'                    => '请您输入出库单编号',
+      'id.required'                    => '请您输入入库单编号',
       'device_code_warehouse.required' => '请您上传盘点设备码',
     ];
 
@@ -168,14 +167,14 @@ class InboundController extends BaseController
         $resource->device_code_warehouse = $request->device_code_warehouse ?? '';
         $resource->save();
 
-        // $data = file_get_contents($request->device_code);
+        $url = File::download($request->device_code);
 
-        // $url = File::file_base64($data, 'equipment');
-        // $url = str_replace('storage', '/storage/app/public', $url);
-        // $url = base_path(trim($url, '/'));
+        $url = File::getPhysicalUrl($url);
 
         // // 导入设备数据
-        // Excel::import(new EquipmentImport($model->id, $request->member_id), $url);
+        Excel::import(new EquipmentComparisonImport($model->id, $request->member_id), $url);
+
+        File::destroy($url);
 
         DB::commit();
 
@@ -209,7 +208,7 @@ class InboundController extends BaseController
   public function third_step(Request $request)
   {
     $messages = [
-      'id.required' => '请您输入出库单编号',
+      'id.required' => '请您输入入库单编号',
     ];
 
     $rule = [
