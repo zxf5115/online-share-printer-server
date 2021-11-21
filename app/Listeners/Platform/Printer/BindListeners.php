@@ -6,6 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Platform\Module\Printer;
 use App\Events\Platform\Printer\BindEvent;
+use App\Models\Platform\Module\Organization;
 use App\Models\Platform\Module\Outbound\Detail;
 
 /**
@@ -39,20 +40,23 @@ class BindListeners
 
       foreach($result as $item)
       {
-        $where = [
-          'id' => $item->printer_id,
-          'bind_status' => 2
-        ];
+        $model = Printer::getRow(['id' => $item->printer_id, 'bind_status' => 2]);
 
-        $model = Printer::getRow($where);
+        $member = Organization::getRow(['status' => 1, 'id' => $item->member_id]);
 
-        if(1 == $type)
+        $level = $member->level;
+
+        if(1 == $level)
         {
           $model->first_level_agent_id = $item->member_id;
         }
-        else
+        else if(2 == $level)
         {
           $model->second_level_agent_id = $item->member_id;
+        }
+        else
+        {
+          continue;
         }
 
         $model->bind_status = 1;
