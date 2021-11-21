@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
 use App\Models\Platform\Module\Printer;
-use App\Models\Platform\Module\Outbound\Detail;
+use App\Models\Platform\Module\Inbound\Detail;
 
 
 /**
@@ -20,15 +20,15 @@ use App\Models\Platform\Module\Outbound\Detail;
  */
 class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReading
 {
-  protected $outbound_id = null;
-  protected $member_id   = null;
+  protected $inbound_id = null;
+  protected $member_id  = null;
 
 
-  public function __construct($outbound_id, $member_id)
+  public function __construct($inbound_id, $member_id = 0)
   {
-    $this->outbound_id = $outbound_id;
+    $this->inbound_id = $inbound_id;
 
-    $this->member_id   = $member_id;
+    $this->member_id  = $member_id;
   }
 
 
@@ -84,9 +84,9 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
 
         $detail = new Detail();
 
-        $detail->outbound_id = $this->outbound_id;
-        $detail->member_id   = $this->member_id;
-        $detail->printer_id  = $printer_id;
+        $detail->inbound_id = $this->inbound_id;
+        $detail->member_id  = $this->member_id;
+        $detail->printer_id = $printer_id;
         $detail->save();
       }
 
