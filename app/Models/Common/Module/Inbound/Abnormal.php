@@ -27,7 +27,7 @@ class Abnormal extends Base
     'id',
     'inbound_id',
     'member_id',
-    'type'
+    'type',
     'code'
   ];
 
