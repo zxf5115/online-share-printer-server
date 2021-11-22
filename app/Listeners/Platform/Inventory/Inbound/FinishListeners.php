@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\Platform\Module\Inbound;
 use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Inbound\Detail;
+use App\Listeners\Platform\Inventory\Inbound\LogEvent;
 use App\Events\Platform\Inventory\Inbound\FinishEvent;
 use App\Events\Platform\Inventory\Inbound\AbnormalEvent;
 
@@ -56,6 +57,9 @@ class FinishListeners
         $inventory->model            = $item->model;
         $inventory->code             = $item->code;
         $inventory->save();
+
+        // 入库日志
+        event(new LogEvent($inbound_id, $item->member_id, $item->code, 3));
       }
     }
     catch(\Exception $e)
