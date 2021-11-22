@@ -54,8 +54,8 @@ class FinishListeners
         $inventory->member_id        = $item->member_id;
         $inventory->type             = $inbound->type['value'];
         $inventory->equipment_status = $inbound->category['value'];
-        $inventory->model            = $model;
-        $inventory->code             = $code;
+        $inventory->model            = $item->model;
+        $inventory->code             = $item->code;
         $inventory->save();
       }
     }
