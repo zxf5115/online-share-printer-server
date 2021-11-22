@@ -47,12 +47,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Common\NoticeListeners',
         ],
 
-        // 自动创建出库单
-        'App\Events\Platform\Inventory\AutoEvent' => [
-            'App\Listeners\Platform\Inventory\AutoListeners',
-        ],
-
-        // 自动创建出库单
+        // 设备绑定代理商
         'App\Events\Platform\Printer\BindEvent' => [
             'App\Listeners\Platform\Printer\BindListeners',
         ],
@@ -60,6 +55,26 @@ class EventServiceProvider extends ServiceProvider
         // 代理商设备数量
         'App\Events\Platform\Organization\Asset\Printer\TotalEvent' => [
             'App\Listeners\Platform\Organization\Asset\Printer\TotalListeners',
+        ],
+
+        // 自动创建出库单
+        'App\Events\Platform\Inventory\Outbound\AutoEvent' => [
+            'App\Listeners\Platform\Inventory\Outbound\AutoListeners',
+        ],
+
+        // 完成出库
+        'App\Events\Platform\Inventory\Outbound\FinishEvent' => [
+            'App\Listeners\Platform\Inventory\Outbound\FinishListeners',
+        ],
+
+        // 入库异常记录
+        'App\Events\Platform\Inventory\Inbound\AbnormalEvent' => [
+            'App\Listeners\Platform\Inventory\Inbound\AbnormalListeners',
+        ],
+
+        // 完成入库
+        'App\Events\Platform\Inventory\Inbound\FinishEvent' => [
+            'App\Listeners\Platform\Inventory\Inbound\FinishListeners',
         ],
     ];
 

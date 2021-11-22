@@ -8,11 +8,11 @@ use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;
 use App\Models\Platform\Module\Agent;
 use App\Models\Platform\Module\Printer;
-use App\Events\Platform\Inventory\AutoEvent;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Common\Module\Organization\Asset;
 use App\Models\Common\Module\Organization\Archive;
 use App\Models\Common\Module\Organization\Resource;
+use App\Events\Platform\Inventory\Outbound\AutoEvent;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]

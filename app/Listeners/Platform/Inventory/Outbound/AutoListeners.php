@@ -1,11 +1,11 @@
 <?php
-namespace App\Listeners\Platform\Inventory;
+namespace App\Listeners\Platform\Inventory\Outbound;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Platform\Module\Outbound;
-use App\Events\Platform\Inventory\AutoEvent;
+use App\Events\Platform\Inventory\Outbound\AutoEvent;
 
 class AutoListeners
 {

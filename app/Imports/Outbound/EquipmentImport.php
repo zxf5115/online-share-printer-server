@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
-use App\Models\Platform\Module\Printer;
+use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Outbound\Detail;
 
 
@@ -27,7 +27,6 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
   public function __construct($outbound_id, $member_id)
   {
     $this->outbound_id = $outbound_id;
-
     $this->member_id   = $member_id;
   }
 
@@ -60,22 +59,14 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
           continue;
         }
 
-        $code = $row[1];
+        $model = $row[0];
+        $code  = $row[1];
 
-        $model = Printer::firstOrNew(['code' => $code]);
+        $inventory = Inventory::firstOrNew(['code' => $code]);
 
-        if(empty($model->id))
+        if(empty($inventory->id))
         {
-          record('设备编码错误');
-
-          continue;
-        }
-
-        if(1 == $model->bind_status['value'])
-        {
-          $message = $code . '已绑定';
-
-          record($message);
+          record('设备不存在');
 
           continue;
         }
@@ -86,7 +77,8 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
 
         $detail->outbound_id = $this->outbound_id;
         $detail->member_id   = $this->member_id;
-        $detail->printer_id  = $printer_id;
+        $detail->model       = $model;
+        $detail->code        = $code;
         $detail->save();
       }
 

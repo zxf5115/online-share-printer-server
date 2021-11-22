@@ -9,8 +9,10 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
 use App\Models\Platform\Module\Printer;
-use App\Models\Platform\Module\Outbound\Detail;
-
+use App\Models\Platform\Module\Inbound\Detail;
+use App\Models\Platform\Module\Inbound\Abnormal;
+use App\Events\Platform\Inventory\Inbound\FinishEvent;
+use App\Events\Platform\Inventory\Inbound\AbnormalEvent;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -50,6 +52,8 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
   {
     try
     {
+      $result = Detail::getList(['inbound_id' => $this->inbound_id]);
+
       foreach ($rows as $row)
       {
         if(empty($row[0]))
@@ -61,14 +65,16 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
 
         $code = $row[0];
 
-        $model = Printer::firstOrNew(['code' => $code]);
+        $model = Printer::getRow(['code' => $code]);
 
         if(empty($model->id))
         {
-          record('设备编码错误');
+          // 对比表中存在,产品表中不存在: 异常2
+          event(new AbnormalEvent($this->inbound_id, $this->member_id, 2, $model, $code));
 
           continue;
         }
+
 
         if(1 == $model->bind_status['value'])
         {

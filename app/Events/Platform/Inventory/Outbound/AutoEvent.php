@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Platform\Inventory;
+namespace App\Events\Platform\Inventory\Outbound;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;

@@ -8,10 +8,10 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Constant\Code;
 use App\Models\Common\System\File;
 use App\Imports\Outbound\EquipmentImport;
-use App\Events\Platform\Printer\BindEvent;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Platform\Module\Outbound\Resource;
 use App\Models\Platform\Module\Outbound\Logistics;
+use App\Events\Platform\Inventory\Outbound\FinishEvent;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -247,7 +247,7 @@ class OutboundController extends BaseController
         $resource->save();
 
         // 自动绑定设备
-        event(new BindEvent($request->id));
+        event(new FinishEvent($request->id));
 
         DB::commit();
 
