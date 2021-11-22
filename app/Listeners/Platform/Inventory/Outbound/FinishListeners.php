@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\Platform\Module\Printer;
 use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Outbound\Detail;
+use App\Events\Platform\Inventory\Outbound\LogEvent;
 use App\Events\Platform\Inventory\Outbound\FinishEvent;
 use App\Events\Platform\Organization\Asset\Printer\TotalEvent;
 
@@ -28,10 +29,10 @@ class FinishListeners
   /**
    * Handle the event.
    *
-   * @param  FinishListeners  $event
+   * @param  FinishEvent  $event
    * @return void
    */
-  public function handle(FinishListeners $event)
+  public function handle(FinishEvent $event)
   {
     try
     {
