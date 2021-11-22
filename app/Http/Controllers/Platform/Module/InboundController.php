@@ -167,7 +167,7 @@ class InboundController extends BaseController
         $resource->device_code_warehouse = $request->device_code_warehouse ?? '';
         $resource->save();
 
-        $url = File::download($request->device_code);
+        $url = File::download($request->device_code_warehouse);
 
         $url = File::getPhysicalUrl($url);
 

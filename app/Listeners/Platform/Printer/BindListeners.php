@@ -8,6 +8,7 @@ use App\Models\Platform\Module\Printer;
 use App\Events\Platform\Printer\BindEvent;
 use App\Models\Platform\Module\Organization;
 use App\Models\Platform\Module\Outbound\Detail;
+use App\Events\Platform\Organization\Asset\Printer\TotalEvent;
 
 /**
  * 设备绑定监听器
@@ -42,6 +43,11 @@ class BindListeners
       {
         $model = Printer::getRow(['id' => $item->printer_id, 'bind_status' => 2]);
 
+        if(empty($model->id))
+        {
+          continue;
+        }
+
         $member = Organization::getRow(['status' => 1, 'id' => $item->member_id]);
 
         $level = $member->level;
@@ -61,7 +67,12 @@ class BindListeners
 
         $model->bind_status = 1;
         $model->save();
+
+        // 添加实际接受打印机数量
+        event(new TotalEvent($item->member_id));
       }
+
+      $total = count($result);
     }
     catch(\Exception $e)
     {

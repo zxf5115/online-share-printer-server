@@ -53,14 +53,14 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
     {
       foreach ($rows as $row)
       {
-        if(empty($row[0]))
+        if(empty($row[1]))
         {
           record('花名册缺少内容');
 
           continue;
         }
 
-        $code = $row[0];
+        $code = $row[1];
 
         $model = Printer::firstOrNew(['code' => $code]);
 

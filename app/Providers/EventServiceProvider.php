@@ -56,6 +56,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Platform\Printer\BindEvent' => [
             'App\Listeners\Platform\Printer\BindListeners',
         ],
+
+        // 代理商设备数量
+        'App\Events\Platform\Organization\Asset\Printer\TotalEvent' => [
+            'App\Listeners\Platform\Organization\Asset\Printer\TotalListeners',
+        ],
     ];
 
     /**

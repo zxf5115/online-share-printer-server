@@ -101,6 +101,7 @@ class OutboundController extends BaseController
         $model->active          = 1;
         $model->save();
 
+        // 出库文件资源
         $resource = Resource::firstOrNew(['outbound_id' => $model->id]);
 
         $resource->device_code = $request->device_code ?? '';
