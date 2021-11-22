@@ -68,7 +68,7 @@ class FinishListeners
         $inventory->save();
 
         // 出库日志
-        event(new LogEvent($inventory->id, $item->member_id, $code, 3));
+        event(new LogEvent($inventory->id, $item->member_id, $item->code, 3));
 
         $printer = new Printer();
 
