@@ -48,6 +48,8 @@ class FinishListeners
         {
           // 对比表中不存在,产品表中存在: 异常1
           event(new AbnormalEvent($inbound_id, $item->member_id, 1, $item->model, $item->code));
+
+          continue;
         }
 
         $inventory = new Inventory();
