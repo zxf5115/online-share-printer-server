@@ -8,9 +8,10 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Constant\Code;
 use App\Models\Common\System\File;
 use App\Imports\Inbound\EquipmentImport;
-use App\Imports\Inbound\EquipmentComparisonImport;
 use App\Models\Platform\Module\Inbound\Resource;
 use App\Http\Controllers\Platform\BaseController;
+use App\Imports\Inbound\EquipmentComparisonImport;
+use App\Events\Platform\Inventory\Inbound\FinishEvent;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -166,6 +167,9 @@ class InboundController extends BaseController
 
         $resource->device_code_warehouse = $request->device_code_warehouse ?? '';
         $resource->save();
+
+        // 完成入库
+        event(new FinishEvent($request->id));
 
         $url = File::download($request->device_code_warehouse);
 

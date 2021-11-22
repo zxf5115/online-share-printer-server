@@ -11,7 +11,6 @@ use App\Http\Constant\Code;
 use App\Models\Platform\Module\Printer;
 use App\Models\Platform\Module\Inbound\Detail;
 use App\Models\Platform\Module\Inbound\Abnormal;
-use App\Events\Platform\Inventory\Inbound\FinishEvent;
 use App\Events\Platform\Inventory\Inbound\AbnormalEvent;
 
 /**
@@ -52,10 +51,6 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
   {
     try
     {
-      $result = Detail::getPluck('code', ['inbound_id' => $this->inbound_id], false, false, true);
-
-      dd($result);
-
       foreach ($rows as $row)
       {
         if(empty($row[1]))
@@ -68,9 +63,9 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
         $model = $row[0];
         $code  = $row[1];
 
-        $model = Inventory::getRow(['code' => $code]);
+        $detail = Detail::getRow(['code' => $code]);
 
-        if(empty($model->id))
+        if(empty($detail->id))
         {
           // 对比表中存在,产品表中不存在: 异常2
           event(new AbnormalEvent($this->inbound_id, $this->member_id, 2, $model, $code));
@@ -78,23 +73,7 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
           continue;
         }
 
-
-        if(1 == $model->bind_status['value'])
-        {
-          $message = $code . '已绑定';
-
-          record($message);
-
-          continue;
-        }
-
-        $printer_id = $model->id;
-
-        $detail = new Detail();
-
-        $detail->inbound_id = $this->inbound_id;
-        $detail->member_id  = $this->member_id;
-        $detail->printer_id = $printer_id;
+        $detail->is_normal = 1;
         $detail->save();
       }
 

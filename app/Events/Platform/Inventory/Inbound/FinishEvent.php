@@ -16,18 +16,16 @@ class FinishEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $model      = null;
-  public $code       = null;
+  public $inbound_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($model, $code)
+  public function __construct($inbound_id)
   {
-    $this->model = $model;
-    $this->code  = $code;
+    $this->inbound_id = $inbound_id;
   }
 
   /**
