@@ -70,7 +70,8 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
 
           continue;
         }
-        else(2 == $inventory->inventory_status['value'])
+
+        if(2 == $inventory->inventory_status['value'])
         {
           record('设备已出库');
 
