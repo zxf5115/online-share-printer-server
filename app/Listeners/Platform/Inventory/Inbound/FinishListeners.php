@@ -8,6 +8,7 @@ use App\Models\Platform\Module\Inbound;
 use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Inbound\Detail;
 use App\Events\Platform\Inventory\Inbound\FinishEvent;
+use App\Events\Platform\Inventory\Inbound\AbnormalEvent;
 
 /**
  * 完成入库监听器
