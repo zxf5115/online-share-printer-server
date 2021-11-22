@@ -176,7 +176,7 @@ class InboundController extends BaseController
         $url = File::getPhysicalUrl($url);
 
         // // 导入设备数据
-        Excel::import(new EquipmentComparisonImport($model->id, $request->member_id), $url);
+        Excel::import(new EquipmentComparisonImport($model->id, $model->member_id), $url);
 
         File::destroy($url);
 
@@ -201,10 +201,10 @@ class InboundController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-12
    * ------------------------------------------
-   * 操作信息
+   * 入库操作第三步
    * ------------------------------------------
    *
-   * 操作信息
+   * 入库操作第三步
    *
    * @param Request $request [请求参数]
    * @return [type]
