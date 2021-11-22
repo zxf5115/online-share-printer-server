@@ -38,6 +38,7 @@ class LogListeners
       $code         = $event->code;
       $status       = $event->status;
 
+      $operator = auth('platform')->user()->nickname;
       $content = '入库操作: ';
       $message = '预入库';
 
