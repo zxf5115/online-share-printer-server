@@ -153,7 +153,7 @@ class AgentController extends BaseController
         $resource->save();
 
         // 自动生成出库单
-        event(new AutoEvent($model->id, $request->should_printer_total));
+        event(new AutoEvent($model->id, $request->should_printer_total, $request->equipment_url));
 
         DB::commit();
 

@@ -13,18 +13,20 @@ class AutoEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $member_id = null;
-  public $total     = null;
+  public $member_id     = null;
+  public $total         = null;
+  public $equipment_url = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($member_id, $total)
+  public function __construct($member_id, $total, $equipment_url = '')
   {
-    $this->member_id = $member_id;
-    $this->total     = $total;
+    $this->member_id     = $member_id;
+    $this->total         = $total;
+    $this->equipment_url = $equipment_url;
   }
 
   /**

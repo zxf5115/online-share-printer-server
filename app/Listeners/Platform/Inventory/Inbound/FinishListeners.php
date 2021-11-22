@@ -61,7 +61,7 @@ class FinishListeners
         $inventory->save();
 
         // 入库日志
-        event(new LogEvent($inbound_id, $item->member_id, $item->code, 3));
+        event(new LogEvent($inventory->id, $item->member_id, $item->code, 3));
       }
     }
     catch(\Exception $e)
