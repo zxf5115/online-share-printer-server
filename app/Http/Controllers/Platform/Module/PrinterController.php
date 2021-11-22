@@ -33,7 +33,9 @@ class PrinterController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'manager'
+      'first',
+      'second',
+      'manager',
     ],
     'select' => false,
     'view' => [
