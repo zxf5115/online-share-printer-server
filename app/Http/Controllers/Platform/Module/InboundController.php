@@ -168,9 +168,6 @@ class InboundController extends BaseController
         $resource->device_code_warehouse = $request->device_code_warehouse ?? '';
         $resource->save();
 
-        // 完成入库
-        event(new FinishEvent($request->id));
-
         $url = File::download($request->device_code_warehouse);
 
         $url = File::getPhysicalUrl($url);
@@ -179,6 +176,9 @@ class InboundController extends BaseController
         Excel::import(new EquipmentComparisonImport($model->id, $model->member_id), $url);
 
         File::destroy($url);
+
+        // 完成入库
+        event(new FinishEvent($request->id));
 
         DB::commit();
 
