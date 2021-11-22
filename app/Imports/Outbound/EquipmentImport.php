@@ -78,8 +78,6 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
           continue;
         }
 
-        $printer_id = $model->id;
-
         $detail = new Detail();
 
         $detail->outbound_id = $this->outbound_id;
