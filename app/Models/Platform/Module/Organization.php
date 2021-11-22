@@ -13,6 +13,27 @@ class Organization extends Common
 {
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-22
+   * ------------------------------------------
+   * 获得代理商姓名
+   * ------------------------------------------
+   *
+   * 获得代理商姓名
+   *
+   * @param [type] $id 代理商编号
+   * @return [type]
+   */
+  public static function getOrganizationName($id)
+  {
+    $result = self::getRow(['id' => $id]);
+
+    return $result->nickname ?: '';
+  }
+
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-30
    * ------------------------------------------
    * 获取机构数据

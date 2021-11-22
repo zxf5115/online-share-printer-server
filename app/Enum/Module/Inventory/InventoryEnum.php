@@ -61,6 +61,11 @@ class InventoryEnum
 
     self::INK => [
       'value' => self::INK,
+      'text' => '预出库'
+    ],
+
+    self::PAPER => [
+      'value' => self::PAPER,
       'text' => '已出库'
     ],
   ];

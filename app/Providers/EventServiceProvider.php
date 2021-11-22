@@ -57,6 +57,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Platform\Organization\Asset\Printer\TotalListeners',
         ],
 
+        // 出库日志
+        'App\Events\Platform\Inventory\Outbound\LogEvent' => [
+            'App\Listeners\Platform\Inventory\Outbound\LogListeners',
+        ],
+
         // 自动创建出库单
         'App\Events\Platform\Inventory\Outbound\AutoEvent' => [
             'App\Listeners\Platform\Inventory\Outbound\AutoListeners',
@@ -65,6 +70,11 @@ class EventServiceProvider extends ServiceProvider
         // 完成出库
         'App\Events\Platform\Inventory\Outbound\FinishEvent' => [
             'App\Listeners\Platform\Inventory\Outbound\FinishListeners',
+        ],
+
+        // 入库日志
+        'App\Events\Platform\Inventory\Inbound\LogEvent' => [
+            'App\Listeners\Platform\Inventory\Inbound\LogListeners',
         ],
 
         // 入库异常记录

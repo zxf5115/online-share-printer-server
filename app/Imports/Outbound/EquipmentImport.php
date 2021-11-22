@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
 use App\Models\Platform\Module\Inventory;
+use App\Events\Platform\Inventory\LogEvent;
 use App\Models\Platform\Module\Outbound\Detail;
 
 
@@ -71,15 +72,22 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
           continue;
         }
 
-        if(2 == $inventory->inventory_status['value'])
+        if(1 != $inventory->inventory_status['value'])
         {
-          record('设备已出库');
+          record('设备不能出库');
 
           continue;
         }
 
-        $detail = new Detail();
+        // 标记为预出库
+        $inventory->inventory_status = 2;
+        $inventory->save();
 
+        // 出库日志
+        event(new LogEvent($inventory->id, $this->member_id, $code, 2));
+
+        // 添加出库记录
+        $detail = new Detail();
         $detail->outbound_id = $this->outbound_id;
         $detail->member_id   = $this->member_id;
         $detail->model       = $model;
