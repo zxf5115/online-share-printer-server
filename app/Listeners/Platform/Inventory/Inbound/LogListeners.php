@@ -9,7 +9,7 @@ use App\Models\Platform\Module\Inventory\Log;
 use App\Events\Platform\Inventory\Inbound\LogEvent;
 
 /**
- * 库存日志监听器
+ * 入库日志监听器
  */
 class LogListeners
 {
@@ -35,35 +35,34 @@ class LogListeners
     {
       $inventory_id = $event->inventory_id;
       $member_id    = $event->member_id;
+      $code         = $event->code;
       $status       = $event->status;
-      $type         = $event->type;
 
       $content = '入库操作: ';
-      $message = '预出库处理';
+      $message = '预入库';
 
       $current_time = date('Y-m-d H:i:s');
 
       // 代理商姓名
       $nickname = Organization::getOrganizationName($member_id);
 
-      if(2 == $type)
-      {
-        $content = '出库操作: ';
-      }
-
       if(3 == $status)
       {
-        $message = '';
+        $message = '入库';
       }
 
-      $content = $content . $current_time . ' 将设备做 ' . $nickname
-
+      $content = $content .
+                 $operator .
+                 ' 在 ' .
+                 $current_time .
+                 ' 将设备编号(' . $code .') 的设备' .
+                 $message;
 
       $model = new Log();
 
       $model->inventory_id = $inventory_id;
       $model->content      = $content;
-      $model->operator     = auth('platform')->user()->nickname;
+      $model->operator     = $operator;
       $model->save();
     }
     catch(\Exception $e)

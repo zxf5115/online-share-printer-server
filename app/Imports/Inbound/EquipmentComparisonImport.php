@@ -52,20 +52,23 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
   {
     try
     {
-      $result = Detail::getList(['inbound_id' => $this->inbound_id]);
+      $result = Detail::getPluck('code', ['inbound_id' => $this->inbound_id]);
+
+      dd($result);
 
       foreach ($rows as $row)
       {
-        if(empty($row[0]))
+        if(empty($row[1]))
         {
           record('花名册缺少内容');
 
           continue;
         }
 
-        $code = $row[0];
+        $model = $row[0];
+        $code  = $row[1];
 
-        $model = Printer::getRow(['code' => $code]);
+        $model = Inventory::getRow(['code' => $code]);
 
         if(empty($model->id))
         {

@@ -40,7 +40,7 @@ class LogListeners
 
       $operator = auth('platform')->user()->nickname;
       $content  = '出库操作: ';
-      $message  = '预出库: ';
+      $message  = '预出库';
 
       $current_time = date('Y-m-d H:i:s');
 
