@@ -25,6 +25,11 @@ class Organization extends Common
    */
   public static function getOrganizationName($id)
   {
+    if(empty($id))
+    {
+      return '';
+    }
+
     $result = self::getRow(['id' => $id]);
 
     return $result->nickname ?: '';
