@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\Platform\Module\Inbound;
 use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Inbound\Detail;
-use App\Listeners\Platform\Inventory\Inbound\LogEvent;
+use App\Events\Platform\Inventory\Inbound\LogEvent;
 use App\Events\Platform\Inventory\Inbound\FinishEvent;
 use App\Events\Platform\Inventory\Inbound\AbnormalEvent;
 
