@@ -51,7 +51,6 @@ class FinishListeners
 
         $inventory = new Inventory();
 
-        $inventory->member_id        = $item->member_id;
         $inventory->type             = $inbound->type['value'];
         $inventory->equipment_status = $inbound->category['value'];
         $inventory->model            = $item->model;
