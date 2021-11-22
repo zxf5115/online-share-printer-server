@@ -52,7 +52,7 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
   {
     try
     {
-      $result = Detail::getPluck('code', ['inbound_id' => $this->inbound_id]);
+      $result = Detail::getPluck('code', ['inbound_id' => $this->inbound_id], false, false, true);
 
       dd($result);
 
