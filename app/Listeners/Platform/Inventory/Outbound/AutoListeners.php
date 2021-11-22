@@ -1,6 +1,7 @@
 <?php
 namespace App\Listeners\Platform\Inventory\Outbound;
 
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -42,6 +43,7 @@ class AutoListeners
       $model->category  = 1;
       $model->member_id = $member_id;
       $model->total     = $total;
+      $model->operator  = auth('platform')->user()->nickname;
       $model->save();
 
       // 如果是二级分销商，一级分销商提供设备文档
