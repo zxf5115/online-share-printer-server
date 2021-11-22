@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
+use App\Models\Platform\Module\Outbound;
 use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Outbound\Detail;
 use App\Events\Platform\Inventory\Outbound\LogEvent;

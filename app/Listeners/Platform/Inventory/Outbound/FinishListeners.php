@@ -5,6 +5,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Platform\Module\Printer;
+use App\Models\Platform\Module\Inventory;
 use App\Models\Platform\Module\Outbound\Detail;
 use App\Events\Platform\Inventory\Outbound\FinishEvent;
 use App\Events\Platform\Organization\Asset\Printer\TotalEvent;
@@ -59,6 +60,13 @@ class FinishListeners
         {
           $second_level_agent_id = $item->member_id;
         }
+
+        $inventory = Inventory::getRow(['code' => $item->code]);
+        $inventory->inventory_status = 3;
+        $inventory->save();
+
+        // 出库日志
+        event(new LogEvent($inventory->id, $item->member_id, $code, 3));
 
         $printer = new Printer();
 
