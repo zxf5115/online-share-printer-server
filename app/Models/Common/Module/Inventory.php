@@ -61,6 +61,23 @@ class Inventory extends Base
     return InventoryEnum::getEquipmentStatus($value);
   }
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 库存状态封装
+   * ------------------------------------------
+   *
+   * 库存状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getInventoryStatusAttribute($value)
+  {
+    return InventoryEnum::getInventoryStatus($value);
+  }
+
   // 关联函数 ------------------------------------------------------
 
   /**

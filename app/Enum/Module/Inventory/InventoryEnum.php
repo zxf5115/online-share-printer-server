@@ -52,6 +52,19 @@ class InventoryEnum
     ],
   ];
 
+  // 库存状态
+  public static $inventory = [
+    self::PRINTER       => [
+      'value' => self::PRINTER,
+      'text' => '未出库'
+    ],
+
+    self::INK => [
+      'value' => self::INK,
+      'text' => '已出库'
+    ],
+  ];
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -88,4 +101,21 @@ class InventoryEnum
     return self::$equipment[$code] ?: self::$equipment[self::PRINTER];
   }
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-07-05
+   * ------------------------------------------
+   * 库存状态封装
+   * ------------------------------------------
+   *
+   * 库存状态封装
+   *
+   * @param int $code 信息代码
+   * @return 信息内容
+   */
+  public static function getInventoryStatus($code)
+  {
+    return self::$inventory[$code] ?: self::$inventory[self::PRINTER];
+  }
 }
