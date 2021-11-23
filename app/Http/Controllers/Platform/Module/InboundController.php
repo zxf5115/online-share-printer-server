@@ -33,7 +33,8 @@ class InboundController extends BaseController
 
   // 关联对象
   protected $_relevance = [
-    'member'
+    'member',
+    'resource'
   ];
 
 
