@@ -63,14 +63,17 @@ class EquipmentComparisonImport implements ToCollection, WithBatchInserts, WithC
         $model = $row[0];
         $code  = $row[1];
 
-        $detail = Detail::getRow(['code' => $code]);
+        $detail = Detail::firstOrNew(['code' => $code]);
 
         if(empty($detail->id))
         {
           // 对比表中存在,产品表中不存在: 异常2
           event(new AbnormalEvent($this->inbound_id, $this->member_id, 2, $model, $code));
 
-          continue;
+          $detail->inbound_id = $this->inbound_id;
+          $detail->member_id  = $this->member_id;
+          $detail->model      = $model;
+          $detail->code       = $code;
         }
 
         $detail->is_normal = 1;
