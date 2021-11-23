@@ -2,6 +2,7 @@
 namespace App\Models\Common\Module\Inbound;
 
 use App\Models\Base;
+use App\Enum\Module\Inventory\Inbound\AbnormalEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -31,6 +32,23 @@ class Abnormal extends Base
     'code'
   ];
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-23
+   * ------------------------------------------
+   * 入库异常类型封装
+   * ------------------------------------------
+   *
+   * 入库异常类型封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getTypeAttribute($value)
+  {
+    return AbnormalEnum::getTypeStatus($value);
+  }
 
   // 关联函数 ------------------------------------------------------
 

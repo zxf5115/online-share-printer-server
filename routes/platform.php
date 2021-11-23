@@ -472,6 +472,11 @@ $api->version('v1', [
           $api->group(['prefix' => 'resource'], function ($api) {
             $api->any('view/{id}', 'ResourceController@view');
           });
+
+          // 入库异常路由
+          $api->group(['prefix' => 'abnormal'], function ($api) {
+            $api->any('list', 'AbnormalController@list');
+          });
         });
       });
 
