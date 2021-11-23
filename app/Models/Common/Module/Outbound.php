@@ -79,7 +79,7 @@ class Outbound extends Base
    */
   public function detail()
   {
-    return $this->belongsTo(
+    return $this->hasMany(
       'App\Models\Common\Module\Outbound\Detail',
       'outbound_id',
       'id'
@@ -100,7 +100,7 @@ class Outbound extends Base
    */
   public function resource()
   {
-    return $this->belongsTo(
+    return $this->hasOne(
       'App\Models\Common\Module\Outbound\Resource',
       'outbound_id',
       'id'
@@ -121,7 +121,7 @@ class Outbound extends Base
    */
   public function logistics()
   {
-    return $this->belongsTo(
+    return $this->hasOne(
       'App\Models\Common\Module\Outbound\Logistics',
       'outbound_id',
       'id'

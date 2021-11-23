@@ -177,9 +177,6 @@ class InboundController extends BaseController
 
         File::destroy($url);
 
-        // 完成入库
-        event(new FinishEvent($request->id));
-
         DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
@@ -242,8 +239,8 @@ class InboundController extends BaseController
         $resource->receipt_form = $request->receipt_form ?? '';
         $resource->save();
 
-        // 自动绑定设备
-        event(new BindEvent($request->id));
+        // 完成入库
+        event(new FinishEvent($request->id));
 
         DB::commit();
 
