@@ -59,9 +59,15 @@ class InventoryController extends BaseController
 
       ksort($result);
 
-      if(empty($result))
+      $total = count($result);
+
+      if(3 > $total)
       {
-        $result = array_fill(0, 3, 0);
+        $num = 3 - $total;
+
+        $fill = array_fill(0, $num, 0);
+
+        $result = array_merge($result, $fill);
       }
 
       $key = ['printer', 'ink', 'paper'];
