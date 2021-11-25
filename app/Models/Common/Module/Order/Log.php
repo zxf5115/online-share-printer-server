@@ -69,7 +69,7 @@ class Log extends Base
       'App\Models\Common\Module\Member',
       'member_id',
       'id'
-    )->where(['status'=>1]);
+    );
   }
 
 
@@ -90,6 +90,6 @@ class Log extends Base
       'App\Models\Common\Module\Order',
       'order_id',
       'id'
-    )->where(['status'=>1]);
+    );
   }
 }

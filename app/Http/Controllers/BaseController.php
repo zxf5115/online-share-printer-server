@@ -442,6 +442,45 @@ class BaseController extends Controller
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-23
+   * ------------------------------------------
+   * 获得查询当前用户字段
+   * ------------------------------------------
+   *
+   * 获得查询当前用户字段
+   *
+   * @return [type]
+   */
+  public static function getCurrentUserQueryField()
+  {
+    $response = 'member_id';
+
+    $level = auth('api')->user()->level;
+
+    $role_id = auth('api')->user()->role_id;
+
+    if(2 == $role_id)
+    {
+      $response = 'manager_id';
+    }
+    else if(3 == $role_id)
+    {
+      if(1 == $level)
+      {
+        $response = 'first_level_agent_id';
+      }
+      else if(2 == $level)
+      {
+        $response = 'second_level_agent_id';
+      }
+    }
+
+    return $response;
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-07
    * ------------------------------------------
    * 获取关联查询数据

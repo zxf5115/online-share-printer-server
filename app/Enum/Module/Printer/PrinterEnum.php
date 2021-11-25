@@ -59,7 +59,7 @@ class PrinterEnum extends BaseEnum
    * @param int $code 信息代码
    * @return 信息内容
    */
-  public static function getStatus($code)
+  public static function getActivateStatus($code)
   {
     return self::$status[$code] ?: self::$status[self::ONLINE];
   }

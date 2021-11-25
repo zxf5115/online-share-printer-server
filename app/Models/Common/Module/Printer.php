@@ -33,6 +33,7 @@ class Printer extends Base
    */
   protected $casts = [
     'status' => 'array',
+    'bind_time' => 'datetime:Y-m-d H:i:s',
     'activate_time' => 'datetime:Y-m-d H:i:s',
     'create_time' => 'datetime:Y-m-d H:i:s',
     'update_time' => 'datetime:Y-m-d H:i:s',
@@ -120,9 +121,9 @@ class Printer extends Base
    * @param [type] $value [description]
    * @return [type]
    */
-  public function getStatusAttribute($value)
+  public function getActivateStatusAttribute($value)
   {
-    return PrinterEnum::getStatus($value);
+    return PrinterEnum::getActivateStatus($value);
   }
 
 

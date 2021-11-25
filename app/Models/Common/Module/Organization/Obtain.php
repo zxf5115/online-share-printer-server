@@ -34,19 +34,36 @@ class Obtain extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-07-13
    * ------------------------------------------
-   * 提现方式类型封装
+   * 收益类型封装
    * ------------------------------------------
    *
-   * 提现方式类型封装
+   * 收益类型封装
    *
    * @param int $value 状态值
    * @return 状态信息
    */
-  public function getPayTypeAttribute($value)
+  public function getTypeAttribute($value)
   {
-    return ObtainEnum::getPayType($value);
+    return ObtainEnum::getType($value);
   }
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-13
+   * ------------------------------------------
+   * 确认状态封装
+   * ------------------------------------------
+   *
+   * 确认状态封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getConfirmStatusAttribute($value)
+  {
+    return ObtainEnum::getConfirmStatus($value);
+  }
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -83,6 +100,27 @@ class Obtain extends Base
     return $this->belongsTo(
       'App\Models\Common\Module\Organization',
       'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-25
+   * ------------------------------------------
+   * 代理商收益与订单关联表
+   * ------------------------------------------
+   *
+   * 代理商收益与订单关联表
+   *
+   * @return [关联对象]
+   */
+  public function order()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Order',
+      'order_id',
       'id'
     );
   }

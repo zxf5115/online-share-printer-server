@@ -22,7 +22,7 @@ class PrinterController extends BaseController
   protected $_params = [
     'title',
     'bind_status',
-    'status',
+    'activate_status',
   ];
 
   // 或者查询字段

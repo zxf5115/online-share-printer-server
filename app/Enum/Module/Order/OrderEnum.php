@@ -15,9 +15,10 @@ class OrderEnum
   const BALANCE = 3; // 余额
   const APPLE   = 4; // 苹果
 
-  const WAIT    = 0; // 待支付
-  const FINISH  = 1; // 已支付
-  const CANCEL  = 4; // 已退款
+  const WAIT   = 0; // 待支付
+  const FINISH = 1; // 已支付
+  const CANCEL = 3; // 已取消
+  const BACK   = 4; // 已退款
 
 
   // 支付类型
@@ -71,6 +72,11 @@ class OrderEnum
 
     self::CANCEL => [
       'value' => self::CANCEL,
+      'text' => '已取消'
+    ],
+
+    self::BACK => [
+      'value' => self::BACK,
       'text' => '已退款'
     ],
   ];
