@@ -75,30 +75,30 @@ class Printer extends Common
           $response[$province_id]['离线'] = 0;
           $response[$province_id]['故障'] = 0;
 
-          if(1 == $item->status['value'])
+          if(1 == $item->activate_status['value'])
           {
             $response[$province_id]['在线'] += 1;
           }
-          else if(2 == $item->status['value'])
+          else if(2 == $item->activate_status['value'])
           {
             $response[$province_id]['离线'] += 1;
           }
-          else if(3 == $item->status['value'])
+          else if(3 == $item->activate_status['value'])
           {
             $response[$province_id]['故障'] += 1;
           }
         }
         else
         {
-          if(1 == $item->status['value'])
+          if(1 == $item->activate_status['value'])
           {
             $response[$province_id]['在线'] += 1;
           }
-          else if(2 == $item->status['value'])
+          else if(2 == $item->activate_status['value'])
           {
             $response[$province_id]['离线'] += 1;
           }
-          else if(3 == $item->status['value'])
+          else if(3 == $item->activate_status['value'])
           {
             $response[$province_id]['故障'] += 1;
           }
