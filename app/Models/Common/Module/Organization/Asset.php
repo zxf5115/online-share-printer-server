@@ -38,19 +38,19 @@ class Asset extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-20
+   * @dateTime 2021-12-06
    * ------------------------------------------
-   * 学员资产与学员关联表
+   * 机构资产与机构分红关联表
    * ------------------------------------------
    *
-   * 学员资产与学员关联表
+   * 机构资产与机构分红关联表
    *
    * @return [关联对象]
    */
-  public function member()
+  public function obtain()
   {
-    return $this->belongsTo(
-      'App\Models\Common\Module\Member',
+    return $this->hasMany(
+      'App\Models\Common\Module\Organization\Obtain',
       'member_id',
       'id'
     );
