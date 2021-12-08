@@ -233,6 +233,27 @@ class Organization extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-12-08
+   * ------------------------------------------
+   * 机构与收益关联函数
+   * ------------------------------------------
+   *
+   * 机构与收益关联函数
+   *
+   * @return [关联对象]
+   */
+  public function obtain()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Organization\Obtain',
+      'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-09-24
    * ------------------------------------------
    * 一级代理商与会员打印机关联表

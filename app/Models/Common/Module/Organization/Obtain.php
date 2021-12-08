@@ -44,26 +44,9 @@ class Obtain extends Base
    */
   public function getTypeAttribute($value)
   {
-    return ObtainEnum::getType($value);
+    return ObtainEnum::getTypeStatus($value);
   }
 
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-07-13
-   * ------------------------------------------
-   * 确认状态封装
-   * ------------------------------------------
-   *
-   * 确认状态封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getConfirmStatusAttribute($value)
-  {
-    return ObtainEnum::getConfirmStatus($value);
-  }
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
