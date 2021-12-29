@@ -16,9 +16,11 @@ class OrderEnum
   const APPLE   = 4; // 苹果
 
   const WAIT   = 0; // 待支付
-  const FINISH = 1; // 已支付
-  const CANCEL = 3; // 已取消
-  const BACK   = 4; // 已退款
+  const PAY    = 1; // 已支付
+  const FINISH = 2; // 已完成
+  const ERROR  = 3; // 订单异常
+  const CANCEL = 4; // 已取消
+  const BACK   = 5; // 已退款
 
 
   // 支付类型
@@ -65,9 +67,19 @@ class OrderEnum
       'text' => '待开始'
     ],
 
+    self::PAY => [
+      'value' => self::PAY,
+      'text' => '已支付'
+    ],
+
     self::FINISH => [
       'value' => self::FINISH,
       'text' => '已完成'
+    ],
+
+    self::ERROR => [
+      'value' => self::ERROR,
+      'text' => '订单异常'
     ],
 
     self::CANCEL => [
