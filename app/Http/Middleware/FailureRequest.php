@@ -2,6 +2,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Http\Constant\Code;
 use App\Models\Api\Module\Member;
 
 /**
