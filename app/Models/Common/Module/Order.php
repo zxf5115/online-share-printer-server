@@ -61,24 +61,6 @@ class Order extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-29
    * ------------------------------------------
-   * 打印类型封装
-   * ------------------------------------------
-   *
-   * 打印类型封装
-   *
-   * @param [type] $value [description]
-   * @return [type]
-   */
-  public function getTypeAttribute($value)
-  {
-    return OrderEnum::getTypeStatus($value);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-29
-   * ------------------------------------------
    * 支付类型封装
    * ------------------------------------------
    *
@@ -231,6 +213,27 @@ class Order extends Base
     return $this->belongsTo(
       'App\Models\Common\Module\Printer',
       'printer_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-29
+   * ------------------------------------------
+   * 订单与打印价格关联函数
+   * ------------------------------------------
+   *
+   * 订单与打印价格关联函数
+   *
+   * @return [关联对象]
+   */
+  public function price()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Price',
+      'type',
       'id'
     );
   }

@@ -93,37 +93,6 @@ class OrderEnum
     ],
   ];
 
-  // 打印类型
-  public static $type = [
-    self::ALI       => [
-      'value' => self::ALI,
-      'text' => '黑白'
-    ],
-
-    self::WECHAT => [
-      'value' => self::WECHAT,
-      'text' => '彩色'
-    ],
-  ];
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 打印类型封装
-   * ------------------------------------------
-   *
-   * 打印类型封装
-   *
-   * @param int $code 信息代码
-   * @return 信息内容
-   */
-  public static function getTypeStatus($code)
-  {
-    return self::$type[$code] ?: self::$type[self::ALI];
-  }
-
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
