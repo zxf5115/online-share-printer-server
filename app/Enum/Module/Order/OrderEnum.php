@@ -54,8 +54,8 @@ class OrderEnum
       'text' => '待支付'
     ],
 
-    self::FINISH => [
-      'value' => self::FINISH,
+    self::PAY => [
+      'value' => self::PAY,
       'text' => '已支付'
     ],
   ];
