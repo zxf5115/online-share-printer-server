@@ -69,7 +69,7 @@ class OrderEnum
 
     self::PAY => [
       'value' => self::PAY,
-      'text' => '已支付'
+      'text' => '打印中'
     ],
 
     self::FINISH => [
