@@ -4,6 +4,7 @@ namespace App\Listeners\Platform\Organization;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use zxf5115\Upload\File;
 use App\Models\Platform\Module\Organization;
 use App\Events\Platform\Organization\QrcodeEvent;
 
@@ -47,7 +48,9 @@ class QrcodeListeners
       // 获取微信二维码数据
       $result = Organization::getQrCode($token, $member_id);
 
-dd($result);
+      // 保存小程序码
+      $response = File::file_base64($result, 'qrcode');
+dd($response);
 
       $filename = md5(time() . rand(1, 9999999)). '.png';
 
