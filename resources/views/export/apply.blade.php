@@ -45,3 +45,15 @@
       </tr>
   </tbody>
 </table>
+
+
+<style type="text/css">
+  thead {
+    display: table-row-group;
+  }
+  tr {
+    page-break-before: always;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+</style>
