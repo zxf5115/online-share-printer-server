@@ -218,6 +218,7 @@ $api->version('v1', [
         $api->get('select', 'AgentController@select');
         $api->get('view/{id}', 'AgentController@view');
         $api->post('handle', 'AgentController@handle');
+        $api->post('apply', 'AgentController@apply');
         $api->any('facility', 'AgentController@facility');
         $api->post('status', 'AgentController@status');
         $api->post('delete', 'AgentController@delete');

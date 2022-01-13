@@ -184,6 +184,72 @@ class AgentController extends BaseController
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-01-13
+   * ------------------------------------------
+   * 申请文书下载
+   * ------------------------------------------
+   *
+   * 申请文书下载
+   *
+   * @param Request $request [请求参数]
+   * @return [type]
+   */
+  public function apply(Request $request)
+  {
+    $messages = [
+      'id.required'  => '请您输入机构编号',
+    ];
+
+    $rule = [
+      'id'  => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $condition = self::getBaseWhereData($request->id);
+
+        $relevance = self::getRelevanceData($this->_relevance, 'view');
+
+        $result = $this->_model::getRow($condition, $relevance);
+
+        $pdf = PDF::loadView('export.apply', $result);
+
+dd($pdf);
+
+        $dir = 'public/';
+
+        $filename = 'excel/'. '订单记录_'.time().'.xlsx';
+
+        Excel::store(new OrderExport($response), $dir . $filename);
+
+        $url = Config::getConfigValue('web_url');
+
+        $url = $url . '/storage/' . $filename;
+
+        return self::success($url);
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-09-25
    * ------------------------------------------
    * 操作信息
