@@ -49,22 +49,9 @@ class QrcodeListeners
       $result = Organization::getQrCode($token, $member_id);
 
       // 保存小程序码
-      $response = File::file_base64($result, 'qrcode');
-dd($response);
+      $response = File::file_buffer($result, 'qrcode');
 
-      $filename = md5(time() . rand(1, 9999999)). '.png';
-
-      $uri = storage_path('app/public/qrcode/' . $filename);
-
-      $web_url = Config::getConfigValue('web_url');
-
-      $url = $web_url . '/storage/qrcode/' . $filename;
-
-      file_put_contents($uri, $result);
-
-      $response['qrcode'] = $url;
-
-
+      return $response;
     }
     catch(\Exception $e)
     {
