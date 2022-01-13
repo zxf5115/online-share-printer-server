@@ -8,6 +8,7 @@ use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;
 use App\Models\Platform\Module\Agent;
 use App\Models\Platform\Module\Printer;
+use App\Events\Platform\Organization\QrcodeEvent;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Common\Module\Organization\Asset;
 use App\Models\Common\Module\Organization\Archive;
@@ -151,6 +152,9 @@ class AgentController extends BaseController
         $resource->business_license = $request->business_license ?? '';
         $resource->contract         = $request->contract ?? '';
         $resource->save();
+
+        // 生成小程序码
+        event(new QrcodeEvent($model->id));
 
         // 自动生成出库单
         event(new AutoEvent($model->id, $request->should_printer_total, $request->equipment_url));

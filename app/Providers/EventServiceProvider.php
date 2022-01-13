@@ -52,6 +52,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Platform\Printer\BindListeners',
         ],
 
+        // 生成小程序码
+        'App\Events\Platform\Organization\QrcodeEvent' => [
+            'App\Listeners\Platform\Organization\QrcodeListeners',
+        ],
+
         // 代理商设备数量
         'App\Events\Platform\Organization\Asset\Printer\TotalEvent' => [
             'App\Listeners\Platform\Organization\Asset\Printer\TotalListeners',

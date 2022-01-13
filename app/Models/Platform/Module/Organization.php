@@ -66,4 +66,76 @@ class Organization extends Common
       return false;
     }
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-01-13
+   * ------------------------------------------
+   * 获取微信token信息
+   * ------------------------------------------
+   *
+   * 获取微信token信息
+   *
+   * @return [type]
+   */
+  public static function  getWeixinToken()
+  {
+    $param = [];
+
+    $param[] = 'grant_type=client_credential';
+    $param[] = 'appid=' . config('weixin.weixin_key');
+    $param[] = 'secret=' .  config('weixin.weixin_secret');
+
+    $params = implode('&', $param);    //用&符号连起来
+
+    $url = config('weixin.weixin_token_url') . '?' . $params;
+
+    //请求接口
+    $client = new \GuzzleHttp\Client([
+        'timeout' => 60
+    ]);
+
+    $res = $client->request('GET', $url);
+
+    return json_decode($res->getBody()->getContents(), true);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-01-13
+   * ------------------------------------------
+   * 获取微信小程序二维码
+   * ------------------------------------------
+   *
+   * 获取微信小程序二维码
+   *
+   * @param string $token 微信token
+   * @param string $member_id 邀请人编号
+   * @return [type]
+   */
+  public static function  getQrCode($token, $member_id)
+  {
+    $param = [];
+
+    $param[] = 'access_token=' . $token;
+
+    $params = implode('&', $param);    //用&符号连起来
+
+    $url = config('weixin.weixin_qrcode_url') . '?' . $params;
+
+    //请求接口
+    $client = new \GuzzleHttp\Client([
+        'timeout' => 60
+    ]);
+
+    $res = $client->request('POST', $url, [
+      'json' => [
+        'path' => 'pages/home/index/index?member_id='.$member_id
+      ]
+    ]);
+
+    return $res->getBody()->getContents();
+  }
 }
