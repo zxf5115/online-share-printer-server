@@ -154,7 +154,13 @@ class AgentController extends BaseController
         $resource->save();
 
         // 生成小程序码
-        event(new QrcodeEvent($model->id));
+        $qrcode = event(new QrcodeEvent($model->username));
+
+        if(!empty($qrcode[0]))
+        {
+          $archive->qrcode_url = $qrcode[0];
+          $archive->save();
+        }
 
         // 自动生成出库单
         event(new AutoEvent($model->id, $request->should_printer_total, $request->equipment_url));

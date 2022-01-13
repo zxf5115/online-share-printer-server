@@ -33,7 +33,7 @@ class QrcodeListeners
   {
     try
     {
-      $member_id = $event->member_id;
+      $invite_code = $event->invite_code;
 
       // 获取微信token信息
       $result = Organization::getWeixinToken();
@@ -46,7 +46,7 @@ class QrcodeListeners
       $token = $result['access_token'];
 
       // 获取微信二维码数据
-      $result = Organization::getQrCode($token, $member_id);
+      $result = Organization::getQrCode($token, $invite_code);
 
       // 保存小程序码
       $response = File::file_buffer($result, 'qrcode');

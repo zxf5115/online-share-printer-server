@@ -235,6 +235,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class, // Excel
         'Socialite' => Laravel\Socialite\Facades\Socialite::class, // 第三方登录
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class, // 二维码
-    ],
 
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+    ],
 ];

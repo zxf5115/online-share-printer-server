@@ -112,10 +112,10 @@ class Organization extends Common
    * 获取微信小程序二维码
    *
    * @param string $token 微信token
-   * @param string $member_id 邀请人编号
+   * @param string $invite_code 邀请码
    * @return [type]
    */
-  public static function  getQrCode($token, $member_id)
+  public static function  getQrCode($token, $invite_code)
   {
     $param = [];
 
@@ -132,7 +132,7 @@ class Organization extends Common
 
     $res = $client->request('POST', $url, [
       'json' => [
-        'path' => 'pages/home/index/index?member_id='.$member_id
+        'path' => 'pages/home/index/index?invite_code='.$invite_code
       ]
     ]);
 
