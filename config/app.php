@@ -179,6 +179,8 @@ return [
         \SocialiteProviders\Manager\ServiceProvider::class, // 微信登录
         Goodgay\HuaweiOBS\HWOBSServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class, // 二维码
+
+        Barryvdh\Snappy\ServiceProvider::class,
     ],
 
     /*

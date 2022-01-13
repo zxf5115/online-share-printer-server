@@ -3,10 +3,13 @@ namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
+use PDF;
 use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;
 use App\Models\Platform\Module\Agent;
+use App\Models\Platform\System\Config;
 use App\Models\Platform\Module\Printer;
 use App\Events\Platform\Organization\QrcodeEvent;
 use App\Http\Controllers\Platform\BaseController;
@@ -223,13 +226,16 @@ class AgentController extends BaseController
 
         $pdf = PDF::loadView('export.apply', $result);
 
-dd($pdf);
+        $save_dir = 'app/public/';
 
-        $dir = 'public/';
+        $filename = 'apply/apply_' . $result->id . '.pdf';
 
-        $filename = 'excel/'. '订单记录_'.time().'.xlsx';
+        $path = storage_path($save_dir . $filename);
 
-        Excel::store(new OrderExport($response), $dir . $filename);
+        if(!is_file($path))
+        {
+          $pdf->save($path);
+        }
 
         $url = Config::getConfigValue('web_url');
 
