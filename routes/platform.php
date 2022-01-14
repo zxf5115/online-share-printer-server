@@ -154,7 +154,15 @@ $api->version('v1', [
       // 公共路由
       $api->group(['namespace' => 'Common', 'prefix'  =>  'common'], function ($api) {
         $api->get('area/list', 'AreaController@list'); // 地区路由
-        $api->get('single/audit', 'SingleController@audit'); // 审核状态路由
+
+        // 银行路由
+        $api->group(['prefix'  => 'bank'], function ($api) {
+          $api->any('list', 'BankController@list');
+          $api->get('select', 'BankController@select');
+          $api->get('view/{id}', 'BankController@view');
+          $api->post('handle', 'BankController@handle');
+          $api->post('delete', 'BankController@delete');
+        });
       });
 
       // 会员路由
