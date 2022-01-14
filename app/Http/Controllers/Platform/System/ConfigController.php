@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Platform\System;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
@@ -55,19 +54,17 @@ class ConfigController extends BaseController
       'title.required' => '请您输入配置标题',
     ];
 
-    $validator = Validator::make($request->all(), [
+    $rule = [
       'name' => 'required',
       'title' => 'required',
-    ], $messages);
+    ];
 
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
 
-    if($validator->fails())
+    if(!$validation['status'])
     {
-      $error = $validator->getMessageBag()->toArray();
-      $error = array_values($error);
-      $message = $error[0][0] ?? Code::$message[Code::ERROR];
-
-      return self::error($message);
+      return $validation['message'];
     }
     else
     {

@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Platform\System\Log;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Constant\Parameter;

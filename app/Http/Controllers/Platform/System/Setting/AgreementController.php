@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Platform\System\Setting;
 
-use App\Http\Constant\Code;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
+use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
 
 
@@ -45,19 +45,17 @@ class AgreementController extends BaseController
       'title.required'  => '请您输入分类标题'
     ];
 
-    $validator = Validator::make($request->all(), [
+    $rule = [
       'name' => 'required',
-      'title' => 'required'
-    ], $messages);
+      'title' => 'required',
+    ];
 
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
 
-    if($validator->fails())
+    if(!$validation['status'])
     {
-      $error = $validator->getMessageBag()->toArray();
-      $error = array_values($error);
-      $message = $error[0][0] ?? Code::$message[Code::ERROR];
-
-      return self::message($message);
+      return $validation['message'];
     }
     else
     {
