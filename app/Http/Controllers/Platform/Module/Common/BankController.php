@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Platform\Module\Common;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
-use App\Models\Common\Module\Common\Bank;
 use App\Http\Controllers\Platform\BaseController;
 
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-07-20
+ * @dateTime 2022-01-14
  *
  * 主流银行控制器类
  */
 class BankController extends BaseController
 {
+  // 模型名称
+  protected $_model = 'App\Models\Common\Module\Common\Bank';
+
   // 客户端搜索字段
   protected $_params = [
     'code',
@@ -73,7 +75,7 @@ class BankController extends BaseController
         $model->logo            = $request->logo;
         $model->code            = $request->code ?? '';
         $model->name            = $request->name;
-        $model->sort            = $request->sort;
+        $model->sort            = $request->sort ?? 0;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
-use App\Models\Platform\Module\Member\Printer as MemberPrinter;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]

@@ -15,21 +15,26 @@ use App\Http\Controllers\Platform\BaseController;
  */
 class AreaController extends BaseController
 {
+  // 模型名称
   protected $_model = 'App\Models\Common\Module\Common\Area';
 
+  // 默认查询条件
   protected $_where = [
     'parent_id' => 0
   ];
 
+  // 客户端搜索字段
   protected $_params = [
     'id',
     'parent_id'
   ];
 
+  // 排序方式
   protected $_order = [
     ['key' => 'id', 'value' => 'asc'],
   ];
 
+  // 关联对象
   protected $_relevance = false;
 
 
