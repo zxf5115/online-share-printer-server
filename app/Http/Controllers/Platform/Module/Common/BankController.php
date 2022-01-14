@@ -69,7 +69,7 @@ class BankController extends BaseController
     {
       try
       {
-        $model = Bank::firstOrNew(['id' => $request->id]);
+        $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
         $model->logo            = $request->logo;
