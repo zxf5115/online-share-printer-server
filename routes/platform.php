@@ -117,12 +117,7 @@ $api->version('v1', [
       // 系统设置路由
       $api->group(['prefix'  =>  'setting'], function ($api) {
         $api->any('data', 'SettingController@data');
-        $api->any('about', 'SettingController@about');
-        $api->any('user', 'SettingController@user');
-        $api->any('employ', 'SettingController@employ');
-        $api->any('privacy', 'SettingController@privacy');
-        $api->any('specification', 'SettingController@specification');
-        $api->any('liability', 'SettingController@liability');
+        $api->any('agreement', 'SettingController@agreement');
       });
 
 

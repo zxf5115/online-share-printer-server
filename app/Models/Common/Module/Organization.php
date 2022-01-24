@@ -233,6 +233,27 @@ class Organization extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-08
+   * ------------------------------------------
+   * 会员与银行关联函数
+   * ------------------------------------------
+   *
+   * 会员与银行关联函数
+   *
+   * @return [关联对象]
+   */
+  public function bank()
+  {
+    return $this->hasOne(
+      'App\Models\Common\Module\Organization\Bank',
+      'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-12-08
    * ------------------------------------------
    * 机构与收益关联函数
