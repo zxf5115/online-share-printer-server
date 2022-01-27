@@ -213,6 +213,12 @@ $api->version('v1', [
         $api->post('handle', 'ManagerController@handle');
         $api->post('status', 'ManagerController@status');
         $api->post('delete', 'ManagerController@delete');
+
+        // 店长银行卡路由
+        $api->group(['namespace'  =>  'Manager', 'prefix'  => 'bank'], function ($api) {
+          $api->get('view/{id}', 'BankController@view');
+          $api->post('handle', 'BankController@handle');
+        });
       });
 
       // 代理人路由
@@ -225,6 +231,12 @@ $api->version('v1', [
         $api->any('facility', 'AgentController@facility');
         $api->post('status', 'AgentController@status');
         $api->post('delete', 'AgentController@delete');
+
+        // 代理商银行卡路由
+        $api->group(['namespace'  =>  'Agent', 'prefix'  => 'bank'], function ($api) {
+          $api->get('view/{id}', 'BankController@view');
+          $api->post('handle', 'BankController@handle');
+        });
       });
 
       // 贵宾路由

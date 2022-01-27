@@ -13,7 +13,6 @@ use App\Models\Platform\System\Config;
 use App\Models\Platform\Module\Printer;
 use App\Events\Platform\Organization\QrcodeEvent;
 use App\Http\Controllers\Platform\BaseController;
-use App\Models\Common\Module\Organization\Bank;
 use App\Models\Common\Module\Organization\Asset;
 use App\Models\Common\Module\Organization\Archive;
 use App\Models\Common\Module\Organization\Resource;
@@ -157,14 +156,6 @@ class AgentController extends BaseController
         $resource->business_license = $request->business_license ?? '';
         $resource->contract         = $request->contract ?? '';
         $resource->save();
-
-        $bank = Bank::firstOrNew(['member_id' => $model->id]);
-
-        $bank->company_name = $request->company_name ?? '';
-        $bank->open_bank_name = $request->open_bank_name ?? '';
-        $bank->branch_bank_name = $request->branch_bank_name ?? '';
-        $bank->card_no = $request->card_no ?? '';
-        $bank->save();
 
         // 生成小程序码
         $qrcode = event(new QrcodeEvent($model->username));
