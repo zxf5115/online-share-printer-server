@@ -42,7 +42,8 @@ class ManagerController extends BaseController
       'parent',
       'archive',
       'asset',
-      'manager'
+      'manager',
+      'bank',
     ]
   ];
 
