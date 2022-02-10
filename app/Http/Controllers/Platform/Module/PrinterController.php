@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Platform\Module;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
+use App\TraitClass\ToolTrait;
+use App\Events\Platform\Printer\QrcodeEvent;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -14,6 +16,8 @@ use App\Http\Controllers\Platform\BaseController;
  */
 class PrinterController extends BaseController
 {
+  use ToolTrait;
+
   // 模型名称
   protected $_model = 'App\Models\Common\Module\Printer';
 
@@ -101,13 +105,11 @@ class PrinterController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      // 'member_id.required' => '请您选择所属者编号',
-      'title.required'     => '请您输入打印机标题',
+      'printer_id.required' => '请您输入打印机编号',
     ];
 
     $rule = [
-      // 'member_id' => 'required',
-      'title'     => 'required',
+      'printer_id' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -121,17 +123,21 @@ class PrinterController extends BaseController
     {
       try
       {
-        $model = $this->_model::firstOrNew(['id' => $request->id]);
+        $model = $this->_model::getRow(['id' => $request->printer_id]);
 
-        $model->organization_id = self::getOrganizationId();
-        $model->member_id       = $request->member_id;
-        $model->title           = $request->title;
-        $model->province_id     = $request->province_id ?? 0;
-        $model->city_id         = $request->city_id ?? 0;
-        $model->region_id       = $request->region_id ?? 0;
-        $model->address         = $request->address ?? '';
-        $model->remark          = $request->remark;
-        $model->save();
+        $data = [
+          'first_level_agent_id' => $model->first_level_agent_id,
+          'second_level_agent_id' => $model->second_level_agent_id,
+          'manager_id' => $model->manager_id,
+          'printer_id' => $model->id,
+        ];
+
+        $params = http_build_query($data);
+
+        // 加密
+        $params = self::encrypt($params);
+
+        event(new QrcodeEvent($model->id, $params));
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
