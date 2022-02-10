@@ -14,11 +14,10 @@ class WithdrawalEnum extends BaseEnum
   const FINISH = 1; //已确认
   const WAIT   = 2; // 待确认
 
-  const NONE    = 0; // 无
-  const WEIXIN  = 1; // 微信
-  const ALIPAY  = 2; // 支付宝
-  const BALANCE = 3; // 余额
-  const APPLE   = 4; // 苹果
+  const NONE   = 0; // 无
+  const WEIXIN = 1; // 微信
+  const ALIPAY = 2; // 支付宝
+  const BANK   = 3; // 银行卡
 
 
   // 确认状态封装
@@ -51,15 +50,10 @@ class WithdrawalEnum extends BaseEnum
       'text' => '支付宝'
     ],
 
-    self::BALANCE => [
-      'value' => self::BALANCE,
-      'text' => '余额'
+    self::BANK => [
+      'value' => self::BANK,
+      'text' => '银行卡'
     ],
-
-    self::APPLE => [
-      'value' => self::APPLE,
-      'text' => '苹果'
-    ]
   ];
 
   /**

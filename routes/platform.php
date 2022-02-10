@@ -408,6 +408,7 @@ $api->version('v1', [
       // 提现路由
       $api->group(['prefix' => 'withdrawal'], function ($api) {
         $api->any('list', 'WithdrawalController@list');
+        $api->get('view/{id}', 'WithdrawalController@view');
         $api->post('handle', 'WithdrawalController@handle');
       });
 

@@ -86,4 +86,23 @@ class Withdrawal extends Base
       'id'
     );
   }
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-09-25
+   * ------------------------------------------
+   * 代理商提现与代理商银行关联表
+   * ------------------------------------------
+   *
+   * 代理商提现与代理商银行关联表
+   *
+   * @return [关联对象]
+   */
+  public function bank()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Organization\Bank',
+      'member_id',
+      'member_id'
+    );
+  }
 }

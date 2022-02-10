@@ -34,6 +34,7 @@ class WithdrawalController extends BaseController
   // 关联对象
   protected $_relevance = [
     'organization',
+    'bank'
   ];
 
 
@@ -68,35 +69,21 @@ class WithdrawalController extends BaseController
     }
     else
     {
-      DB::beginTransaction();
-
       try
       {
         $model = $this->_model::getRow(['id' => $request->id]);
 
-
-        // 提现
-        $result = event(new ExtractEvent($model));
-
-        if($result)
-        {
-          $model->withdrawal_status = 1;
-          $model->audit_type = 1;
-          $model->save();
-        }
-
-        DB::commit();
+        $model->confirm_status = 1;
+        $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
-        DB::rollback();
-
         // 记录异常信息
         record($e);
 
-        return self::message('提现失败');
+        return self::error(Code::ERROR);
       }
     }
   }
