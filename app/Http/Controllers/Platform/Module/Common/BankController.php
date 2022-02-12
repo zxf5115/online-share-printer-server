@@ -72,10 +72,11 @@ class BankController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
-        $model->logo            = $request->logo;
-        $model->code            = $request->code ?? '';
-        $model->name            = $request->name;
-        $model->sort            = $request->sort ?? 0;
+        $model->logo = $request->logo;
+        $model->code = $request->code ?? '';
+        $model->name = $request->name;
+        $model->color = $request->color ?? '';
+        $model->sort = $request->sort ?? 0;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

@@ -139,6 +139,7 @@ class AgentController extends BaseController
 
         $archive = Archive::firstOrNew(['member_id' => $model->id]);
 
+        $archive->id_card_no  = $request->id_card_no ?? '';
         $archive->province_id = $request->province_id ?? 0;
         $archive->city_id     = $request->city_id ?? 0;
         $archive->region_id   = $request->region_id ?? 0;
