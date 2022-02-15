@@ -65,6 +65,28 @@ class Complain extends Base
 
   // 关联函数 ------------------------------------------------------
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-11-29
+   * ------------------------------------------
+   * 订单与会员关联函数
+   * ------------------------------------------
+   *
+   * 订单与会员关联函数
+   *
+   * @return [关联对象]
+   */
+  public function member()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Member',
+      'member_id',
+      'id'
+    );
+  }
+
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-12-07

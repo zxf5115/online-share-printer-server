@@ -293,6 +293,7 @@ $api->version('v1', [
       $api->group(['prefix' => 'complain'], function ($api) {
         // 投诉路由
         $api->any('list', 'ComplainController@list');
+        $api->get('view/{id}', 'ComplainController@view');
         $api->post('read', 'ComplainController@read');
         $api->post('delete', 'ComplainController@delete');
 
