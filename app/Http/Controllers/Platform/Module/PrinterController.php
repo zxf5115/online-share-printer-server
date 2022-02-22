@@ -132,7 +132,7 @@ class PrinterController extends BaseController
           'printer_id' => self::encrypt($model->id),
         ];
 
-        $params = http_build_query($data);
+        $params = implode(';', $data);
 
         event(new QrcodeEvent($model->id, $params));
 

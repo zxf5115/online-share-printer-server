@@ -54,7 +54,7 @@ class QrcodeListeners
         'type' => self::encrypt($type)
       ];
 
-      $data = http_build_query($data);
+      $data = implode(';', $data);
 
       // 获取微信二维码数据
       $result = Organization::getQrCode($token, $data);
