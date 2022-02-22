@@ -126,16 +126,13 @@ class PrinterController extends BaseController
         $model = $this->_model::getRow(['id' => $request->printer_id]);
 
         $data = [
-          'first_level_agent_id' => $model->first_level_agent_id,
-          'second_level_agent_id' => $model->second_level_agent_id,
-          'manager_id' => $model->manager_id,
-          'printer_id' => $model->id,
+          'first_level_agent_id' => self::encrypt($model->first_level_agent_id),
+          'second_level_agent_id' => self::encrypt($model->second_level_agent_id),
+          'manager_id' => self::encrypt($model->manager_id),
+          'printer_id' => self::encrypt($model->id),
         ];
 
         $params = http_build_query($data);
-
-        // 加密
-        $params = self::encrypt($params);
 
         event(new QrcodeEvent($model->id, $params));
 
