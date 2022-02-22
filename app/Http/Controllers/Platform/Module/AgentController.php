@@ -158,12 +158,21 @@ class AgentController extends BaseController
         $resource->contract         = $request->contract ?? '';
         $resource->save();
 
-        // 生成小程序码
-        $qrcode = event(new QrcodeEvent($model->username));
+        // 生成注册小程序码
+        $register = event(new QrcodeEvent($model->username, 1));
 
-        if(!empty($qrcode[0]))
+        if(!empty($register[0]))
         {
-          $archive->qrcode_url = $qrcode[0];
+          $archive->register_qrcode_url = $register[0];
+          $archive->save();
+        }
+
+        // 生成邀请小程序码
+        $invitation = event(new QrcodeEvent($model->id, 2));
+
+        if(!empty($invitation[0]))
+        {
+          $archive->invitation_qrcode_url = $invitation[0];
           $archive->save();
         }
 

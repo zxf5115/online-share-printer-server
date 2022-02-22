@@ -17,15 +17,17 @@ class QrcodeEvent
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
   public $invite_code = null;
+  public $type = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($invite_code)
+  public function __construct($invite_code, $type = 1)
   {
     $this->invite_code = $invite_code;
+    $this->type = $type;
   }
 
   /**

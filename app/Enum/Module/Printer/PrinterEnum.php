@@ -44,6 +44,11 @@ class PrinterEnum extends BaseEnum
     self::OFFLINE => [
       'value' => self::OFFLINE,
       'text' => '未绑定'
+    ],
+
+    self::FAULT => [
+      'value' => self::FAULT,
+      'text' => '待确认'
     ]
   ];
 

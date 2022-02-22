@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Platform\Module;
 
+use App\TraitClass\ToolTrait;
 use App\Models\Common\Module\Organization as Common;
 
 /**
@@ -11,6 +12,8 @@ use App\Models\Common\Module\Organization as Common;
  */
 class Organization extends Common
 {
+  use ToolTrait;
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-11-22
@@ -112,10 +115,10 @@ class Organization extends Common
    * 获取微信小程序二维码
    *
    * @param string $token 微信token
-   * @param string $invite_code 邀请码
+   * @param string $data 小程序数据
    * @return [type]
    */
-  public static function  getQrCode($token, $invite_code)
+  public static function getQrCode($token, $data)
   {
     $param = [];
 
@@ -130,9 +133,15 @@ class Organization extends Common
         'timeout' => 60
     ]);
 
+    // 将数据转换为json
+    $data = json_encode($data);
+
+    // 将数据加密
+    $data = self::encrypt($data);
+
     $res = $client->request('POST', $url, [
       'json' => [
-        'path' => 'pages/home/index/index?invite_code='.$invite_code
+        'path' => 'pages/login/index?token='.$data
       ]
     ]);
 
