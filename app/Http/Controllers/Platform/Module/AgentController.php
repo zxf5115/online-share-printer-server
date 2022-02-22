@@ -168,7 +168,7 @@ class AgentController extends BaseController
         }
 
         // 生成店长邀请小程序码
-        $invitation = event(new QrcodeEvent($model->id, 2));
+        $invitation = event(new QrcodeEvent($model->username, 2));
 
         if(!empty($invitation[0]))
         {
