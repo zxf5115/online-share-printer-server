@@ -1,7 +1,6 @@
 <?php
 namespace App\Models\Platform\Module;
 
-use App\TraitClass\ToolTrait;
 use App\Models\Common\Module\Organization as Common;
 
 /**
@@ -12,8 +11,6 @@ use App\Models\Common\Module\Organization as Common;
  */
 class Organization extends Common
 {
-  use ToolTrait;
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-11-22
@@ -132,16 +129,7 @@ class Organization extends Common
     $client = new \GuzzleHttp\Client([
         'timeout' => 60
     ]);
-
-    // 将数据转换为json
-    $data = json_encode($data);
-
-    // 将数据加密
-    $data = self::encrypt($data);
-
-    // 将字符实体转换为字符，因为小程序识别不了
-    $data = urldecode($data);
-
+\Log::info($data);
     $res = $client->request('POST', $url, [
       'json' => [
         'path' => 'pages/login/index?token='.$data

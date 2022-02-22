@@ -5,6 +5,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use zxf5115\Upload\File;
+use App\TraitClass\ToolTrait;
 use App\Models\Platform\Module\Organization;
 use App\Events\Platform\Organization\QrcodeEvent;
 
@@ -13,6 +14,8 @@ use App\Events\Platform\Organization\QrcodeEvent;
  */
 class QrcodeListeners
 {
+  use ToolTrait;
+
   /**
    * Create the event listener.
    *
@@ -47,8 +50,8 @@ class QrcodeListeners
       $token = $result['access_token'];
 
       $data = [
-        'invite_code' => $invite_code,
-        'type' => $type
+        'invite_code' => self::encrypt($invite_code),
+        'type' => self::encrypt($type)
       ];
 
       // 获取微信二维码数据
