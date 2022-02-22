@@ -24,7 +24,7 @@ class QrcodeEvent
    *
    * @return void
    */
-  public function __construct($invite_code, $type = 1)
+  public function __construct($invite_code, $type = 3)
   {
     $this->invite_code = $invite_code;
     $this->type = $type;

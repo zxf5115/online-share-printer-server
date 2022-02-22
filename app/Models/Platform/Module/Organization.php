@@ -139,6 +139,9 @@ class Organization extends Common
     // 将数据加密
     $data = self::encrypt($data);
 
+    // 将字符实体转换为字符，因为小程序识别不了
+    $data = urldecode($data);
+
     $res = $client->request('POST', $url, [
       'json' => [
         'path' => 'pages/login/index?token='.$data

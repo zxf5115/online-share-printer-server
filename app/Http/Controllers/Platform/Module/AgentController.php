@@ -158,8 +158,8 @@ class AgentController extends BaseController
         $resource->contract         = $request->contract ?? '';
         $resource->save();
 
-        // 生成注册小程序码
-        $register = event(new QrcodeEvent($model->username, 1));
+        // 生成分销商注册小程序码
+        $register = event(new QrcodeEvent($model->username));
 
         if(!empty($register[0]))
         {
@@ -167,7 +167,7 @@ class AgentController extends BaseController
           $archive->save();
         }
 
-        // 生成邀请小程序码
+        // 生成店长邀请小程序码
         $invitation = event(new QrcodeEvent($model->id, 2));
 
         if(!empty($invitation[0]))
