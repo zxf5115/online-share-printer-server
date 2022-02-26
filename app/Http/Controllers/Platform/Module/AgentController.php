@@ -150,6 +150,7 @@ class AgentController extends BaseController
 
         $asset->should_printer_total = $request->should_printer_total ?? 0;
         $asset->proportion           = $request->proportion ?? 0.00;
+        $asset->manger_proportion    = $request->manger_proportion ?? 0.00;
         $asset->save();
 
         $resource = Resource::firstOrNew(['member_id' => $model->id]);

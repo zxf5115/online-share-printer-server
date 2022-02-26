@@ -33,7 +33,7 @@ class ManagerController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'parent',
+      'parent.asset',
       'archive',
       'asset'
     ],
