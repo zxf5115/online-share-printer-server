@@ -56,7 +56,7 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
       {
         if(empty($row[1]))
         {
-          record('花名册缺少内容');
+          record('缺少内容');
 
           continue;
         }
