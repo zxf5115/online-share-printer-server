@@ -236,7 +236,7 @@ class AgentController extends BaseController
 
         $result = $this->_model::getRow($condition, $relevance);
 
-        $pdf = PDF::loadView('export.apply', $result);
+        $pdf = PDF::loadView('export.apply', ['data' => $result]);
 
         $save_dir = 'app/public/';
 
