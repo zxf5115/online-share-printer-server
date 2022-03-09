@@ -41,9 +41,9 @@ class IndexController extends BaseController
       $response = [];
 
       $total         = Printer::getCountData();
-      $online_total  = Printer::getCountData(1);
-      $offline_total = Printer::getCountData(2);
-      $fault_total   = Printer::getCountData(3);
+      $online_total  = Printer::getCountData(1, 'activate_status');
+      $offline_total = Printer::getCountData(2, 'activate_status');
+      $fault_total   = Printer::getCountData(3, 'activate_status');
 
       $response = [
         'total'         => $total,

@@ -24,16 +24,16 @@ class Printer extends Common
    * @param [type] $status 状态
    * @return [type]
    */
-  public static function getCountData($status = 0)
+  public static function getCountData($value = 0, $field = 'status')
   {
     $where = [
-      ['status', '<>', '-1']
+      ['status', '>', '-1']
     ];
 
-    if($status)
+    if($value)
     {
       $where = [
-        'status' => $status
+        $field => $value
       ];
     }
 
