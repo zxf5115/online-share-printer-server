@@ -29,7 +29,9 @@ class Member extends Common
   {
     try
     {
-      $where = ['status', '>', -1];
+      $where = [
+        ['status', '>', '-1']
+      ];
 
       $response = 0;
 
@@ -65,7 +67,9 @@ class Member extends Common
    */
   public static function getCountData()
   {
-    $where = ['status', '>', -1];
+    $where = [
+      ['status', '>', '-1']
+    ];
 
     return self::getCount($where);
   }
