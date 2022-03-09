@@ -49,7 +49,7 @@ class Manager extends Common
   public static function getCountData()
   {
     $where = [
-      ['status', '>', -1]
+      ['status', '>', -1],
       'role_id' => 2
     ];
 
