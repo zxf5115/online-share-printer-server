@@ -32,9 +32,7 @@ class Printer extends Common
 
     if($value)
     {
-      $where = [
-        $field => $value
-      ];
+      $where[$field] = $value;
     }
 
     return self::getCount($where);
