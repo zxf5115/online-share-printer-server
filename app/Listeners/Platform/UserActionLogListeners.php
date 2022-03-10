@@ -188,27 +188,38 @@ class UserActionLogListeners
   {
     try
     {
-      $key = env('BAIDU_MAP_KEY');
+      $response = '';
 
-      $content = file_get_contents('http://api.map.baidu.com/location/ip?ip='.$ip_address.'&ak='.$key.'&coor=bd09ll');
-
-      $data = mb_convert_encoding($content,'UTF-8','GBK');
-
-      $data = json_decode($data, true);
-
-      if(!empty($data))
+      if('127.0.0.1' == $ip_address)
       {
-        if($data['status'] === 0)
+        return '本地';
+      }
+
+      $reader = new \MaxMind\Db\Reader(public_path('configuration/geo/GeoLite2-City.mmdb'));
+
+      $data = $reader->get($ip_address);
+
+      if(!empty($data['country']))
+      {
+        $response .= $data['country']['names']['zh-CN'] . ' ';
+      }
+
+      if(!empty($data['subdivisions']))
+      {
+        foreach($data['subdivisions'] as $item)
         {
-          $detail = !empty($data['content']['address']) ? $data['content']['address'] : '国外';
-        }
-        else
-        {
-          $detail = '未知';
+          $response .= $item['names']['zh-CN'] . ' ';
         }
       }
 
-      return $detail;
+      if(!empty($data['city']))
+      {
+        $response .= $data['city']['names']['zh-CN'] . ' ';
+      }
+
+      $response = rtrim($response);
+
+      return $response;
     }
     catch(\Exception $e)
     {
