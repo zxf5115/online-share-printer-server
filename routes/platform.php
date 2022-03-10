@@ -102,14 +102,22 @@ $api->version('v1', [
         $api->post('handle', 'ConfigController@handle');
         $api->post('delete/{id?}', 'ConfigController@delete');
 
-        // 配置分类管理路由
-        $api->group(['namespace' => 'Config', 'prefix'  =>  'category'], function ($api) {
-          $api->any('list', 'CategoryController@list');
-          $api->get('select', 'CategoryController@select');
-          $api->get('view/{id}', 'CategoryController@view');
-          $api->get('level', 'CategoryController@level');
-          $api->post('handle', 'CategoryController@handle');
-          $api->post('delete/{id?}', 'CategoryController@delete');
+        $api->group(['namespace' => 'Config'], function ($api) {
+          // 配置分类管理路由
+          $api->group(['prefix'  =>  'category'], function ($api) {
+            $api->any('list', 'CategoryController@list');
+            $api->get('select', 'CategoryController@select');
+            $api->get('view/{id}', 'CategoryController@view');
+            $api->get('level', 'CategoryController@level');
+            $api->post('handle', 'CategoryController@handle');
+            $api->post('delete/{id?}', 'CategoryController@delete');
+          });
+
+          // 系统协议
+          $api->group(['prefix'  =>  'agreement'], function ($api) {
+            $api->get('select', 'AgreementController@select');
+            $api->get('data', 'AgreementController@data');
+          });
         });
       });
 

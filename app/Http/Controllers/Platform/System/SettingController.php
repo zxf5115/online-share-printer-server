@@ -87,11 +87,11 @@ class SettingController extends BaseController
     if($request->isMethod('post'))
     {
       $messages = [
-        'name.required'  => '请您输入配置名称',
+        'title.required'  => '请您选择协议',
       ];
 
       $rule = [
-        'name' => 'required'
+        'title' => 'required'
       ];
 
       // 验证用户数据内容是否正确
@@ -103,26 +103,28 @@ class SettingController extends BaseController
       }
       else
       {
-        $model = Agreement::getRow(['title' => $request->type]);
-
-        $model->name    = $request->name;
-        $model->content = $request->content;
-
-        $response = $model->save();
-
-        if($response)
+        try
         {
+          $model = Agreement::getRow(['title' => $request->title]);
+
+          $model->content = $request->content;
+
+          $response = $model->save();
+
           return self::success(Code::message(Code::HANDLE_SUCCESS));
         }
-        else
+        catch(\Exception $e)
         {
-          return self::error(Code::HANDLE_FAILURE);
+          // 记录异常信息
+          self::record($e);
+
+          return self::error(Code::ERROR);
         }
       }
     }
     else
     {
-      $response = Agreement::getRow(['title' => $request->type]);
+      $response = Agreement::getRow(['title' => $request->title]);
 
       return self::success($response);
     }
