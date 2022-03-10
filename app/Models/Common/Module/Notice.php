@@ -2,6 +2,7 @@
 namespace App\Models\Common\Module;
 
 use App\Models\Base;
+use App\Enum\Module\Notice\NoticeEnum;
 
 
 /**
@@ -28,6 +29,23 @@ class Notice extends Base
     'update_time'
   ];
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-12-20
+   * ------------------------------------------
+   * 阅读状态封装
+   * ------------------------------------------
+   *
+   * 阅读状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getDeliveryStatusAttribute($value)
+  {
+    return NoticeEnum::getDeliveryStatus($value);
+  }
 
   // 关联函数 ------------------------------------------------------
 

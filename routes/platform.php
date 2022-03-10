@@ -196,12 +196,6 @@ $api->version('v1', [
             $api->post('handle', 'CertificationController@handle');
           });
 
-
-          // 会员课程路由
-          $api->group(['prefix'  =>  'course'], function ($api) {
-            $api->get('list', 'CourseController@list');
-          });
-
           // 会员订单路由
           $api->group(['namespace'  =>  'Order', 'prefix'  =>  'order'], function ($api) {
 
@@ -323,6 +317,7 @@ $api->version('v1', [
         $api->get('select', 'NoticeController@select');
         $api->get('view/{id}', 'NoticeController@view');
         $api->post('handle', 'NoticeController@handle');
+        $api->post('status', 'NoticeController@status');
         $api->post('delete', 'NoticeController@delete');
 
         // 通知分类路由

@@ -10,20 +10,20 @@ namespace App\Enum\Module\Notice;
 class NoticeEnum
 {
   // 通知阅读状态
-  const WAIT   = 0; // 待阅读
-  const FINISH = 1; // 已完成
+  const WAIT   = 2; // 待发送
+  const FINISH = 1; // 已发送
 
 
   // 通知阅读状态
-  public static $finish = [
+  public static $delivery = [
     self::WAIT       => [
       'value' => self::WAIT,
-      'text' => '待阅读'
+      'text' => '待发送'
     ],
 
     self::FINISH => [
       'value' => self::FINISH,
-      'text' => '已完成'
+      'text' => '已发送'
     ],
   ];
 
@@ -33,16 +33,16 @@ class NoticeEnum
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-07-05
    * ------------------------------------------
-   * 通知类型封装
+   * 通知发送状态封装
    * ------------------------------------------
    *
-   * 通知类型封装
+   * 通知发送状态封装
    *
    * @param int $code 信息代码
    * @return 信息内容
    */
-  public static function getFinishStatus($code)
+  public static function getDeliveryStatus($code)
   {
-    return self::$finish[$code] ?: self::$finish[self::WAIT];
+    return self::$delivery[$code] ?: self::$delivery[self::WAIT];
   }
 }
