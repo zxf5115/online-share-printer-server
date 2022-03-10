@@ -61,7 +61,7 @@ class Message extends Base
   {
     return $this->belongsToMany(
       'App\Models\Common\System\User',
-      'system_user_message_relevance',
+      'system_user_message',
       'message_id',
       'user_id'
     )->wherePivot('status', 1);
@@ -81,7 +81,11 @@ class Message extends Base
    */
   public function relevance()
   {
-    return $this->hasMany('App\Models\Common\System\User\Message', 'message_id', 'id');
+    return $this->hasMany(
+      'App\Models\Common\System\User\UserMessage',
+      'message_id',
+      'id'
+    );
   }
 
 

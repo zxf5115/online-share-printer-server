@@ -4,7 +4,6 @@ namespace App\Models\Platform\System;
 use App\Enum\MessageEnum;
 use App\Models\Common\System\User;
 use App\Models\Common\System\Message as Common;
-use App\Models\Common\System\User\UserRoleRelevance;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -14,8 +13,6 @@ use App\Models\Common\System\User\UserRoleRelevance;
  */
 class Message extends Common
 {
-
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-02-23
@@ -105,7 +102,7 @@ class Message extends Common
    */
   public static function getWithRoleUsers($role_list, $current_id, $organization_id)
   {
-    $response = UserRoleRelevance::whereIn('role_id', $role_list)->get('user_id')->toArray();
+    $response = User::whereIn('role_id', $role_list)->get('id as user_id')->toArray();
 
     foreach($response as $key => $item)
     {
@@ -133,6 +130,9 @@ class Message extends Common
 
 
 
+
+
+  // 关联函数 ------------------------------------------------------
 
 
   /**

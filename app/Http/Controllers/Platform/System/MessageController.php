@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Http\Controllers\Platform\BaseController;
 use App\Models\Platform\System\User\Message;
+use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -78,15 +78,16 @@ class MessageController extends BaseController
         $model->content     = strval($request->content);
         $model->accept_type = $request->accept_type;
         $model->author      = $request->author;
+        $model->save();
 
         // 获取推送用户
         $users = $this->_model::getUsers($request, $current_id, $organization_id);
 
-        $response = $model->save();
-
-        $model->relevance()->delete();
-
-        $relevance = $model->relevance()->createMany($users);
+        if(!empty($users))
+        {
+          $model->relevance()->delete();
+          $model->relevance()->createMany($users);
+        }
 
         DB::commit();
 
