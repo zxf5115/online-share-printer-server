@@ -149,4 +149,25 @@ class Member extends Base
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-03-10
+   * ------------------------------------------
+   * 会员与订单关联表
+   * ------------------------------------------
+   *
+   * 会员与订单关联表
+   *
+   * @return [关联对象]
+   */
+  public function order()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Order',
+      'member_id',
+      'id'
+    );
+  }
 }

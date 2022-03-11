@@ -25,6 +25,7 @@ class OrderController extends BaseController
 
   // 查询条件
   protected $_params = [
+    'member_id',
     'title',
     'order_no',
     'pay_status',
