@@ -13,7 +13,7 @@
     <p class="top">
       兹授权：<br/>
       <span>{{ $data['nickname'] ?? '' }}</span> <br/>
-      为共享打印业务在<span>{{ $data['archive']['address'] ?? '' }}</span>的合格代理商，级别为{{ $data['level']['text'] ?? '一级代理商' }}，有权开展共享打印业务，并提供相关的售后服务。
+      为共享打印业务在<span>{{ $data['archive']['province_id']['text'] ?? '' }} {{ $data['archive']['city_id']['text'] ?? '' }} {{ $data['archive']['region_id']['text'] ?? '' }}</span>的合格代理商，级别为{{ $data['level']['text'] ?? '一级代理商' }}，有权开展共享打印业务，并提供相关的售后服务。
     </p>
     <div class="bottom">
       <table>

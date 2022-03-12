@@ -114,17 +114,24 @@ class Agent extends Common
    */
   public function getOnlineTotalAttribute($value)
   {
-    $where = [
-      'status' => 1,
-      'first_level_agent_id' => $this->id
-    ];
+    if(1 == $this->level['value'])
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'activate_status' => 1,
+        'first_level_agent_id' => $this->id
+      ];
+    }
+    else
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'activate_status' => 1,
+        'second_level_agent_id' => $this->id
+      ];
+    }
 
-    $orWhere = [
-      'status' => 1,
-      'second_level_agent_id' => $this->id
-    ];
-
-    return Printer::where($where)->orWhere($orWhere)->count();
+    return Printer::where($where)->count();
   }
 
 
@@ -142,17 +149,24 @@ class Agent extends Common
    */
   public function getOfflineTotalAttribute($value)
   {
-    $where = [
-      'status' => 2,
-      'first_level_agent_id' => $this->id
-    ];
+    if(1 == $this->level['value'])
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'activate_status' => 2,
+        'first_level_agent_id' => $this->id
+      ];
+    }
+    else
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'activate_status' => 2,
+        'second_level_agent_id' => $this->id
+      ];
+    }
 
-    $orWhere = [
-      'status' => 2,
-      'second_level_agent_id' => $this->id
-    ];
-
-    return Printer::where($where)->orWhere($orWhere)->count();
+    return Printer::where($where)->count();
   }
 
 
@@ -170,17 +184,24 @@ class Agent extends Common
    */
   public function getFaultTotalAttribute($value)
   {
-    $where = [
-      'status' => 3,
-      'first_level_agent_id' => $this->id
-    ];
+    if(1 == $this->level['value'])
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'activate_status' => 3,
+        'first_level_agent_id' => $this->id
+      ];
+    }
+    else
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'activate_status' => 3,
+        'second_level_agent_id' => $this->id
+      ];
+    }
 
-    $orWhere = [
-      'status' => 3,
-      'second_level_agent_id' => $this->id
-    ];
-
-    return Printer::where($where)->orWhere($orWhere)->count();
+    return Printer::where($where)->count();
   }
 
 
@@ -198,19 +219,24 @@ class Agent extends Common
    */
   public function getUnbindTotalAttribute($value)
   {
-    $where = [
-      ['status', '>', '-1'],
-      'bind_status'    => 2,
-      'first_level_agent_id' => $this->id
-    ];
+    if(1 == $this->level['value'])
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'bind_status' => 2,
+        'first_level_agent_id' => $this->id
+      ];
+    }
+    else
+    {
+      $where = [
+        ['status', '>', '-1'],
+        'bind_status' => 2,
+        'second_level_agent_id' => $this->id
+      ];
+    }
 
-    $orWhere = [
-      ['status', '>', '-1'],
-      'bind_status'    => 2,
-      'second_level_agent_id' => $this->id
-    ];
-
-    return Printer::where($where)->orWhere($orWhere)->count();
+    return Printer::where($where)->count();
   }
 
 
