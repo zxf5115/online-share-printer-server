@@ -463,6 +463,7 @@ $api->version('v1', [
           // 日志路由
           $api->group(['prefix' => 'log'], function ($api) {
             $api->any('list', 'LogController@list');
+            $api->post('delete', 'LogController@delete');
           });
         });
       });
