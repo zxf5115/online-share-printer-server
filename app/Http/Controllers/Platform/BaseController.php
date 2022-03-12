@@ -37,6 +37,7 @@ class BaseController extends Common
     'like' => [
       'name',
       'code',
+      'model',
       'title',
       'mobile',
       'nickname',
