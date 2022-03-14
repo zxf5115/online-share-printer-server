@@ -21,5 +21,11 @@ class DetailController extends BaseController
   protected $_params = [
     'code',
     'model',
+    'inbound_id',
+  ];
+
+  // 关联对象
+  protected $_relevance = [
+    'inbound'
   ];
 }
