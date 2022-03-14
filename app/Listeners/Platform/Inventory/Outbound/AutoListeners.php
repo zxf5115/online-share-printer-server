@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Common\System\File;
 use App\Models\Platform\Module\Outbound;
-use App\Imports\Outbound\EquipmentImport;
+use App\Imports\Outbound\EquipmentRelevance;
 use App\Models\Platform\Module\Outbound\Resource;
 use App\Events\Platform\Inventory\Outbound\AutoEvent;
 
@@ -39,10 +39,12 @@ class AutoListeners
 
       $model = new Outbound();
 
-      $model->type      = 1;
-      $model->category  = 1;
-      $model->member_id = $member_id;
-      $model->total     = $total;
+      $model->type            = 1;
+      $model->category        = 1;
+      $model->member_id       = $member_id;
+      $model->total           = $total;
+      $model->active          = 1;
+      $model->outbound_status = 1;
       $model->operator  = auth('platform')->user()->nickname;
       $model->save();
 
@@ -60,7 +62,7 @@ class AutoListeners
         $url = File::getPhysicalUrl($url);
 
         // 导入设备数据
-        Excel::import(new EquipmentImport($model->id, $member_id), $url);
+        Excel::import(new EquipmentRelevance($model->id, $member_id), $url);
 
         File::destroy($url);
       }

@@ -26,6 +26,14 @@ class InventoryController extends BaseController
     'create_time',
   ];
 
+
+  /**
+   * 排序
+   */
+  protected $_order = [
+    ['key' => 'id', 'value' => 'desc'],
+  ];
+
   // 关联对象
   protected $_relevance = [];
 

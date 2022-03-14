@@ -23,15 +23,19 @@ class PrinterController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
-    'title',
+    'model',
+    'code',
     'bind_status',
     'activate_status',
   ];
 
-  // 或者查询字段
-  // protected $_orwhere = [
-  //   'allot_status' => 2
-  // ];
+
+  /**
+   * 排序
+   */
+  protected $_order = [
+    ['key' => 'id', 'value' => 'desc'],
+  ];
 
   // 关联对象
   protected $_relevance = [

@@ -46,23 +46,6 @@ class FinishListeners
         $first_level_agent_id  = 0;
         $second_level_agent_id = 0;
 
-        $member = Organization::getRow(['status' => 1, 'id' => $item->member_id]);
-
-        $level = $member->level;
-
-        if(empty($level['value']))
-        {
-          continue;
-        }
-        else if(1 == $level['value'])
-        {
-          $first_level_agent_id = $item->member_id;
-        }
-        else if(2 == $level['value'])
-        {
-          $second_level_agent_id = $item->member_id;
-        }
-
         $inventory = Inventory::getRow(['code' => $item->code]);
         $inventory->inventory_status = 3;
         $inventory->save();
@@ -70,12 +53,29 @@ class FinishListeners
         // 出库日志
         event(new LogEvent($inventory->id, $item->member_id, $item->code, 3));
 
-        $printer = new Printer();
 
-        $printer->first_level_agent_id  = $first_level_agent_id;
-        $printer->second_level_agent_id = $second_level_agent_id;
-        $printer->model                 = $item->model;
-        $printer->code                  = $item->code;
+        $member = Organization::getRow(['status' => 1, 'id' => $item->member_id]);
+
+        $level = $member->level;
+
+        $printer = Printer::firstOrNew(['code' => $item->code]);
+
+        $printer->model = $item->model;
+        $printer->code  = $item->code;
+
+        if(empty($level['value']))
+        {
+          continue;
+        }
+        else if(1 == $level['value'])
+        {
+          $printer->first_level_agent_id = $item->member_id;
+        }
+        else if(2 == $level['value'])
+        {
+          $printer->second_level_agent_id = $item->member_id;
+        }
+
         $printer->save();
 
         // 添加实际接受打印机数量
