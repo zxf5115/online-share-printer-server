@@ -100,6 +100,7 @@ class OutboundController extends BaseController
         $model->total           = $request->total;
         $model->operator        = $request->operator;
         $model->active          = 1;
+        $model->outbound_status = 1;
         $model->save();
 
         // 出库文件资源
@@ -177,6 +178,7 @@ class OutboundController extends BaseController
         $model = $this->_model::getRow(['id' => $request->id]);
 
         $model->active = 2;
+        $model->outbound_status = 2;
         $model->save();
 
         $logistics = Logistics::firstOrNew(['outbound_id' => $request->id]);
@@ -240,6 +242,7 @@ class OutboundController extends BaseController
         $model = $this->_model::getRow(['id' => $request->id]);
 
         $model->active = 3;
+        $model->outbound_status = 3;
         $model->save();
 
         $resource = Resource::firstOrNew(['outbound_id' => $model->id]);

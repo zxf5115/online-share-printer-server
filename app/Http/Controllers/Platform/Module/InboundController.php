@@ -88,6 +88,7 @@ class InboundController extends BaseController
         $model->total           = $request->total;
         $model->operator        = $request->operator;
         $model->active          = 1;
+        $model->inbound_status  = 1;
         $model->save();
 
         $resource = Resource::firstOrNew(['inbound_id' => $model->id]);
@@ -162,6 +163,7 @@ class InboundController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->active = 2;
+        $model->inbound_status = 2;
         $model->save();
 
         $resource = Resource::firstOrNew(['inbound_id' => $request->id]);
@@ -233,6 +235,7 @@ class InboundController extends BaseController
         $model = $this->_model::getRow(['id' => $request->id]);
 
         $model->active = 3;
+        $model->inbound_status = 3;
         $model->save();
 
         $resource = Resource::firstOrNew(['inbound_id' => $model->id]);

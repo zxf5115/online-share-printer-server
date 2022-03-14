@@ -64,6 +64,24 @@ class Outbound extends Base
   }
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-03-14
+   * ------------------------------------------
+   * 出库状态封装
+   * ------------------------------------------
+   *
+   * 出库状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getOutboundStatusAttribute($value)
+  {
+    return OutboundEnum::getOutboundStatus($value);
+  }
+
+
   // 关联函数 ------------------------------------------------------
 
   /**

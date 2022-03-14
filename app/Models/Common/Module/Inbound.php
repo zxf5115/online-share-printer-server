@@ -64,6 +64,24 @@ class Inbound extends Base
   }
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-03-14
+   * ------------------------------------------
+   * 入库状态封装
+   * ------------------------------------------
+   *
+   * 入库状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getInboundStatusAttribute($value)
+  {
+    return InboundEnum::getInboundStatus($value);
+  }
+
+
   // 关联函数 ------------------------------------------------------
 
   /**

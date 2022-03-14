@@ -21,6 +21,8 @@ class InventoryController extends BaseController
   protected $_params = [
     'type',
     'equipment_status',
+    'model',
+    'code',
     'create_time',
   ];
 
