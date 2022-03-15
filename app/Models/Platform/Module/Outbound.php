@@ -32,9 +32,14 @@ class Outbound extends Common
    */
   public function getUsernameAttribute($value)
   {
+    $response = '';
+
     $result = Organization::getRow(['id' => $this->member_id]);
 
-    $response = $result->username ?: '';
+    if(!empty($result->username))
+    {
+      $response = $result->username ?: '';
+    }
 
     return $response;
   }

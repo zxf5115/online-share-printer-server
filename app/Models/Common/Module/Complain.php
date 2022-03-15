@@ -70,10 +70,10 @@ class Complain extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-11-29
    * ------------------------------------------
-   * 订单与会员关联函数
+   * 投诉与会员关联函数
    * ------------------------------------------
    *
-   * 订单与会员关联函数
+   * 投诉与会员关联函数
    *
    * @return [关联对象]
    */
@@ -81,6 +81,26 @@ class Complain extends Base
   {
     return $this->belongsTo(
       'App\Models\Common\Module\Member',
+      'member_id',
+      'id'
+    );
+  }
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2022-03-15
+   * ------------------------------------------
+   * 投诉与代理商关联函数
+   * ------------------------------------------
+   *
+   * 投诉与代理商关联函数
+   *
+   * @return [关联对象]
+   */
+  public function organization()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Organization',
       'member_id',
       'id'
     );

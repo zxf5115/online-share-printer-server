@@ -22,10 +22,12 @@ class ComplainController extends BaseController
   protected $_relevance = [
     'list' => [
       'member',
+      'organization',
     ],
     'select' => false,
     'view' => [
       'member',
+      'organization',
       'resource',
     ],
   ];
