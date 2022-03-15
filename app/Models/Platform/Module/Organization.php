@@ -132,7 +132,8 @@ class Organization extends Common
 \Log::info($data);
     $res = $client->request('POST', $url, [
       'json' => [
-        'path' => 'pages/login/index?token='.$data
+        'path' => 'pages/login/index?token='.$data,
+        'env_version' => 'trial'
       ]
     ]);
 
