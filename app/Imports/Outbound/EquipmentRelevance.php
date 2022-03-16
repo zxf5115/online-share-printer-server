@@ -8,8 +8,11 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
+use App\Models\Platform\Module\Printer;
 use App\Models\Platform\Module\Outbound;
 use App\Models\Platform\Module\Inventory;
+use App\Models\Platform\Module\Organization;
+use App\Models\Platform\Module\Outbound\Log;
 use App\Models\Platform\Module\Outbound\Detail;
 use App\Events\Platform\Inventory\Outbound\LogEvent;
 
@@ -56,7 +59,7 @@ class EquipmentRelevance implements ToCollection, WithBatchInserts, WithChunkRea
       {
         if(empty($row[1]))
         {
-          record('缺少内容');
+          Log::gather($this->outbound_id, '', '', '设备列表内容不完整');
 
           continue;
         }
@@ -64,11 +67,50 @@ class EquipmentRelevance implements ToCollection, WithBatchInserts, WithChunkRea
         $model = $row[0];
         $code  = $row[1];
 
-        $inventory = Inventory::firstOrNew(['code' => $code]);
+        // 获取代理商信息
+        $organization = Organization::getRow(['id' => $this->member_id, 'status' => 1]);
+
+        if(empty($organization->id))
+        {
+          Log::gather($this->outbound_id, $model, $code, '代理商不存在');
+
+          continue;
+        }
+
+        if(empty($organization->parent_id))
+        {
+          Log::gather($this->outbound_id, $model, $code, '上级代理商不存在');
+
+          continue;
+        }
+
+        $where = [
+          ['status', '>', -1],
+          'code' => $code,
+          'first_level_agent_id' => $organization->parent_id
+        ];
+
+        $printer = Printer::getRow($where);
+
+        if(empty($printer->id))
+        {
+          Log::gather($this->outbound_id, $model, $code, '设备不存在');
+
+          continue;
+        }
+
+        if(!empty($printer->second_level_agent_id))
+        {
+          Log::gather($this->outbound_id, $model, $code, '设备已分配');
+
+          continue;
+        }
+
+        $inventory = Inventory::firstOrNew(['code' => $code, 'status' => 1]);
 
         if(empty($inventory->id))
         {
-          record('设备不存在');
+          Log::gather($this->outbound_id, $model, $code, '设备不存在');
 
           continue;
         }
@@ -89,6 +131,8 @@ class EquipmentRelevance implements ToCollection, WithBatchInserts, WithChunkRea
     }
     catch(\Exception $e)
     {
+      Log::gather($this->outbound_id, $model, $code, '导入异常');
+
       record($e);
 
       return false;

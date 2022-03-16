@@ -39,12 +39,10 @@ class AutoListeners
 
       $model = new Outbound();
 
-      $model->type            = 1;
-      $model->category        = 1;
-      $model->member_id       = $member_id;
-      $model->total           = $total;
-      $model->active          = 1;
-      $model->outbound_status = 1;
+      $model->type      = 1;
+      $model->category  = 1;
+      $model->member_id = $member_id;
+      $model->total     = $total;
       $model->operator  = auth('platform')->user()->nickname;
       $model->save();
 
@@ -66,8 +64,6 @@ class AutoListeners
 
         File::destroy($url);
       }
-
-
     }
     catch(\Exception $e)
     {

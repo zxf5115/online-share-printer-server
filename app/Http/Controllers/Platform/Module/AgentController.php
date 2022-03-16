@@ -122,6 +122,12 @@ class AgentController extends BaseController
           return self::error(Code::AGENT_EXITS);
         }
 
+        // 如果是二级代理商必须上传设备列表
+        if(2 == $request->level && empty($request->equipment_url))
+        {
+          return self::error(Code::SECOND_AGENT_EQUIPMENT_URL_NO_EMPTY);
+        }
+
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         if(empty($request->id))

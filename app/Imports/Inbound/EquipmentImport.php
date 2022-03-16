@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 use App\Http\Constant\Code;
+use App\Models\Platform\Module\Inventory;
+use App\Models\Platform\Module\Inbound\Log;
 use App\Models\Platform\Module\Inbound\Detail;
 
 
@@ -53,13 +55,29 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
       {
         if(empty($row[0]))
         {
-          record('花名册缺少内容');
+          Log::gather($this->inbound_id, '', '', '设备列表内容不完整');
 
           continue;
         }
 
         $model = $row[0];
         $code  = $row[1];
+
+        $where = [
+          'code' => $code,
+          'inventory_status' => 1,
+          'status' => 1
+        ];
+
+        // 获取库存信息
+        $inventory = Inventory::firstOrNew($where);
+
+        if(!empty($inventory->id))
+        {
+          Log::gather($this->inbound_id, $model, $code, '设备已存在');
+
+          continue;
+        }
 
         $detail = new Detail();
 

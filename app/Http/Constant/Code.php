@@ -129,6 +129,8 @@ class Code
   const PARENT_AGENT_NO_EXITS = 10011;
   // 代理商已存在
   const AGENT_EXITS = 10012;
+  // 二级代理商注册时，必须上传设备列表
+  const SECOND_AGENT_EQUIPMENT_URL_NO_EMPTY = 10013;
 
 
 
@@ -232,6 +234,8 @@ class Code
     self::PARENT_AGENT_USERNAME_NO_EMPTY => '上级代理商电话不能为空',
     self::PARENT_AGENT_NO_EXITS => '上级代理商不存在',
     self::AGENT_EXITS => '代理商已存在',
+
+    self::SECOND_AGENT_EQUIPMENT_URL_NO_EMPTY => '二级代理商注册时，必须上传设备列表',
 
   ];
 

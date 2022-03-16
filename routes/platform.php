@@ -485,6 +485,11 @@ $api->version('v1', [
             $api->any('list', 'DetailController@list');
           });
 
+          // 入库日志路由
+          $api->group(['prefix' => 'log'], function ($api) {
+            $api->any('list', 'LogController@list');
+          });
+
           // 入库物流路由
           $api->group(['prefix' => 'logistics'], function ($api) {
             $api->any('view/{id}', 'LogisticsController@view');
@@ -517,6 +522,11 @@ $api->version('v1', [
           // 出库明细路由
           $api->group(['prefix' => 'detail'], function ($api) {
             $api->any('list', 'DetailController@list');
+          });
+
+          // 出库日志路由
+          $api->group(['prefix' => 'log'], function ($api) {
+            $api->any('list', 'LogController@list');
           });
 
           // 出库物流路由

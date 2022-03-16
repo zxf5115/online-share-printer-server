@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use App\Http\Constant\Code;
 use App\Models\Platform\Module\Outbound;
 use App\Models\Platform\Module\Inventory;
+use App\Models\Platform\Module\Organization;
+use App\Models\Platform\Module\Outbound\Log;
 use App\Models\Platform\Module\Outbound\Detail;
 use App\Events\Platform\Inventory\Outbound\LogEvent;
 
@@ -56,7 +58,7 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
       {
         if(empty($row[1]))
         {
-          record('缺少内容');
+          Log::gather($this->outbound_id, '', '', '设备列表内容不完整');
 
           continue;
         }
@@ -64,18 +66,35 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
         $model = $row[0];
         $code  = $row[1];
 
-        $inventory = Inventory::firstOrNew(['code' => $code]);
+        // 获取代理商信息
+        $organization = Organization::getRow(['id' => $this->member_id, 'status' => 1]);
+
+        if(empty($organization->id))
+        {
+          Log::gather($this->outbound_id, $model, $code, '代理商不存在');
+
+          continue;
+        }
+
+        // 如果代理商级别是二级，不需要导入
+        if(2 == $organization->level['value'])
+        {
+          continue;
+        }
+
+        // 获取库存信息
+        $inventory = Inventory::firstOrNew(['code' => $code, 'status' => 1]);
 
         if(empty($inventory->id))
         {
-          record('设备不存在');
+          Log::gather($this->outbound_id, $model, $code, '设备不存在');
 
           continue;
         }
 
         if(1 != $inventory->inventory_status['value'])
         {
-          record('设备不能出库');
+          Log::gather($this->outbound_id, $model, $code, '设备不能出库');
 
           continue;
         }
@@ -100,6 +119,8 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
     }
     catch(\Exception $e)
     {
+      Log::gather($this->outbound_id, $model, $code, '导入异常');
+
       record($e);
 
       return false;
