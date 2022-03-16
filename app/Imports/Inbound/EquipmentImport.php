@@ -79,7 +79,22 @@ class EquipmentImport implements ToCollection, WithBatchInserts, WithChunkReadin
           continue;
         }
 
-        $detail = new Detail();
+        $where = [
+          'code' => $code,
+          'inbound_id' => $this->inbound_id,
+          'status' => 1
+        ];
+
+        $detail = Detail::firstOrNew($where);
+
+        if(!empty($detail->id))
+        {
+          $message = '设备 ' . $code . "({$model})" . ' 已重复';
+
+          Log::gather($this->inbound_id, $model, $code, $message);
+
+          continue;
+        }
 
         $detail->inbound_id = $this->inbound_id;
         $detail->member_id  = $this->member_id;
