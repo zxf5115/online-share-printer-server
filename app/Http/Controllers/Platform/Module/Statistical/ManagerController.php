@@ -81,7 +81,7 @@ class ManagerController extends BaseController
       {
         if(!empty($item->asset))
         {
-          $total = bcadd($total, $item->asset->withdrawal_money, 2);
+          $total = bcadd($total, $item->asset->money, 2);
         }
       }
 

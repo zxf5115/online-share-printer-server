@@ -45,6 +45,7 @@ class OrderController extends BaseController
   protected $_relevance = [
     'list' => [
       'member',
+      'price',
     ],
     'view' => [
       'manager',
